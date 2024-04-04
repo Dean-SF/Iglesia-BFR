@@ -13,9 +13,12 @@
         android:theme="@style/Theme.IglesiaBFRNaranjo"
         tools:targetApi="31">
         <activity
+            android:name=".Testingdb"
+            android:exported="false"
+            />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.IglesiaBFRNaranjo">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
