@@ -13,9 +13,11 @@
         android:theme="@style/Theme.IglesiaBFRNaranjo"
         tools:targetApi="31">
         <activity
+            android:name=".DailyVers"
+            android:exported="false" />
+        <activity
             android:name=".Testingdb"
-            android:exported="false"
-            />
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
