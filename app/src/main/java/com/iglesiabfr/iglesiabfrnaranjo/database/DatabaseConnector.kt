@@ -5,7 +5,6 @@ import com.iglesiabfr.iglesiabfrnaranjo.schema.Activity
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Event
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
-import io.realm.kotlin.mongodb.App
 import io.realm.kotlin.mongodb.Credentials
 import io.realm.kotlin.mongodb.User
 import io.realm.kotlin.mongodb.exceptions.SyncException
@@ -15,15 +14,14 @@ import io.realm.kotlin.mongodb.sync.SyncSession
 import kotlinx.coroutines.runBlocking
 
 object DatabaseConnector {
-    private val app : App = App.create("iglesiabfr-pigqi")
     lateinit var db : Realm
 
     private fun getLogCurrent() : User {
-        return app.currentUser!!
+        return AppConnector.app.currentUser!!
     }
 
     private suspend fun logAnonymous(): User {
-        return app.login(Credentials.anonymous())
+        return AppConnector.app.login(Credentials.anonymous())
     }
 
     fun connect() {
