@@ -2,7 +2,10 @@ package com.iglesiabfr.iglesiabfrnaranjo.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import com.iglesiabfr.iglesiabfrnaranjo.Homepage
 import com.iglesiabfr.iglesiabfrnaranjo.R
 
 class LoginActivity : AppCompatActivity() {
@@ -14,6 +17,10 @@ class LoginActivity : AppCompatActivity() {
 //        loginBtn.setOnClickListener {
 //            this.login()
 //        }
+        val loginBtn: Button = findViewById(R.id.loginBtn)
+        loginBtn.setOnClickListener {
+            this.test()
+        }
     }
 
     // Llamada de ventanas
@@ -26,4 +33,9 @@ class LoginActivity : AppCompatActivity() {
 //    private fun login() {
 //        TO-DO
 //    }
+
+    private fun test() {
+        val intent = Intent(this, Homepage::class.java)
+        startActivity(intent)
+    }
 }
