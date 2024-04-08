@@ -1,8 +1,9 @@
-package com.iglesiabfr.iglesiabfrnaranjo
+package com.iglesiabfr.iglesiabfrnaranjo.login
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.iglesiabfr.iglesiabfrnaranjo.R
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
