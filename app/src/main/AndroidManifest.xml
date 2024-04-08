@@ -19,13 +19,13 @@
             android:name=".Testingdb"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".login.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".RegistrationActivity"
+            android:name=".login.RegistrationActivity"
             android:exported="false" />
         <activity
-            android:name=".StartingPage"
+            android:name=".login.StartingPage"
             android:exported="false" />
         <activity
             android:name=".InitializerActivity"

@@ -1,9 +1,10 @@
-package com.iglesiabfr.iglesiabfrnaranjo
+package com.iglesiabfr.iglesiabfrnaranjo.login
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import com.iglesiabfr.iglesiabfrnaranjo.R
 
 class StartingPage : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
