@@ -1,8 +1,6 @@
 package com.iglesiabfr.iglesiabfrnaranjo
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -15,14 +13,9 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import java.io.BufferedReader
-import java.io.InputStreamReader
-import java.net.HttpURLConnection
-import java.net.URL
 
 class DailyVers : AppCompatActivity() {
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
-    private lateinit var mainHandler: Handler
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -32,26 +25,13 @@ class DailyVers : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        setContentView(R.layout.activity_daily_vers)
-        mainHandler = Handler(Looper.getMainLooper())
         val DailyVersText = findViewById<TextView>(R.id.DailyVersText)
         val DailyVersVerse = findViewById<TextView>(R.id.DailyVerseVers)
         coroutineScope.launch {
             try{
-                val url = URL("https://dailyverses.net/get/verse.js?language=nvi")
-                val connection = url.openConnection() as HttpURLConnection
-                connection.requestMethod = "GET"
-                val responseCode = connection.responseCode
-                if (responseCode == HttpURLConnection.HTTP_OK) {
-                    val reader = BufferedReader(InputStreamReader(connection.inputStream))
-                    var inputLine: String?
-                    val response = StringBuffer()
-
-                    while (reader.readLine().also { inputLine = it } != null) {
-                        response.append(inputLine)
-                    }
-                    reader.close()
-
+                val link = "https://dailyverses.net/get/verse.js?language=nvi"
+                val response = getRequest(link)
+                if (response != null) {
                     // obtaining data from response
                     val resp = response.toString()
                     Log.d("D", "response")
