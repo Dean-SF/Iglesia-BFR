@@ -3,4 +3,24 @@
     <string name="TittleDailyVersTxt">Versiculo Diario</string>
     <string name="ErrorCargaMsg">Error al cargar, vuelva a intentar</string>
 
+    // Starting page
+    <string name="registrarlb">REGISTRAR</string>
+    <string name="loginlb">INICIAR SESIÓN</string>
+    <string name="churchDesc">Iglesia</string>
+
+    // Login
+    <string name="loginTitle">Inicio de sesión</string>
+    <string name="loginBtn">Ingresar</string>
+    <string name="rememberCheckbox">Recordar sesión</string>
+
+    // Registration
+    <string name="hintName">Nombre</string>
+    <string name="hintEmail">Correo electrónico</string>
+    <string name="hintPassword1">Contraseña</string>
+    <string name="hintPassword2">Confirmar contraseña</string>
+    <string name="hintBirthdate">Fecha de nacimiento</string>
+    <string name="registrarBtn">Registrarse</string>
+    <string name="registrarlb2">Registro</string>
+    <string name="calendarioDesc">Calendario</string>
+
 </resources>
