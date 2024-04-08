@@ -1,14 +1,20 @@
 package com.iglesiabfr.iglesiabfrnaranjo.Bible
 
 import android.os.Bundle
+import android.view.Gravity
+import android.widget.Button
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.iglesiabfr.iglesiabfrnaranjo.R
 import com.iglesiabfr.iglesiabfrnaranjo.Requests.getRequest
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import org.json.JSONArray
 import org.json.JSONObject
@@ -44,12 +50,68 @@ class BibleBooks : AppCompatActivity() {
                 val testament = jsonObject.getString("testament")
 
                 val book = Book(name, abrev, chapters, testament)
+
                 books.add(book)
+            }
+            for (book in books){
+                createBookLayout(book.name,book.abbreviation,book.chapters)
             }
 
             println(books.get(0).name)
 
         }
+    }
+
+    private fun createBookLayout(name: Any, abrev:String, chapters:Int){
+        runOnUiThread {
+            val parent = findViewById<LinearLayout>(R.id.LibrosLayout)
+            val linearLayout = LinearLayout(this)
+            linearLayout.layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
+            )
+            linearLayout.orientation = LinearLayout.HORIZONTAL
+            //linearLayout.setBackgroundColor(Color.parseColor("#5F5D5D"))
+
+            val button = Button(this)
+            button.layoutParams =
+                LinearLayout.LayoutParams(47, LinearLayout.LayoutParams.WRAP_CONTENT)
+            button.background = ContextCompat.getDrawable(this, R.drawable.play_btn)
+
+            val textView1 = TextView(this)
+            textView1.layoutParams =
+                LinearLayout.LayoutParams(450, 100)
+            textView1.text = "    $name"
+            textView1.gravity = Gravity.LEFT
+            textView1.textSize = 22f
+
+            val textView2 = TextView(this)
+            textView2.layoutParams =
+                LinearLayout.LayoutParams(5,100, 1f)
+            textView2.text = abrev
+            textView2.gravity = Gravity.CENTER
+            textView2.textSize = 20f
+
+            val textView3 = TextView(this)
+            textView3.layoutParams =
+                LinearLayout.LayoutParams(5, 100, 1f)
+            textView3.text = chapters.toString()
+            textView3.gravity = Gravity.CENTER
+            textView3.textSize = 20f
+
+
+            linearLayout.addView(textView1)
+            linearLayout.addView(textView2)
+            linearLayout.addView(textView3)
+//            linearLayout.addView(button)
+
+            parent.addView(linearLayout)
+        }
+
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        coroutineScope.cancel()
     }
 
 }
