@@ -13,10 +13,10 @@
         android:theme="@style/Theme.IglesiaBFRNaranjo"
         tools:targetApi="31">
         <activity
-            android:name=".BibleBooks"
+            android:name=".Bible.BibleBooks"
             android:exported="false" />
         <activity
-            android:name=".DailyVers"
+            android:name=".Verses.DailyVers"
             android:exported="false" />
         <activity
             android:name=".Testingdb"

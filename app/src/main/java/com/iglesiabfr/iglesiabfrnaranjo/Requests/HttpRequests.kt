@@ -1,4 +1,4 @@
-package com.iglesiabfr.iglesiabfrnaranjo
+package com.iglesiabfr.iglesiabfrnaranjo.Requests
 
 import java.io.BufferedReader
 import java.io.InputStreamReader
