@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -8,90 +8,81 @@
     android:orientation="vertical"
     tools:context=".Homepage">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <TextView
+        android:id="@+id/homepageTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/comfortaa_light"
+        android:text="@string/homepageTitle"
+        android:textAlignment="center"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/upcomEvents"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="9dp"
+        android:fontFamily="@font/comfortaa_light"
+        android:text="@string/upcomingEvent"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/homepageTitle" />
+
+    <TextView
+        android:id="@+id/upcomAct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="136dp"
+        android:fontFamily="@font/comfortaa_light"
+        android:text="@string/upcomingActiv"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/upcomEvents" />
+
+    <TextView
+        android:id="@+id/cults"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="135dp"
+        android:fontFamily="@font/comfortaa_light"
+        android:text="@string/cults"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/upcomAct" />
+
+    <ImageButton
+        android:id="@+id/profBut"
+        android:layout_width="50dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="14dp"
+        android:background="@drawable/profile"
+        android:backgroundTint="@color/blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.iglesiabfr.iglesiabfrnaranjo.CustomBottNavBar
+        android:id="@+id/homepageNavbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:background="@color/blue"
+        app:itemIconSize="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/menu_homepage" />
 
-        <TextView
-            android:id="@+id/homepageTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
-            android:fontFamily="@font/comfortaa_light"
-            android:text="@string/homepageTitle"
-            android:textAlignment="center"
-            android:textSize="34sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/upcomEvents"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="9dp"
-            android:fontFamily="@font/comfortaa_light"
-            android:text="@string/upcomingEvent"
-            android:textAlignment="center"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/homepageTitle" />
-
-        <TextView
-            android:id="@+id/upcomAct"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="136dp"
-            android:fontFamily="@font/comfortaa_light"
-            android:text="@string/upcomingActiv"
-            android:textAlignment="center"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/upcomEvents" />
-
-        <TextView
-            android:id="@+id/cults"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="135dp"
-            android:fontFamily="@font/comfortaa_light"
-            android:text="@string/cults"
-            android:textAlignment="center"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/upcomAct" />
-
-        <ImageButton
-            android:id="@+id/profBut"
-            android:layout_width="50dp"
-            android:layout_height="52dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="14dp"
-            android:background="@drawable/profile"
-            android:backgroundTint="@color/blue"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.iglesiabfr.iglesiabfrnaranjo.CustomBottNavBar
-            android:id="@+id/homepageNavbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="-20dp"
-            android:background="@color/blue"
-            app:elevation="0dp"
-            app:itemIconSize="32dp"
-            app:itemPaddingBottom="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:menu="@menu/menu_homepage"
-            tools:layout_editor_absoluteX="0dp" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
