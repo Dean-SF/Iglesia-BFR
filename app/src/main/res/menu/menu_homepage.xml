@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/calendar"
+        android:enabled="true"
+        android:icon="@drawable/calendar"
+        android:title="@string/calendarNavTitle"/>
+    <item
+        android:id="@+id/conserjeria"
+        android:enabled="true"
+        android:icon="@drawable/conserjeria"
+        android:title="@string/conserjeriaNavTitle"/>
+    <item
+        android:id="@+id/foro"
+        android:enabled="true"
+        android:icon="@drawable/foro"
+        android:title="@string/foroNavTitle"/>
+    <item
+        android:id="@+id/biblia"
+        android:enabled="true"
+        android:icon="@drawable/bible"
+        android:title="@string/BibliaNavTitle"/>
+    <item
+        android:id="@+id/grabaciones"
+        android:enabled="true"
+        android:icon="@drawable/video"
+        android:title="@string/grabacionesNavTitle"/>
+    <item
+        android:id="@+id/admin"
+        android:enabled="true"
+        android:icon="@drawable/admin"
+        android:title="@string/adminNavTitle"/>
+</menu>
