@@ -23,11 +23,17 @@
     <string name="registrarlb2">Registro</string>
     <string name="calendarioDesc">Calendario</string>
 
-    // Homepage
+    // Mainpage
     <string name="homepageTitle">¡Bienvenido!</string>
     <string name="upcomingEvent">Proximos Eventos</string>
     <string name="upcomingActiv">Proximas Actividades</string>
     <string name="cults">Cultos</string>
+
+    // Adminpage
+    <string name="adminpageTitle">Administración</string>
+    <string name="eventBut">Eventos</string>
+    <string name="actBut">Actividades</string>
+    <string name="cultBut">Cultos</string>
 
     // NavBar
     <string name="calendarNavTitle">Calendario</string>
@@ -36,7 +42,6 @@
     <string name="BibliaNavTitle">Biblia</string>
     <string name="grabacionesNavTitle">Grabaciones</string>
     <string name="adminNavTitle">Admin</string>
-
 
 
 </resources>
