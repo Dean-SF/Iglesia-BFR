@@ -13,7 +13,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        val i =  Intent(this,Testingdb::class.java)
-        val i =  Intent(this,DailyVers::class.java)
+//        val i =  Intent(this,DailyVers::class.java)
+        val i =  Intent(this,BibleBooks::class.java)
         startActivity(i)
     }
 }

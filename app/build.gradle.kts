@@ -70,6 +70,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation("org.jsoup:jsoup:1.11.3")
+    implementation("org.json:json:20210307")
 
     implementation(libs.library.sync)
 
