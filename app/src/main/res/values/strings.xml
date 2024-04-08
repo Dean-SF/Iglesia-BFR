@@ -2,5 +2,7 @@
     <string name="app_name">Iglesia BFR, Naranjo</string>
     <string name="TittleDailyVersTxt">Versiculo Diario</string>
     <string name="ErrorCargaMsg">Error al cargar, vuelva a intentar</string>
+    <string name="librosTitle">Libros</string>
+    <string name="favoritosBtn">Favoritos</string>
 
 </resources>
