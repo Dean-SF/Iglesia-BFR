@@ -5,7 +5,7 @@
     android:id="@+id/mainlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Homepage.Adminpage">
+    tools:context=".homepage.Adminpage">
 
     <TextView
         android:id="@+id/homepageTitle"
@@ -27,7 +27,7 @@
         android:layout_height="52dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="15dp"
-        android:background="@drawable/profile"
+        android:background="@drawable/ripple_profile"
         android:backgroundTint="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -39,7 +39,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="20dp"
-        android:background="@drawable/soft_rectangle_btn"
+        android:background="@drawable/ripple_soft_rectangle_btn"
         android:backgroundTint="@color/blue"
         android:text="@string/eventBut"
         android:textColor="@color/white"
@@ -55,7 +55,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
-        android:background="@drawable/soft_rectangle_btn"
+        android:background="@drawable/ripple_soft_rectangle_btn"
         android:backgroundTint="@color/blue"
         android:text="@string/actBut"
         android:textColor="@color/white"
@@ -71,7 +71,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
-        android:background="@drawable/soft_rectangle_btn"
+        android:background="@drawable/ripple_soft_rectangle_btn"
         android:backgroundTint="@color/blue"
         android:text="@string/cultBut"
         android:textColor="@color/white"
