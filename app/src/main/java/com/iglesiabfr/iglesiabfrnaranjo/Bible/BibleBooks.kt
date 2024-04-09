@@ -43,7 +43,7 @@ class BibleBooks : AppCompatActivity() {
                 val jsonObject = jsonArrayObj[i] as JSONObject
 
                 val names = jsonObject.getJSONArray("names")
-                val name = if (names.length() > 0) names[0] else ""
+                val name = names[0]
 
                 val abrev = jsonObject.getString("abrev")
                 val chapters = jsonObject.getInt("chapters")
@@ -80,8 +80,8 @@ class BibleBooks : AppCompatActivity() {
 
             val textView1 = TextView(this)
             textView1.layoutParams =
-                LinearLayout.LayoutParams(450, 100)
-            textView1.text = "    $name"
+                LinearLayout.LayoutParams(500, 100)
+            textView1.text = "  $name"
             textView1.gravity = Gravity.LEFT
             textView1.textSize = 22f
 
