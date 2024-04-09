@@ -12,6 +12,8 @@
     <string name="loginTitle">Inicio de sesión</string>
     <string name="loginBtn">Ingresar</string>
     <string name="rememberCheckbox">Recordar sesión</string>
+    <string name="incompleteDataWarning">Los datos están incompletos</string>
+    <string name="incorrectDataWarning">Las credenciales ingresadas son incorrectas</string>
 
     // Registration
     <string name="hintName">Nombre</string>
