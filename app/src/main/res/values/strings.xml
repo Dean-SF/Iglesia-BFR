@@ -25,4 +25,35 @@
     <string name="registrarlb2">Registro</string>
     <string name="calendarioDesc">Calendario</string>
 
+    // Mainpage
+    <string name="homepageTitle">¡Bienvenido!</string>
+    <string name="upcomingEvent">Proximos Eventos</string>
+    <string name="upcomingActiv">Proximas Actividades</string>
+    <string name="cults">Cultos</string>
+
+    // Adminpage
+    <string name="adminpageTitle">Administración</string>
+    <string name="eventBut">Eventos</string>
+    <string name="actBut">Actividades</string>
+    <string name="cultBut">Cultos</string>
+
+    //AdminEventos
+    <string name="adminEventosTitle">Eventos</string>
+    <string name="createEventBut">Crear</string>
+    <string name="createEventTitle">Crear Evento</string>
+    <string name="createName">Nombre</string>
+    <string name="createDesc">Descripción</string>
+    <string name="createDate">Fecha</string>
+    <string name="createTime">Hora</string>
+
+
+    // NavBar
+    <string name="calendarNavTitle">Calendario</string>
+    <string name="conserjeriaNavTitle">Conserjeria</string>
+    <string name="foroNavTitle">Foro</string>
+    <string name="BibliaNavTitle">Biblia</string>
+    <string name="grabacionesNavTitle">Grabaciones</string>
+    <string name="adminNavTitle">Admin</string>
+
+
 </resources>
