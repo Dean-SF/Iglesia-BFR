@@ -31,7 +31,7 @@ object DatabaseConnector {
                 logAnonymous()
             }.onSuccess {
                 Log.d("Info","Sync Started")
-                val config = SyncConfiguration.Builder(it, setOf(Activity::class,Event::class))
+                val config = SyncConfiguration.Builder(it, setOf(Activity::class,Event::class,UserData::class))
                     .initialSubscriptions(rerunOnOpen = true) {realm->
                         add(realm.query<Event>(), "subEvent",updateExisting = true)
                         add(realm.query<Activity>(), "subActivity",updateExisting = true)

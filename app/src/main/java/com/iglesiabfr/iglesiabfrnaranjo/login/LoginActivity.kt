@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.iglesiabfr.iglesiabfrnaranjo.R
+import com.iglesiabfr.iglesiabfrnaranjo.homepage.Homepage
 import io.realm.kotlin.Realm
 import io.realm.kotlin.mongodb.App
 import io.realm.kotlin.mongodb.Credentials
@@ -32,7 +33,7 @@ class LoginActivity : AppCompatActivity() {
 
     // Llamada de ventanas
     private fun callMainMenu(){
-        val intent = Intent(this, RegistrationActivity::class.java)
+        val intent = Intent(this, Homepage::class.java)
         startActivity(intent)
     }
 
