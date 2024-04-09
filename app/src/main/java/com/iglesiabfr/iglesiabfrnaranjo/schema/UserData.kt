@@ -5,11 +5,11 @@ import io.realm.kotlin.types.RealmObject
 import io.realm.kotlin.types.annotations.PrimaryKey
 import org.mongodb.kbson.ObjectId
 
-class User : RealmObject {
+class UserData : RealmObject {
     @PrimaryKey
     var _id: ObjectId = ObjectId()
     var name : String = ""
-    var lastName : String = ""
+    var email : String = ""
     var birthdate: RealmInstant = RealmInstant.now()
     var isAdmin : Boolean = false
 }
