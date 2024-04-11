@@ -13,6 +13,7 @@ import com.iglesiabfr.iglesiabfrnaranjo.R
 import com.iglesiabfr.iglesiabfrnaranjo.Requests.getRequest
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
@@ -89,6 +90,8 @@ class VersFragment : Fragment() {
         html = html.substring(html.indexOf("'") + 1, html.lastIndexOf("'"))
         return Jsoup.parse(html)
     }
+
+
 
     class VerseViewModel : ViewModel() {
         // TODO: Add any necessary ViewModel logic here
