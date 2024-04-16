@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.iglesiabfr.iglesiabfrnaranjo"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -69,8 +69,7 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-    implementation("org.jsoup:jsoup:1.11.3")
-    implementation("org.json:json:20210307")
+    implementation(libs.jsoup)
 
     implementation(libs.library.sync)
 
