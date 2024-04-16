@@ -51,13 +51,13 @@ class DailyVers : AppCompatActivity() {
                     Log.d("D", text)
 
                     runOnUiThread {
-                        DailyVersText.text = bibleText
-                        DailyVersVerse.text = bibleVerse
+                        dailyVersText.text = bibleText
+                        dailyVersVerse.text = bibleVerse
                     }
 
                 } else {
                     runOnUiThread {
-                        DailyVersText.text = getString(R.string.ErrorCargaMsg)
+                        dailyVersText.text = getString(R.string.ErrorCargaMsg)
                     }
                 }
             } catch (e:Exception){
