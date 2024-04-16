@@ -27,8 +27,8 @@ class DailyVers : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val DailyVersText = findViewById<TextView>(R.id.DailyVersText)
-        val DailyVersVerse = findViewById<TextView>(R.id.DailyVerseVers)
+        val dailyVersText = findViewById<TextView>(R.id.DailyVersText)
+        val dailyVersVerse = findViewById<TextView>(R.id.DailyVerseVers)
         coroutineScope.launch {
             try{
                 val link = "https://dailyverses.net/get/verse.js?language=nvi"

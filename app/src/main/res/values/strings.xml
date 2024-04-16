@@ -6,12 +6,11 @@
     <string name="favoritosBtn">Favoritos</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-<<<<<<< HEAD
+
     <string name="anterior">Anterior</string>
     <string name="favoritos">Favoritos</string>
     <string name="siguiente">Siguiente</string>
-=======
->>>>>>> 84afc6ba87339bd8c8711cc18fa6bf8c07208783
+
 
     // Starting page
     <string name="registrarlb">REGISTRAR</string>
