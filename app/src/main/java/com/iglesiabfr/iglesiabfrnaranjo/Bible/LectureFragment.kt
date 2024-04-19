@@ -4,31 +4,36 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.iglesiabfr.iglesiabfrnaranjo.R
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
+import org.json.JSONObject
+import java.io.IOException
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [LectureFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+private val client = OkHttpClient()
 class LectureFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var name: String? = null
+    private var chapters: Int? = null
+    private var actualChapter = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            name = it.getString("name")
+            chapters = it.getInt("chapters")
         }
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        fetchVerses()
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,23 +43,48 @@ class LectureFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_lecture, container, false)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment LectureFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            LectureFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    private fun fetchVerses() {
+        val name = name
+        val chapter = actualChapter
+        val verseTitleTextView = view?.findViewById<TextView>(R.id.verseTitleTextView)
+        verseTitleTextView?.text = "$name, Capítulo $actualChapter"
+        val request = Request.Builder()
+            .url("https://bible-api.deno.dev/api/read/rv1960/$name/$chapter/")
+            .build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: okhttp3.Call, e: IOException) {
+                // Handle error
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                requireActivity().runOnUiThread {
+                    val verseText = view?.findViewById<TextView>(R.id.verseText)
+                    val json = response.body?.string()
+                    if (json != null) {
+                        val jsonObject = JSONObject(json)
+                        val versesArray = jsonObject.getJSONArray("vers")
+                        var chapterText = ""
+                        for (i in 0 until versesArray.length()) {
+                            val verseObject = versesArray[i] as JSONObject
+                            val verse = verseObject.getString("verse")
+                            // Do something with the verse
+                            chapterText += verse
+                        }
+                        // Clear the verseText view
+                        verseText?.text = ""
+                        // Set the chapterText to the verseText view
+                        verseText?.append(chapterText)
+                        println(chapterText)
+                    }
                 }
             }
+        })
     }
+
+    fun nextVerse(view: View) {
+        actualChapter ++
+        fetchVerses()
+    }
+
 }
