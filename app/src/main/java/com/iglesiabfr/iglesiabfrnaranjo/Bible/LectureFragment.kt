@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.iglesiabfr.iglesiabfrnaranjo.R
@@ -26,14 +27,23 @@ class LectureFragment : Fragment() {
         arguments?.let {
             name = it.getString("name")
             chapters = it.getInt("chapters")
+            actualChapter = it.getInt("actualChapter",1)
         }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fetchVerses()
-    }
+        val nextBtn = view.findViewById<Button>(R.id.nextBtn)
+        nextBtn.setOnClickListener{
+            nextVerse()
+        }
+        val prevBtn = view.findViewById<Button>(R.id.prevBtn)
+        prevBtn.setOnClickListener{
+            prevVerse()
+        }
 
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,7 +57,7 @@ class LectureFragment : Fragment() {
         val name = name
         val chapter = actualChapter
         val verseTitleTextView = view?.findViewById<TextView>(R.id.verseTitleTextView)
-        verseTitleTextView?.text = "$name, Capítulo $actualChapter"
+        verseTitleTextView?.text = "$name capítulo:$actualChapter"
         val request = Request.Builder()
             .url("https://bible-api.deno.dev/api/read/rv1960/$name/$chapter/")
             .build()
@@ -81,10 +91,18 @@ class LectureFragment : Fragment() {
             }
         })
     }
+    private fun nextVerse() {
+        if (actualChapter < chapters!!) {
+            actualChapter ++
+            fetchVerses()
+        }
 
-    fun nextVerse(view: View) {
-        actualChapter ++
-        fetchVerses()
     }
 
+    private fun prevVerse() {
+        if (actualChapter < 1) {
+            actualChapter --
+            fetchVerses()
+        }
+    }
 }
