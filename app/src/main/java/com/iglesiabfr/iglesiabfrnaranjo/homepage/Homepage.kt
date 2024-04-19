@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationBarView
+import com.iglesiabfr.iglesiabfrnaranjo.Bible.BibleBooksFragment
 import com.iglesiabfr.iglesiabfrnaranjo.R
 
 class Homepage : AppCompatActivity() {
@@ -22,6 +23,10 @@ class Homepage : AppCompatActivity() {
                 }
                 R.id.item_admin -> {
                     replaceFragment(Adminpage())
+                    true
+                }
+                R.id.item_biblia -> {
+                    replaceFragment(BibleBooksFragment())
                     true
                 }
 
