@@ -1,5 +1,6 @@
 package com.iglesiabfr.iglesiabfrnaranjo.Bible
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -36,13 +37,14 @@ class BibleBooksFragment : Fragment() {
 
         viewModel = BibleBooksViewModel()
 
-        viewModel.getBooks().observe(viewLifecycleOwner, { books ->
+        viewModel.getBooks().observe(viewLifecycleOwner) { books ->
             for (book in books) {
                 createBookLayout(view, book.name, book.abbreviation, book.chapters)
             }
-        })
+        }
     }
 
+    @SuppressLint("RtlHardcoded")
     private fun createBookLayout(view: View, name: Any, abrev: String, chapters: Int) {
         val parent = view.findViewById<LinearLayout>(R.id.LibrosLayout)
         val linearLayout = LinearLayout(requireContext())
@@ -51,6 +53,9 @@ class BibleBooksFragment : Fragment() {
             LinearLayout.LayoutParams.WRAP_CONTENT
         )
         linearLayout.orientation = LinearLayout.HORIZONTAL
+        linearLayout.setOnClickListener {
+            onBookClick(name.toString(), chapters)
+        }
 
         val textView1 = TextView(requireContext())
         textView1.layoutParams = LinearLayout.LayoutParams(500, 100)
@@ -76,7 +81,21 @@ class BibleBooksFragment : Fragment() {
 
         parent.addView(linearLayout)
     }
+    private fun onBookClick(name:String, chapters: Int){
+        val bundle = Bundle()
+        bundle.putString("name", name)
+        bundle.putInt("chapters", chapters)
+        val fragment = LectureFragment()
+        fragment.arguments = bundle
+        println("me muero")
+
+        fragmentManager?.beginTransaction()
+            ?.replace(R.id.framelayout, fragment)
+            ?.addToBackStack(null)
+            ?.commit()
+    }
 }
+
 
 class BibleBooksViewModel : ViewModel() {
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
