@@ -35,7 +35,7 @@ object DatabaseConnector {
                     .initialSubscriptions(rerunOnOpen = true) {realm->
                         add(realm.query<Event>(), "subEvent",updateExisting = true)
                         add(realm.query<Activity>(), "subActivity",updateExisting = true)
-                        add(realm.query<UserData>(), "subActivity",updateExisting = true)
+                        add(realm.query<UserData>(), "userData",updateExisting = true)
                     }
                     .errorHandler { session: SyncSession, error: SyncException ->
                         Log.d("IglesiaError",error.message.toString())

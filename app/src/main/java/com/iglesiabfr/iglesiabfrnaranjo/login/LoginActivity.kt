@@ -18,6 +18,7 @@ import kotlinx.coroutines.launch
 class LoginActivity : AppCompatActivity() {
 
     private val app : App = App.create("iglesiabfr-pigqi")
+    private val db : App = App.create("iglesiabfr-pigqi")
     private lateinit var realm : Realm
     private var user : User? = null
 
