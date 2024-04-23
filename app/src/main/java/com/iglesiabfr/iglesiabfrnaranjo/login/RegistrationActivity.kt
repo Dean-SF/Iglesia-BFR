@@ -2,11 +2,13 @@ package com.iglesiabfr.iglesiabfrnaranjo.login
 
 import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -15,7 +17,6 @@ import com.iglesiabfr.iglesiabfrnaranjo.R
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
 import com.iglesiabfr.iglesiabfrnaranjo.schema.UserData
 import io.realm.kotlin.mongodb.App
-import io.realm.kotlin.mongodb.User
 import io.realm.kotlin.mongodb.exceptions.UserAlreadyExistsException
 import io.realm.kotlin.types.RealmInstant
 import kotlinx.coroutines.launch
@@ -27,7 +28,6 @@ import java.time.ZoneOffset
 class RegistrationActivity : AppCompatActivity() {
 
     private val app : App = App.create("iglesiabfr-pigqi")
-    private var user : User? = null
     private lateinit var birthdate : String
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -50,11 +50,11 @@ class RegistrationActivity : AppCompatActivity() {
         }
     }
 
-    // Llamada de ventanas
-//    private fun callLogin(){
-//        val intent = Intent(this, LoginActivity::class.java)
-//        startActivity(intent)
-//    }
+     // Llamada de ventanas
+    private fun callLogin() {
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+    }
 
     private fun showDatePickerDialog() {
         val newFragment = DatePickerFragment.newInstance(DatePickerDialog.OnDateSetListener { _, year, month, day ->
@@ -140,11 +140,8 @@ class RegistrationActivity : AppCompatActivity() {
                 try {
                     app.emailPasswordAuth.registerUser(email, password)
                     registerUserData(email, name)
-                    val dialog = AlertDialog.Builder(this@RegistrationActivity)
-                        .setMessage("Usuario registrado con éxito.")
-                        .setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
-                        .create()
-                    dialog.show()
+                    Toast.makeText(this@RegistrationActivity, "Usuario registrado con éxito.", Toast.LENGTH_SHORT).show()
+                    callLogin()
                 } catch (e: UserAlreadyExistsException) {
                     //Toast.makeText(this@RegistrationActivity, "Este usuario ya se encuentra registrado.", Toast.LENGTH_SHORT).show()
                     val dialog = AlertDialog.Builder(this@RegistrationActivity)
