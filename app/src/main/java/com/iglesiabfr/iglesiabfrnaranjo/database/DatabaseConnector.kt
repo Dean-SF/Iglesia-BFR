@@ -17,7 +17,7 @@ import kotlinx.coroutines.runBlocking
 object DatabaseConnector {
     lateinit var db : Realm
 
-    private fun getLogCurrent() : User {
+    fun getLogCurrent() : User {
         return AppConnector.app.currentUser!!
     }
 

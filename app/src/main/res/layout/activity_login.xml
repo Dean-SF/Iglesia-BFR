@@ -76,10 +76,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
+            android:buttonTint="@color/blue"
             android:fontFamily="@font/comfortaa_light"
             android:text="@string/rememberCheckbox"
             android:textSize="16sp"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/forgotPassTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="70dp"
+            android:clickable="true"
+            android:fontFamily="@font/comfortaa_light"
+            android:text="@string/forgotPass"
+            android:textColor="@color/blue"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
     </FrameLayout>
 
     <Button
