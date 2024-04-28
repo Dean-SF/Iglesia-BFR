@@ -14,6 +14,8 @@ import com.iglesiabfr.iglesiabfrnaranjo.homepage.Homepage
 import io.realm.kotlin.mongodb.App
 import io.realm.kotlin.mongodb.Credentials
 import io.realm.kotlin.mongodb.User
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
@@ -32,9 +34,14 @@ class LoginActivity : AppCompatActivity() {
             checkInputs()
         }
 
+        val emailInput: EditText = findViewById(R.id.inputEmail)
+        val email = emailInput.text.toString().trim()
+
         val forgotPasswordText: TextView = findViewById(R.id.forgotPassTxt)
         forgotPasswordText.setOnClickListener {
-            checkInputs()
+            CoroutineScope(Dispatchers.Main).launch {
+                forgotPassword(email)
+            }
         }
     }
 
@@ -71,24 +78,14 @@ class LoginActivity : AppCompatActivity() {
 
     private suspend fun forgotPassword(email: String) {
         try {
-
-            // Get the EmailPasswordAuth instance
             val emailPasswordAuth = user?.app?.emailPasswordAuth
-
-            // Send reset password email
-            emailPasswordAuth?.sendResetPasswordEmail(email)?.await().onSuccess {
-                // Éxito al enviar el correo electrónico de restablecimiento de contraseña
-                Toast.makeText(this@LoginActivity, R.string.resetPasswordEmailSent, Toast.LENGTH_SHORT).show()
-            }?.onFailure { error ->
-                // Error al enviar el correo electrónico de restablecimiento de contraseña
-                Toast.makeText(this@LoginActivity, "Error: ${error.message}", Toast.LENGTH_SHORT).show()
-            }
+            emailPasswordAuth?.sendResetPasswordEmail(email)
+            Toast.makeText(this@LoginActivity, "Se ha enviado un correo para restablecer contraseña", Toast.LENGTH_SHORT).show()
         } catch (e: Exception) {
-            // Manejar cualquier excepción que pueda ocurrir durante el proceso
+            // Handle any exceptions that may occur during the process
             Toast.makeText(this@LoginActivity, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
         }
     }
-
 
     private suspend fun login(emailInput: String, passwordInput: String): User? {
         return try {
