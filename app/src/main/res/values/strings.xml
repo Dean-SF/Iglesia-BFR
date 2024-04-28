@@ -14,6 +14,8 @@
     <string name="rememberCheckbox">Recordar sesión</string>
     <string name="incompleteDataWarning">Los datos están incompletos</string>
     <string name="incorrectDataWarning">Las credenciales ingresadas son incorrectas</string>
+    <string name="forgotPass">Restablecer contraseña</string>
+    <string name="resetPasswordEmailSent">El correo ha sido enviado exitosamente</string>
 
     // Registration
     <string name="hintName">Nombre</string>
