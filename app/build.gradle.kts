@@ -70,7 +70,8 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.jsoup)
-    implementation("com.squareup.okhttp3:okhttp:4.9.3")
+    implementation(libs.okhttp)
+    implementation (libs.androidx.fragment.ktx)
     implementation(libs.library.sync)
 
 }
