@@ -9,11 +9,13 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.iglesiabfr.iglesiabfrnaranjo.R
 import com.iglesiabfr.iglesiabfrnaranjo.Requests.getRequest
+import com.iglesiabfr.iglesiabfrnaranjo.SharedViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -24,7 +26,7 @@ import org.json.JSONObject
 class BibleBooksFragment : Fragment() {
 
     private lateinit var viewModel: BibleBooksViewModel
-
+    private val sharedViewModel: SharedViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,7 +38,10 @@ class BibleBooksFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = BibleBooksViewModel()
-
+        val email = sharedViewModel.getEmail()
+        println("a\na\na\na\na\na\na\na\na\na\na")
+        println("Email recivido: $email")
+        println("b\nb\nb\nb\nb\nb\nb\nb\nb\nb\nb")
         viewModel.getBooks().observe(viewLifecycleOwner) { books ->
             for (book in books) {
                 createBookLayout(view, book.name, book.abbreviation, book.chapters)
@@ -87,7 +92,6 @@ class BibleBooksFragment : Fragment() {
         bundle.putInt("chapters", chapters)
         val fragment = LectureFragment()
         fragment.arguments = bundle
-        println("me muero")
 
         fragmentManager?.beginTransaction()
             ?.replace(R.id.framelayout, fragment)

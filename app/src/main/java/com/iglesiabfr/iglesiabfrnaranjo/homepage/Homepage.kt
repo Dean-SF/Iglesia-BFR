@@ -1,15 +1,22 @@
 package com.iglesiabfr.iglesiabfrnaranjo.homepage
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationBarView
 import com.iglesiabfr.iglesiabfrnaranjo.Bible.BibleBooksFragment
 import com.iglesiabfr.iglesiabfrnaranjo.R
+import com.iglesiabfr.iglesiabfrnaranjo.SharedViewModel
 
 class Homepage : AppCompatActivity() {
+    private val sharedViewModel: SharedViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val email = intent.getStringExtra("email")
+        if (email != null) {
+            sharedViewModel.setEmail(email)
+        }
         setContentView(R.layout.activity_homepage)
         replaceFragment(Mainpage())
 

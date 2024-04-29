@@ -46,8 +46,9 @@ class LoginActivity : AppCompatActivity() {
     }
 
     // Llamada de ventanas
-    private fun callMainMenu(){
+    private fun callMainMenu(email: String){
         val intent = Intent(this, Homepage::class.java)
+        intent.putExtra("email", email)
         startActivity(intent)
     }
 
@@ -71,7 +72,7 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this@LoginActivity, R.string.incorrectDataWarning, Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this@LoginActivity, DatabaseConnector.getLogCurrent().id, Toast.LENGTH_SHORT).show()
-                callMainMenu()
+                callMainMenu(email)
             }
         }
     }
