@@ -3,6 +3,7 @@ package com.iglesiabfr.iglesiabfrnaranjo.database
 import android.util.Log
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Activity
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Event
+import com.iglesiabfr.iglesiabfrnaranjo.schema.FavVerse
 import com.iglesiabfr.iglesiabfrnaranjo.schema.UserData
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
@@ -31,11 +32,12 @@ object DatabaseConnector {
                 logAnonymous()
             }.onSuccess {
                 Log.d("Info","Sync Started")
-                val config = SyncConfiguration.Builder(it, setOf(Activity::class,Event::class,UserData::class))
+                val config = SyncConfiguration.Builder(it, setOf(Activity::class,Event::class,UserData::class,FavVerse::class))
                     .initialSubscriptions(rerunOnOpen = true) {realm->
                         add(realm.query<Event>(), "subEvent",updateExisting = true)
                         add(realm.query<Activity>(), "subActivity",updateExisting = true)
                         add(realm.query<UserData>(), "userData",updateExisting = true)
+                        add(realm.query<FavVerse>(),"favVerse",updateExisting = true)
                     }
                     .errorHandler { session: SyncSession, error: SyncException ->
                         Log.d("IglesiaError",error.message.toString())

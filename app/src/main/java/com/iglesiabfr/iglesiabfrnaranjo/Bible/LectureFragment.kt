@@ -7,7 +7,11 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.iglesiabfr.iglesiabfrnaranjo.R
+import com.iglesiabfr.iglesiabfrnaranjo.SharedViewModel
+import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
+import com.iglesiabfr.iglesiabfrnaranjo.schema.FavVerse
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.OkHttpClient
@@ -21,9 +25,12 @@ class LectureFragment : Fragment() {
     private var name: String? = null
     private var chapters: Int? = null
     private var actualChapter = 1
+    private val sharedViewModel: SharedViewModel by activityViewModels()
+    private var email = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        DatabaseConnector.connect()
         arguments?.let {
             name = it.getString("name")
             chapters = it.getInt("chapters")
@@ -33,16 +40,21 @@ class LectureFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        email = sharedViewModel.getEmail().toString()
         fetchVerses()
         val nextBtn = view.findViewById<Button>(R.id.nextBtn)
+        val favBtn = view.findViewById<Button>(R.id.favBtn)
         nextBtn.setOnClickListener{
             nextVerse()
         }
+        favBtn.setOnClickListener {
+            addFav()
+        }
+
         val prevBtn = view.findViewById<Button>(R.id.prevBtn)
         prevBtn.setOnClickListener{
             prevVerse()
         }
-
     }
 
     override fun onCreateView(
@@ -61,7 +73,6 @@ class LectureFragment : Fragment() {
         val request = Request.Builder()
             .url("https://bible-api.deno.dev/api/read/rv1960/$name/$chapter/")
             .build()
-
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: okhttp3.Call, e: IOException) {
                 // Handle error
@@ -98,11 +109,29 @@ class LectureFragment : Fragment() {
         }
 
     }
-
     private fun prevVerse() {
         if (actualChapter < 1) {
             actualChapter --
             fetchVerses()
+        }
+    }
+    private fun addFav() {
+        println("a\na\na\na\na\na\na")
+        println("correo: $email, capitulo $name, versiculo $actualChapter, total $chapters")
+        try {
+            val actualFav = FavVerse().apply {
+                chapter = name.toString()
+                totalVerses = chapters!!
+                verse = actualChapter
+                owner = email
+            }
+            DatabaseConnector.db.writeBlocking {
+                copyToRealm(actualFav)
+            }
+            println()
+
+        } catch (e: Exception) {
+            println("Error al guardar favorito $e")
         }
     }
 }
