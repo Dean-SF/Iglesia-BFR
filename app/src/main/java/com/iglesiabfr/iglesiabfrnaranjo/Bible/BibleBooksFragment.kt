@@ -27,6 +27,7 @@ class BibleBooksFragment : Fragment() {
 
     private lateinit var viewModel: BibleBooksViewModel
     private val sharedViewModel: SharedViewModel by activityViewModels()
+    private var email = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,10 +39,8 @@ class BibleBooksFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = BibleBooksViewModel()
-        val email = sharedViewModel.getEmail()
-        println("a\na\na\na\na\na\na\na\na\na\na")
-        println("Email recivido: $email")
-        println("b\nb\nb\nb\nb\nb\nb\nb\nb\nb\nb")
+        email = sharedViewModel.getEmail().toString()
+
         viewModel.getBooks().observe(viewLifecycleOwner) { books ->
             for (book in books) {
                 createBookLayout(view, book.name, book.abbreviation, book.chapters)
