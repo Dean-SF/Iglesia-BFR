@@ -65,6 +65,7 @@
     <string name="BibliaNavTitle">Biblia</string>
     <string name="grabacionesNavTitle">Grabaciones</string>
     <string name="adminNavTitle">Admin</string>
+    <string name="FavFragmentTitle">Favoritos</string>
 
 
 </resources>

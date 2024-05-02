@@ -37,7 +37,7 @@
         app:layout_constraintVertical_bias="0.811" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/favBtnInBibleBooks"
         android:layout_width="145dp"
         android:layout_height="52dp"
         android:text="@string/favoritosBtn"

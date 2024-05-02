@@ -74,4 +74,6 @@ dependencies {
     implementation (libs.androidx.fragment.ktx)
     implementation(libs.library.sync)
 
+
+
 }

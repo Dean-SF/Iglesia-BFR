@@ -116,8 +116,6 @@ class LectureFragment : Fragment() {
         }
     }
     private fun addFav() {
-        println("a\na\na\na\na\na\na")
-        println("correo: $email, capitulo $name, versiculo $actualChapter, total $chapters")
         try {
             val actualFav = FavVerse().apply {
                 chapter = name.toString()
