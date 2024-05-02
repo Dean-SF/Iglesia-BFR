@@ -75,7 +75,7 @@ class FavBooksFragment : Fragment() {
         val textView1 = TextView(requireContext())
         textView1.layoutParams = LinearLayout.LayoutParams(500, 100)
         textView1.text = "  $name"
-        textView1.gravity = Gravity.LEFT
+        textView1.gravity = Gravity.CENTER
         textView1.textSize = 22f
 
 
