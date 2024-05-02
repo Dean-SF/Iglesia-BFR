@@ -6,6 +6,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -37,7 +38,7 @@ class BibleBooksFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        val favBtn = view.findViewById<Button>(R.id.favBtnInBibleBooks)
         viewModel = BibleBooksViewModel()
         email = sharedViewModel.getEmail().toString()
 
@@ -46,6 +47,18 @@ class BibleBooksFragment : Fragment() {
                 createBookLayout(view, book.name, book.abbreviation, book.chapters)
             }
         }
+        favBtn.setOnClickListener(){
+            openFav()
+        }
+    }
+
+    private fun openFav() {
+        val fragment = FavBooksFragment()
+
+        fragmentManager?.beginTransaction()
+            ?.replace(R.id.framelayout, fragment)
+            ?.addToBackStack(null)
+            ?.commit()
     }
 
     @SuppressLint("RtlHardcoded")
@@ -97,6 +110,7 @@ class BibleBooksFragment : Fragment() {
             ?.addToBackStack(null)
             ?.commit()
     }
+
 }
 
 
@@ -120,7 +134,7 @@ class BibleBooksViewModel : ViewModel() {
                 val chapters = jsonObject.getInt("chapters")
                 val testament = jsonObject.getString("testament")
 
-                val book = Book(name, abrev, chapters, testament)
+                val book = Book(name, abrev, chapters, testament,0)
                 books.add(book)
             }
             _books.postValue(books)

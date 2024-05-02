@@ -49,7 +49,7 @@ class BibleBooks : AppCompatActivity() {
                 val chapters = jsonObject.getInt("chapters")
                 val testament = jsonObject.getString("testament")
 
-                val book = Book(name, abrev, chapters, testament)
+                val book = Book(name, abrev, chapters, testament,0)
 
                 books.add(book)
             }
@@ -120,5 +120,6 @@ data class Book(
     val name: Any,
     val abbreviation: String,
     val chapters: Int,
-    val testament: String
+    val testament: String,
+    val actual:Int
 )
