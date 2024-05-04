@@ -5,7 +5,7 @@
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".homepage.Mainpage" >
+    tools:context=".homepage1.Mainpage" >
 
     <TextView
         android:id="@+id/homepageTitle"

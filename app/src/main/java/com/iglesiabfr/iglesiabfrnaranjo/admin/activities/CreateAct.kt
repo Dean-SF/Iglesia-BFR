@@ -1,4 +1,4 @@
-package com.iglesiabfr.iglesiabfrnaranjo.admin.events
+package com.iglesiabfr.iglesiabfrnaranjo.admin.activities
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -19,7 +19,7 @@ import com.google.android.material.timepicker.TimeFormat
 import com.iglesiabfr.iglesiabfrnaranjo.R
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
 import com.iglesiabfr.iglesiabfrnaranjo.dialogs.LoadingDialog
-import com.iglesiabfr.iglesiabfrnaranjo.schema.Event
+import com.iglesiabfr.iglesiabfrnaranjo.schema.Activity
 import io.realm.kotlin.types.RealmInstant
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -31,7 +31,7 @@ import java.time.format.DateTimeFormatter
 import java.util.Locale
 import java.util.TimeZone
 
-class CreateEvent : AppCompatActivity() {
+class CreateAct : AppCompatActivity() {
     private lateinit var date : LocalDate
     private lateinit var time : LocalTime
     private lateinit var loadingDialog : LoadingDialog
@@ -39,13 +39,13 @@ class CreateEvent : AppCompatActivity() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_create_event)
+        setContentView(R.layout.activity_create_act)
 
         loadingDialog = LoadingDialog(this)
 
         val calendarBut : ImageButton = findViewById(R.id.dateBut)
         val timeBut : ImageButton = findViewById(R.id.timeBut)
-        val createBut : Button = findViewById(R.id.createEventBut)
+        val createBut : Button = findViewById(R.id.createActBut)
 
         val datetext : TextView = findViewById(R.id.fechainput)
         val timetext : TextView = findViewById(R.id.horainput)
@@ -134,7 +134,7 @@ class CreateEvent : AppCompatActivity() {
         }
 
         createBut.setOnClickListener {
-            createEvent()
+            createAct()
         }
 
     }
@@ -179,7 +179,7 @@ class CreateEvent : AppCompatActivity() {
 
         return retval
     }
-    private fun createEvent() {
+    private fun createAct() {
         val nametext : TextView = findViewById(R.id.nameinput)
         val desctext : TextView = findViewById(R.id.descinput)
         val datetext : TextView = findViewById(R.id.fechainput)
@@ -188,7 +188,7 @@ class CreateEvent : AppCompatActivity() {
         if(checkTime()) return
         loadingDialog.startLoading()
         val datetime = LocalDateTime.of(date,time)
-        val event = Event().apply {
+        val activity = Activity().apply {
             name = nametext.text.toString()
             date = RealmInstant.from(datetime.toEpochSecond(ZoneOffset.UTC),0)
             desc = desctext.text.toString()
@@ -197,7 +197,7 @@ class CreateEvent : AppCompatActivity() {
         lifecycleScope.launch {
             runCatching {
                 DatabaseConnector.db.write {
-                    copyToRealm(event)
+                    copyToRealm(activity)
                 }
             }.onSuccess {
                 loadingDialog.stopLoading()
@@ -205,10 +205,10 @@ class CreateEvent : AppCompatActivity() {
                 desctext.text = ""
                 datetext.text = ""
                 timetext.text = ""
-                Toast.makeText(context,getString(R.string.createEventSuccess),Toast.LENGTH_SHORT).show()
+                Toast.makeText(context,getString(R.string.createActSuccess),Toast.LENGTH_SHORT).show()
             }.onFailure {
                 loadingDialog.stopLoading()
-                Toast.makeText(context,getString(R.string.createEventFailed),Toast.LENGTH_SHORT).show()
+                Toast.makeText(context,getString(R.string.createActFailed),Toast.LENGTH_SHORT).show()
             }
         }
     }

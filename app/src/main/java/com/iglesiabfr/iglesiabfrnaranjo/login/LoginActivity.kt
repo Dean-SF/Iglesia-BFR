@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.iglesiabfr.iglesiabfrnaranjo.R
-import com.iglesiabfr.iglesiabfrnaranjo.homepage.Homepage
+import com.iglesiabfr.iglesiabfrnaranjo.homepage1.Homepage
 import io.realm.kotlin.Realm
 import io.realm.kotlin.mongodb.App
 import io.realm.kotlin.mongodb.Credentials

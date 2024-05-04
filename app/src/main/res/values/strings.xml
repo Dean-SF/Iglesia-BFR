@@ -27,8 +27,8 @@
 
     // Mainpage
     <string name="homepageTitle">¡Bienvenido!</string>
-    <string name="upcomingEvent">Proximos Eventos</string>
-    <string name="upcomingActiv">Proximas Actividades</string>
+    <string name="upcomingEvent">Próximos Eventos</string>
+    <string name="upcomingActiv">Próximas Actividades</string>
     <string name="cults">Cultos</string>
 
     // Adminpage
@@ -37,14 +37,68 @@
     <string name="actBut">Actividades</string>
     <string name="cultBut">Cultos</string>
 
+    //AdminAct
+    <string name="adminActTitle">Actividades</string>
+
+    // Crear Act
+    <string name="createActTitle">Crear Actividad</string>
+    <string name="createActSuccess">Actividad creada exitosamente</string>
+    <string name="createActFailed">Error al crear la actividad, vuelva a intentarlo</string>
+
+    // Detalle Actividades
+    <string name="actDetailsTitle">Detalles de la Actividad</string>
+    <string name="actNotFound">Actividad no encontrada, vuelva a intentar</string>
+    <string name="actDetailModAsk">¿Seguro que quieres modificar esta actividad?</string>
+    <string name="actDetailDelAsk">¿Seguro que quieres borrar esta actividad?</string>
+    <string name="actDetailModSucc">Actividad modificada con éxito</string>
+    <string name="actDetailModFail">Error al modificar la actividad, vuelva a intentarlo</string>
+
+    <string name="actDetailDelSucc">Actividad borrada con éxito</string>
+    <string name="actDetailDelFail">Error al borrar la actividad, vuelva a intentarlo</string>
+
     //AdminEventos
     <string name="adminEventosTitle">Eventos</string>
+    <string name="adminEventosSearch">Busqueda</string>
+    <string name="adminEventosHeaderName">Nombre</string>
+    <string name="adminEventosHeaderFecha">Fecha</string>
+
+    // Crear eventos
     <string name="createEventBut">Crear</string>
     <string name="createEventTitle">Crear Evento</string>
     <string name="createName">Nombre</string>
     <string name="createDesc">Descripción</string>
     <string name="createDate">Fecha</string>
     <string name="createTime">Hora</string>
+    <string name="createDatePicker">Seleccione la fecha</string>
+    <string name="createTimePicker">Seleccione la hora</string>
+    <string name="createTextEmpty">Entrada de texto vacía</string>
+    <string name="createDateEmpty">Entrada de fecha vacía</string>
+    <string name="createTimeEmpty">Entrada de hora vacía</string>
+    <string name="createTimeAlreadyPassed">La hora ya paso</string>
+    <string name="createEventSuccess">Evento creado exitosamente</string>
+    <string name="createEventFailed">Error al crear el evento, vuelva a intentarlo</string>
+
+    // Detalle Eventos
+    <string name="eventDetailsTitle">Detalles del Evento</string>
+    <string name="eventDetailsMod">Modificar</string>
+    <string name="eventDetailsModAccept">Confirmar Modificación</string>
+    <string name="eventDetailsDel">Borrar</string>
+    <string name="eventNotFound">Evento no encontrado, vuelva a intentar</string>
+    <string name="eventDetailModAsk">¿Seguro que quieres modificar este evento?</string>
+    <string name="eventDetailDelAsk">¿Seguro que quieres borrar este evento?</string>
+    <string name="eventDetailModSucc">Evento modificado con éxito</string>
+    <string name="eventDetailModFail">Error al modificar el evento, vuelva a intentarlo</string>
+
+    <string name="eventDetailDelSucc">Evento borrado con éxito</string>
+    <string name="eventDetailDelFail">Error al borrar el evento, vuelva a intentarlo</string>
+
+
+    //Loading dialog
+    <string name="loadingDialogText">Cargando…</string>
+
+    //Confirm dialog
+    <string name="ConfDiagConf">Sí</string>
+    <string name="ConfDiagDeny">No</string>
 
 
     // NavBar

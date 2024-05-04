@@ -1,4 +1,4 @@
-package com.iglesiabfr.iglesiabfrnaranjo.admin.events
+package com.iglesiabfr.iglesiabfrnaranjo.admin.cults
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -19,7 +19,7 @@ import com.google.android.material.timepicker.TimeFormat
 import com.iglesiabfr.iglesiabfrnaranjo.R
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
 import com.iglesiabfr.iglesiabfrnaranjo.dialogs.LoadingDialog
-import com.iglesiabfr.iglesiabfrnaranjo.schema.Event
+import com.iglesiabfr.iglesiabfrnaranjo.schema.Activity
 import io.realm.kotlin.types.RealmInstant
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -31,7 +31,7 @@ import java.time.format.DateTimeFormatter
 import java.util.Locale
 import java.util.TimeZone
 
-class CreateEvent : AppCompatActivity() {
+class CreateCult : AppCompatActivity() {
     private lateinit var date : LocalDate
     private lateinit var time : LocalTime
     private lateinit var loadingDialog : LoadingDialog
@@ -188,7 +188,7 @@ class CreateEvent : AppCompatActivity() {
         if(checkTime()) return
         loadingDialog.startLoading()
         val datetime = LocalDateTime.of(date,time)
-        val event = Event().apply {
+        val event = Activity().apply {
             name = nametext.text.toString()
             date = RealmInstant.from(datetime.toEpochSecond(ZoneOffset.UTC),0)
             desc = desctext.text.toString()
