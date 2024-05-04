@@ -1,4 +1,4 @@
-package com.iglesiabfr.iglesiabfrnaranjo.admin.events
+package com.iglesiabfr.iglesiabfrnaranjo.admin.cults
 
 import android.content.Intent
 import android.os.Bundle
@@ -16,7 +16,7 @@ import com.iglesiabfr.iglesiabfrnaranjo.customRecyclers.EagListA
 import com.iglesiabfr.iglesiabfrnaranjo.customRecyclers.items.EagItemA
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
 import com.iglesiabfr.iglesiabfrnaranjo.dialogs.LoadingDialog
-import com.iglesiabfr.iglesiabfrnaranjo.schema.Event
+import com.iglesiabfr.iglesiabfrnaranjo.schema.Activity
 import io.realm.kotlin.ext.query
 import org.mongodb.kbson.ObjectId
 import java.time.LocalDateTime
@@ -25,7 +25,7 @@ import java.time.format.DateTimeFormatter
 import java.util.LinkedList
 
 
-class AdminEvent : AppCompatActivity() {
+class AdminCult : AppCompatActivity() {
 
     private val events = LinkedList<EagItemA>()
     private lateinit var launcher : ActivityResultLauncher<Intent>
@@ -86,7 +86,7 @@ class AdminEvent : AppCompatActivity() {
         loadEvents()
 
         createButt.setOnClickListener {
-            val i = Intent(this,CreateEvent::class.java)
+            val i = Intent(this,CreateCult::class.java)
             launcher.launch(i)
         }
     }
@@ -101,13 +101,13 @@ class AdminEvent : AppCompatActivity() {
         val startIndex = events.size
         val searchInput : TextView = findViewById(R.id.searchinput)
         val eventsFound  = if (key == null && searchInput.text.isEmpty()) {
-            DatabaseConnector.db.query<Event>().sort("_id").limit(14).find()
+            DatabaseConnector.db.query<Activity>().sort("_id").limit(14).find()
         } else if (key == null){
-            DatabaseConnector.db.query<Event>("name CONTAINS[c] $0",searchInput.text.toString()).sort("_id").limit(14).find()
+            DatabaseConnector.db.query<Activity>("name CONTAINS[c] $0",searchInput.text.toString()).sort("_id").limit(14).find()
         } else if(searchInput.text.isNotEmpty()) {
-            DatabaseConnector.db.query<Event>("_id > $0 AND name CONTAINS[c] $1",key,searchInput.text.toString()).sort("_id").limit(14).find()
+            DatabaseConnector.db.query<Activity>("_id > $0 AND name CONTAINS[c] $1",key,searchInput.text.toString()).sort("_id").limit(14).find()
         } else  {
-            DatabaseConnector.db.query<Event>("_id > $0",key).sort("_id").limit(14).find()
+            DatabaseConnector.db.query<Activity>("_id > $0",key).sort("_id").limit(14).find()
         }
 
         if (eventsFound.isNotEmpty()) key = eventsFound[eventsFound.size-1]._id
@@ -131,7 +131,7 @@ class AdminEvent : AppCompatActivity() {
     private fun createEventList() : EagListA {
         val eventList = EagListA(events)
         eventList.onItemClick = {
-            val i = Intent(this,DetailEvent::class.java)
+            val i = Intent(this,DetailCult::class.java)
             i.putExtra("object_id",it.id.toHexString())
             launcher.launch(i)
         }
