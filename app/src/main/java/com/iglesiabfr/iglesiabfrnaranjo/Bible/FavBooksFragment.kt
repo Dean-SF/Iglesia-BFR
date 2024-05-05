@@ -8,9 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.fragment.app.activityViewModels
 import com.iglesiabfr.iglesiabfrnaranjo.R
-import com.iglesiabfr.iglesiabfrnaranjo.SharedViewModel
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
 import com.iglesiabfr.iglesiabfrnaranjo.schema.FavVerse
 import io.realm.kotlin.ext.query
@@ -19,7 +17,6 @@ import io.realm.kotlin.ext.query
 
 class FavBooksFragment : Fragment() {
     private lateinit var viewModel: BibleBooksViewModel
-    private val sharedViewModel: SharedViewModel by activityViewModels()
     private var email = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +36,8 @@ class FavBooksFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = BibleBooksViewModel()
-        email = sharedViewModel.getEmail().toString()
+
+        email = DatabaseConnector.email
 
         val favoriteVerses = DatabaseConnector.db.query<FavVerse>("owner == $0",email).find()
         for (favVerse in favoriteVerses) {

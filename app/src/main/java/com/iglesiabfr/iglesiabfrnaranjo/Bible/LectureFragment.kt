@@ -1,15 +1,15 @@
 package com.iglesiabfr.iglesiabfrnaranjo.Bible
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import com.iglesiabfr.iglesiabfrnaranjo.R
-import com.iglesiabfr.iglesiabfrnaranjo.SharedViewModel
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
 import com.iglesiabfr.iglesiabfrnaranjo.schema.FavVerse
 import okhttp3.Call
@@ -25,7 +25,6 @@ class LectureFragment : Fragment() {
     private var name: String? = null
     private var chapters: Int? = null
     private var actualChapter = 1
-    private val sharedViewModel: SharedViewModel by activityViewModels()
     private var email = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,18 +39,17 @@ class LectureFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        email = sharedViewModel.getEmail().toString()
+        email = DatabaseConnector.email
         fetchVerses()
         val nextBtn = view.findViewById<Button>(R.id.nextBtn)
         val favBtn = view.findViewById<Button>(R.id.favBtn)
+        val prevBtn = view.findViewById<Button>(R.id.prevBtn)
         nextBtn.setOnClickListener{
             nextVerse()
         }
         favBtn.setOnClickListener {
             addFav()
         }
-
-        val prevBtn = view.findViewById<Button>(R.id.prevBtn)
         prevBtn.setOnClickListener{
             prevVerse()
         }
@@ -110,7 +108,7 @@ class LectureFragment : Fragment() {
 
     }
     private fun prevVerse() {
-        if (actualChapter < 1) {
+        if (actualChapter > 1) {
             actualChapter --
             fetchVerses()
         }
@@ -126,10 +124,16 @@ class LectureFragment : Fragment() {
             DatabaseConnector.db.writeBlocking {
                 copyToRealm(actualFav)
             }
-            println()
-
+            // Mostrar un Toast para indicar que se guardó el favorito
+            requireContext().toast("Verso guardado como favorito")
         } catch (e: Exception) {
             println("Error al guardar favorito $e")
+            // Mostrar un Toast para indicar que hubo un error al guardar el favorito
+            requireContext().toast("Error al guardar el favorito")
         }
+    }
+
+    private fun Context.toast(message: String, duration: Int = Toast.LENGTH_SHORT) {
+        Toast.makeText(this, message, duration).show()
     }
 }
