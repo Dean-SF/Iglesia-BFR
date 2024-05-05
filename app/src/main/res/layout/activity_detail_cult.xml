@@ -5,17 +5,17 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".admin.activities.AdminCult"
+    tools:context=".admin.cults.AdminCult"
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="0dp">
 
     <TextView
         android:id="@+id/detailEventTitle"
-        android:layout_width="300dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:fontFamily="@font/comfortaa_light"
-        android:text="@string/actDetailsTitle"
+        android:text="@string/cultDetailsTitle"
         android:textAlignment="center"
         android:textSize="34sp"
         android:textStyle="bold"
@@ -40,20 +40,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/detailEventTitle" />
 
-    <EditText
-        android:id="@+id/fechainput"
+    <Spinner
+        android:id="@+id/weekday"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="6dp"
         android:layout_marginTop="30dp"
-        android:layout_marginEnd="10dp"
-        android:focusable="false"
-        android:fontFamily="@font/comfortaa_light"
-        android:inputType="datetime|date"
-        app:layout_constraintEnd_toStartOf="@+id/dateBut"
-        app:layout_constraintHorizontal_bias="1.0"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameinput" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="-7dp"
+        android:layout_marginEnd="24dp"
+        android:background="@color/blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/weekday" />
 
     <EditText
         android:id="@+id/horainput"
@@ -68,7 +76,7 @@
         app:layout_constraintEnd_toStartOf="@+id/timeBut"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fechainput" />
+        app:layout_constraintTop_toBottomOf="@+id/weekday" />
 
     <EditText
         android:id="@+id/descinput"
@@ -87,7 +95,7 @@
         app:layout_constraintTop_toBottomOf="@+id/horainput" />
 
     <Button
-        android:id="@+id/detailModActBut"
+        android:id="@+id/detailModCultBut"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -98,13 +106,13 @@
         android:text="@string/eventDetailsMod"
         android:textColor="@color/white"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/detailDelActBut"
+        app:layout_constraintBottom_toTopOf="@+id/detailDelCultBut"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/detailDelActBut"
+        android:id="@+id/detailDelCultBut"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -121,17 +129,6 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
-        android:id="@+id/dateBut"
-        android:layout_width="50dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/ripple_calendar"
-        android:backgroundTint="@color/blue"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameinput" />
-
-    <ImageButton
         android:id="@+id/timeBut"
         android:layout_width="50dp"
         android:layout_height="49dp"
@@ -140,7 +137,7 @@
         android:background="@drawable/ripple_clock"
         android:backgroundTint="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fechainput" />
+        app:layout_constraintTop_toBottomOf="@+id/weekday" />
 
     <TextView
         android:id="@+id/textView4"
@@ -160,10 +157,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:fontFamily="@font/comfortaa_light"
-        android:text="@string/createDate"
+        android:text="@string/cultDetailWeekday"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/fechainput"
+        app:layout_constraintBottom_toTopOf="@+id/weekday"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView

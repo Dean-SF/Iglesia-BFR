@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".admin.activities.AdminCult"
+    tools:context=".admin.cults.AdminCult"
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="0dp">
 
@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:fontFamily="@font/comfortaa_light"
-        android:text="@string/createActTitle"
+        android:text="@string/createCultTitle"
         android:textAlignment="center"
         android:textSize="34sp"
         android:textStyle="bold"
@@ -40,21 +40,6 @@
         app:layout_constraintTop_toBottomOf="@+id/detailEventTitle" />
 
     <EditText
-        android:id="@+id/fechainput"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="10dp"
-        android:autofillHints="emailAddress"
-        android:fontFamily="@font/comfortaa_light"
-        android:hint="@string/createDate"
-        android:inputType="datetime|date"
-        app:layout_constraintEnd_toStartOf="@+id/dateBut"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameinput" />
-
-    <EditText
         android:id="@+id/horainput"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -68,7 +53,7 @@
         app:layout_constraintEnd_toStartOf="@+id/timeBut"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fechainput" />
+        app:layout_constraintTop_toBottomOf="@+id/weekday" />
 
     <EditText
         android:id="@+id/descinput"
@@ -88,7 +73,7 @@
         app:layout_constraintTop_toBottomOf="@+id/horainput" />
 
     <Button
-        android:id="@+id/createActBut"
+        android:id="@+id/createCultBut"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -104,17 +89,6 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
-        android:id="@+id/dateBut"
-        android:layout_width="50dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/ripple_calendar"
-        android:backgroundTint="@color/blue"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameinput" />
-
-    <ImageButton
         android:id="@+id/timeBut"
         android:layout_width="50dp"
         android:layout_height="49dp"
@@ -123,7 +97,30 @@
         android:background="@drawable/ripple_clock"
         android:backgroundTint="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fechainput" />
+        app:layout_constraintTop_toBottomOf="@+id/weekday" />
+
+    <Spinner
+        android:id="@+id/weekday"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameinput" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="-7dp"
+        android:layout_marginEnd="24dp"
+        android:background="@color/blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/weekday" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,13 +13,13 @@
         android:theme="@style/Theme.IglesiaBFRNaranjo"
         tools:targetApi="31">
         <activity
-            android:name=".admin.activities.DetailCult"
+            android:name=".admin.cults.DetailCult"
             android:exported="false" />
         <activity
-            android:name=".admin.activities.CreateCult"
+            android:name=".admin.cults.CreateCult"
             android:exported="false" />
         <activity
-            android:name=".admin.activities.AdminCult"
+            android:name=".admin.cults.AdminCult"
             android:exported="false" />
         <activity
             android:name=".admin.events.DetailEvent"

@@ -17,6 +17,7 @@ import com.iglesiabfr.iglesiabfrnaranjo.customRecyclers.items.EagItemA
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
 import com.iglesiabfr.iglesiabfrnaranjo.dialogs.LoadingDialog
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Activity
+import com.iglesiabfr.iglesiabfrnaranjo.schema.Cult
 import io.realm.kotlin.ext.query
 import org.mongodb.kbson.ObjectId
 import java.time.LocalDateTime
@@ -27,7 +28,7 @@ import java.util.LinkedList
 
 class AdminCult : AppCompatActivity() {
 
-    private val events = LinkedList<EagItemA>()
+    private val cults = LinkedList<EagItemA>()
     private lateinit var launcher : ActivityResultLauncher<Intent>
     private lateinit var recyclerView : RecyclerView
     private lateinit var loadingDialog: LoadingDialog
@@ -35,18 +36,18 @@ class AdminCult : AppCompatActivity() {
     private var isLoading = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_admin_eventos)
+        setContentView(R.layout.activity_admin_cutl)
 
         loadingDialog = LoadingDialog(this)
 
         val searchInput : EditText = findViewById(R.id.searchinput)
 
-        val createButt : Button = findViewById(R.id.createEventBut)
-        recyclerView = findViewById(R.id.eventlist)
+        val createButt : Button = findViewById(R.id.createActBut)
+        recyclerView = findViewById(R.id.cultlist)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(false)
-        recyclerView.adapter = createEventList()
+        recyclerView.adapter = createCultList()
 
         recyclerView.addOnScrollListener(
             object : RecyclerView.OnScrollListener() {
@@ -57,7 +58,7 @@ class AdminCult : AppCompatActivity() {
                     val totalItemCount = layoutManager.itemCount
                     if (totalItemCount < lastVisibleItemPosition + 5 && !isLoading) {
                         isLoading = true
-                        loadEvents()
+                        loadCults()
                     }
 
                 }
@@ -83,7 +84,7 @@ class AdminCult : AppCompatActivity() {
         }
 
 
-        loadEvents()
+        loadCults()
 
         createButt.setOnClickListener {
             val i = Intent(this,CreateCult::class.java)
@@ -93,48 +94,48 @@ class AdminCult : AppCompatActivity() {
 
     private fun clearList() {
         key = null
-        events.clear()
-        recyclerView.adapter = createEventList()
-        loadEvents()
+        cults.clear()
+        recyclerView.adapter = createCultList()
+        loadCults()
     }
-    private fun loadEvents() {
-        val startIndex = events.size
+    private fun loadCults() {
+        val startIndex = cults.size
         val searchInput : TextView = findViewById(R.id.searchinput)
-        val eventsFound  = if (key == null && searchInput.text.isEmpty()) {
-            DatabaseConnector.db.query<Activity>().sort("_id").limit(14).find()
+        val cultsFound = if (key == null && searchInput.text.isEmpty()) {
+            DatabaseConnector.db.query<Cult>().sort("_id").limit(14).find()
         } else if (key == null){
-            DatabaseConnector.db.query<Activity>("name CONTAINS[c] $0",searchInput.text.toString()).sort("_id").limit(14).find()
+            DatabaseConnector.db.query<Cult>("name CONTAINS[c] $0",searchInput.text.toString()).sort("_id").limit(14).find()
         } else if(searchInput.text.isNotEmpty()) {
-            DatabaseConnector.db.query<Activity>("_id > $0 AND name CONTAINS[c] $1",key,searchInput.text.toString()).sort("_id").limit(14).find()
+            DatabaseConnector.db.query<Cult>("_id > $0 AND name CONTAINS[c] $1",key,searchInput.text.toString()).sort("_id").limit(14).find()
         } else  {
-            DatabaseConnector.db.query<Activity>("_id > $0",key).sort("_id").limit(14).find()
+            DatabaseConnector.db.query<Cult>("_id > $0",key).sort("_id").limit(14).find()
         }
-
-        if (eventsFound.isNotEmpty()) key = eventsFound[eventsFound.size-1]._id
+        if (cultsFound.isNotEmpty()) key = cultsFound[cultsFound.size-1]._id
         else {
             return
         }
 
-        val formatter = DateTimeFormatter.ofPattern("dd/MM/yy hh:mm a")
-        eventsFound.map {
-            val time = LocalDateTime.ofEpochSecond(it.date.epochSeconds,0, ZoneOffset.UTC)
-            events.add(EagItemA(it._id,it.name,time.format(formatter)))
+        val formatter = DateTimeFormatter.ofPattern("hh:mm a")
+        val weekdays = resources.getStringArray(R.array.createCultWeekdays)
+        cultsFound.map {
+            val time = LocalDateTime.ofEpochSecond(it.time.epochSeconds,0, ZoneOffset.UTC)
+            cults.add(EagItemA(it._id,it.name,weekdays[it.weekDay] + " " + time.format(formatter)))
         }
 
         recyclerView.post {
-            recyclerView.adapter?.notifyItemRangeChanged(startIndex,eventsFound.size)
+            recyclerView.adapter?.notifyItemRangeChanged(startIndex,cultsFound.size)
             isLoading = false
         }
 
     }
 
-    private fun createEventList() : EagListA {
-        val eventList = EagListA(events)
-        eventList.onItemClick = {
+    private fun createCultList() : EagListA {
+        val cultList = EagListA(cults)
+        cultList.onItemClick = {
             val i = Intent(this,DetailCult::class.java)
             i.putExtra("object_id",it.id.toHexString())
             launcher.launch(i)
         }
-        return eventList
+        return cultList
     }
 }

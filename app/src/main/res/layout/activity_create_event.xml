@@ -49,7 +49,7 @@
         android:autofillHints="emailAddress"
         android:fontFamily="@font/comfortaa_light"
         android:hint="@string/createDate"
-        android:inputType="datetime|date"
+        android:inputType="none"
         app:layout_constraintEnd_toStartOf="@+id/dateBut"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameinput" />
@@ -64,7 +64,7 @@
         android:autofillHints="emailAddress"
         android:fontFamily="@font/comfortaa_light"
         android:hint="@string/createTime"
-        android:inputType="datetime"
+        android:inputType="none"
         app:layout_constraintEnd_toStartOf="@+id/timeBut"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

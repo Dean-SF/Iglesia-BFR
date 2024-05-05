@@ -1,14 +1,17 @@
 package com.iglesiabfr.iglesiabfrnaranjo.admin.cults
 
 import android.annotation.SuppressLint
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
@@ -16,10 +19,12 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import com.iglesiabfr.iglesiabfrnaranjo.R
+import com.iglesiabfr.iglesiabfrnaranjo.admin.cults.spinnerAdapter.WeekdaySpinnerAdapter
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
 import com.iglesiabfr.iglesiabfrnaranjo.dialogs.ConfirmDialog
 import com.iglesiabfr.iglesiabfrnaranjo.dialogs.LoadingDialog
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Activity
+import com.iglesiabfr.iglesiabfrnaranjo.schema.Cult
 import io.realm.kotlin.ext.query
 import io.realm.kotlin.types.RealmInstant
 import kotlinx.coroutines.launch
@@ -39,22 +44,21 @@ class DetailCult : AppCompatActivity() {
     private lateinit var loadingDialog : LoadingDialog
     private lateinit var confirmDialog : ConfirmDialog
 
-    private lateinit var date : LocalDate
     private lateinit var time : LocalTime
 
     private lateinit var  nametext : EditText
     private lateinit var  desctext : EditText
     private lateinit var  timetext : EditText
-    private lateinit var  datetext : EditText
 
-    private lateinit var calendarBut : ImageButton
+    private lateinit var weekdayS : Spinner
+
     private lateinit var timeBut : ImageButton
 
     private lateinit var modBut : Button
     private lateinit var delBut : Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail_event)
+        setContentView(R.layout.activity_detail_cult)
         loadingDialog = LoadingDialog(this)
         confirmDialog = ConfirmDialog(this)
         loadingDialog.startLoading()
@@ -62,17 +66,19 @@ class DetailCult : AppCompatActivity() {
 
         val objectId = ObjectId(intent.getStringExtra("object_id")!!)
 
-        val eventQuery = DatabaseConnector.db.query<Activity>("_id == $0",objectId).find()
-        if(eventQuery.isEmpty()) {
+        val cultQuery = DatabaseConnector.db.query<Cult>("_id == $0",objectId).find()
+        if(cultQuery.isEmpty()) {
             loadingDialog.stopLoading()
             Toast.makeText(this,getString(R.string.eventNotFound),Toast.LENGTH_SHORT).show()
             finish()
         }
 
         enableEditing(false)
-        val event = eventQuery[0]
-        setEventText(event)
+        val cult = cultQuery[0]
+        val datetime = LocalDateTime.ofEpochSecond(cult.time.epochSeconds,0, ZoneOffset.UTC)
+        time = datetime.toLocalTime()
         setUIElementProperties()
+        setCultText(cult)
 
         modBut.setOnClickListener {
             if(modBut.text == getString(R.string.eventDetailsMod)) {
@@ -81,26 +87,26 @@ class DetailCult : AppCompatActivity() {
                 enableEditing(true)
                 return@setOnClickListener
             }
-            confirmDialog.confirmation(getString(R.string.eventDetailModAsk))
+            confirmDialog.confirmation(getString(R.string.cultDetailModAsk))
                 .setOnConfirmationListener {
                     loadingDialog.startLoading()
                     modBut.text = getString(R.string.eventDetailsMod)
-                    updateEvent(event)
+                    updateCult(cult)
                     delBut.isEnabled = true
                     enableEditing(false)
                 }.setOnDenialListener {
                     modBut.text = getString(R.string.eventDetailsMod)
-                    setEventText(event)
+                    setCultText(cult)
                     delBut.isEnabled = true
                     enableEditing(false)
                 }
         }
 
         delBut.setOnClickListener {
-            confirmDialog.confirmation(getString(R.string.eventDetailDelAsk))
+            confirmDialog.confirmation(getString(R.string.cultDetailDelAsk))
                 .setOnConfirmationListener {
                     loadingDialog.startLoading()
-                    deleteEvent(event)
+                    deleteCult(cult)
                 }
         }
 
@@ -108,60 +114,59 @@ class DetailCult : AppCompatActivity() {
         loadingDialog.stopLoading()
     }
 
-    private fun deleteEvent(event: Activity) {
+    private fun deleteCult(cult: Cult) {
         val context = this
         lifecycleScope.launch {
             runCatching {
                 DatabaseConnector.db.write {
-                    findLatest(event).also {
+                    findLatest(cult).also {
                         delete(it!!)
                     }
                 }
             }.onSuccess {
                 loadingDialog.stopLoading()
                 finish()
-                Toast.makeText(context,getString(R.string.eventDetailDelSucc),Toast.LENGTH_SHORT).show()
+                Toast.makeText(context,getString(R.string.cultDetailDelSucc),Toast.LENGTH_SHORT).show()
             }.onFailure {
                 loadingDialog.stopLoading()
-                Toast.makeText(context,getString(R.string.eventDetailDelFail),Toast.LENGTH_SHORT).show()
+                Toast.makeText(context,getString(R.string.cultDetailDelFail),Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    private fun updateEvent(event : Activity) {
+    private fun updateCult(cult : Cult) {
         val context = this
         lifecycleScope.launch {
             runCatching {
-                val datetime = LocalDateTime.of(date,time)
+                val datetime = LocalDateTime.of(LocalDate.now(),time)
                 DatabaseConnector.db.write {
-                    findLatest(event).let {
+                    findLatest(cult).let {
                         it!!.name = nametext.text.toString()
                         it.desc = desctext.text.toString()
-                        it.date = RealmInstant.from(datetime.toEpochSecond(ZoneOffset.UTC),0)
+                        it.weekDay = weekdayS.selectedItemPosition
+                        it.time = RealmInstant.from(datetime.toEpochSecond(ZoneOffset.UTC),0)
                     }
                 }
             }.onSuccess {
                 loadingDialog.stopLoading()
-                Toast.makeText(context,getString(R.string.eventDetailModSucc),Toast.LENGTH_SHORT).show()
+                Toast.makeText(context,getString(R.string.cultDetailModSucc),Toast.LENGTH_SHORT).show()
             }.onFailure {
                 loadingDialog.stopLoading()
-                Toast.makeText(context,getString(R.string.eventDetailModFail),Toast.LENGTH_SHORT).show()
+                Toast.makeText(context,getString(R.string.cultDetailModFail),Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    private fun setEventText(event : Activity) {
-        val dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yy")
+    private fun setCultText(cult : Cult) {
         val timeFormatter = DateTimeFormatter.ofPattern("hh:mm a")
 
-        val datetime = LocalDateTime.ofEpochSecond(event.date.epochSeconds,0, ZoneOffset.UTC)
+        val datetime = LocalDateTime.ofEpochSecond(cult.time.epochSeconds,0, ZoneOffset.UTC)
 
-        date = datetime.toLocalDate()
         time = datetime.toLocalTime()
 
-        nametext.setText(event.name)
-        desctext.setText(event.desc)
-        datetext.setText(datetime.format(dateFormatter))
+        nametext.setText(cult.name)
+        desctext.setText(cult.desc)
+        weekdayS.setSelection(cult.weekDay)
         timetext.setText(datetime.format(timeFormatter))
     }
 
@@ -178,6 +183,12 @@ class DetailCult : AppCompatActivity() {
                 else -> false
             }
         }
+        
+        weekdayS.adapter = WeekdaySpinnerAdapter(
+            this,
+            resources.getStringArray(R.array.createCultWeekdays)
+        )
+
         setDateAndTimePicker()
     }
 
@@ -193,26 +204,6 @@ class DetailCult : AppCompatActivity() {
             .setTitleText(R.string.createTimePicker)
             .build()
 
-        val constraintsBuilder = CalendarConstraints.Builder()
-            .setValidator(
-                DateValidatorPointForward.now())
-
-        val customDatePicker = MaterialDatePicker.Builder.datePicker()
-            .setTitleText(R.string.createDatePicker)
-            .setTheme(R.style.ThemeOverlay_App_DatePicker)
-            .setSelection(LocalDateTime.of(date,time).truncatedTo(ChronoUnit.DAYS).toEpochSecond(ZoneOffset.UTC)*1000)
-            .setCalendarConstraints(constraintsBuilder.build())
-            .build()
-
-        customDatePicker.addOnPositiveButtonClickListener {
-            var sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-            sdf.timeZone = TimeZone.getTimeZone("UTC")
-            date = LocalDate.parse(sdf.format(it))
-            sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-            sdf.timeZone = TimeZone.getTimeZone("UTC")
-            datetext.setText(sdf.format(it))
-            datetext.error = null
-        }
 
         customTimePicker.addOnPositiveButtonClickListener {
             val formatter = DateTimeFormatter.ofPattern("hh:mm a")
@@ -236,35 +227,19 @@ class DetailCult : AppCompatActivity() {
             }
             true
         }
-
-        calendarBut.setOnClickListener {
-            customDatePicker.show(supportFragmentManager,"tag")
-        }
-
-        datetext.setOnTouchListener { _, event ->
-            val action = event.action
-            when(action){
-                MotionEvent.ACTION_DOWN -> {
-                    if (delBut.isEnabled) return@setOnTouchListener  true
-                    customDatePicker.show(supportFragmentManager,"tag")
-                }
-                else ->{}
-            }
-            true
-        }
     }
 
     private fun initUiVars() {
         nametext = findViewById(R.id.nameinput)
         desctext = findViewById(R.id.descinput)
         timetext = findViewById(R.id.horainput)
-        datetext = findViewById(R.id.fechainput)
 
-        calendarBut = findViewById(R.id.dateBut)
+        weekdayS = findViewById(R.id.weekday)
+
         timeBut = findViewById(R.id.timeBut)
 
-        modBut = findViewById(R.id.detailModEventBut)
-        delBut = findViewById(R.id.detailDelEventBut)
+        modBut = findViewById(R.id.detailModCultBut)
+        delBut = findViewById(R.id.detailDelCultBut)
     }
 
     private fun enableEditing(value : Boolean) {
@@ -272,11 +247,10 @@ class DetailCult : AppCompatActivity() {
         nametext.isFocusableInTouchMode = value
         timetext.isFocusable = value
         timetext.isFocusableInTouchMode = value
-        datetext.isFocusable = value
-        datetext.isFocusableInTouchMode = value
         desctext.isFocusable = value
         desctext.isFocusableInTouchMode = value
-        calendarBut.isEnabled = value
+
+        weekdayS.isEnabled = value
         timeBut.isEnabled = value
     }
 }

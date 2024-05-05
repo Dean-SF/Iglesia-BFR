@@ -37,7 +37,40 @@
     <string name="actBut">Actividades</string>
     <string name="cultBut">Cultos</string>
 
-    //AdminAct
+
+    //Admin Cult
+    <string name="adminCultHeaderFecha">Día</string>
+    <string name="adminCultTitle">Cultos</string>
+
+    // Crear Cult
+    <string name="createCultTitle">Crear Culto</string>
+    <string name="createCultWeekday">Día de la semana</string>
+    <string name="createCultSuccess">Culto creado exitosamente</string>
+    <string name="createCultFailed">Error al crear el culto, vuelva a intentarlo</string>
+    <string-array name="createCultWeekdays">
+        <item>Lunes</item>
+        <item>Martes</item>
+        <item>Miércoles</item>
+        <item>Jueves</item>
+        <item>Viernes</item>
+        <item>Sábado</item>
+        <item>Domingo</item>
+    </string-array>
+
+    // Details Cult
+    <string name="cultDetailsTitle">Detalles del culto</string>
+    <string name="cultNotFound">Culto no encontrada, vuelva a intentar</string>
+    <string name="cultDetailModAsk">¿Seguro que quieres modificar este culto?</string>
+    <string name="cultDetailDelAsk">¿Seguro que quieres borrar este culto?</string>
+    <string name="cultDetailModSucc">Culto modificado con éxito</string>
+    <string name="cultDetailModFail">Error al modificar el culto, vuelva a intentarlo</string>
+
+    <string name="cultDetailDelSucc">Culto borrado con éxito</string>
+    <string name="cultDetailDelFail">Error al borrar el culto, vuelva a intentarlo</string>
+
+    <string name="cultDetailWeekday">Día</string>
+
+    //Admin Act
     <string name="adminActTitle">Actividades</string>
 
     // Crear Act
