@@ -19,6 +19,7 @@ import com.google.android.material.timepicker.TimeFormat
 import com.iglesiabfr.iglesiabfrnaranjo.R
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
 import com.iglesiabfr.iglesiabfrnaranjo.dialogs.LoadingDialog
+import com.iglesiabfr.iglesiabfrnaranjo.picker.CustomDatePicker
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Event
 import io.realm.kotlin.types.RealmInstant
 import kotlinx.coroutines.launch
@@ -62,11 +63,13 @@ class CreateEvent : AppCompatActivity() {
                 .setValidator(
                     DateValidatorPointForward.now())
 
-        val customDatePicker = MaterialDatePicker.Builder.datePicker()
+        /*val customDatePicker = MaterialDatePicker.Builder.datePicker()
             .setTitleText(R.string.createDatePicker)
             .setTheme(R.style.ThemeOverlay_App_DatePicker)
             .setCalendarConstraints(constraintsBuilder.build())
-            .build()
+            .build()*/
+
+        val customDatePicker = CustomDatePicker(true)
 
         nametext.setOnEditorActionListener {_, action, _ ->
             return@setOnEditorActionListener when(action) {
@@ -81,13 +84,19 @@ class CreateEvent : AppCompatActivity() {
             }
         }
 
-        customDatePicker.addOnPositiveButtonClickListener {
+        /*customDatePicker.addOnPositiveButtonClickListener {
             var sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             sdf.timeZone = TimeZone.getTimeZone("UTC")
             date = LocalDate.parse(sdf.format(it))
             sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
             sdf.timeZone = TimeZone.getTimeZone("UTC")
             datetext.text = sdf.format(it)
+            datetext.error = null
+        }*/
+
+        customDatePicker.setOnPickListener { pickedDate, dateString ->
+            date = pickedDate
+            datetext.text = dateString
             datetext.error = null
         }
 
@@ -119,14 +128,14 @@ class CreateEvent : AppCompatActivity() {
         }
 
         calendarBut.setOnClickListener {
-            customDatePicker.show(supportFragmentManager,"tag")
+            customDatePicker.show(supportFragmentManager)
         }
 
         datetext.setOnTouchListener { _, event ->
             val action = event.action
             when(action){
                 MotionEvent.ACTION_DOWN -> {
-                    customDatePicker.show(supportFragmentManager,"tag")
+                    customDatePicker.show(supportFragmentManager )
                 }
                 else ->{}
             }
