@@ -5,10 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.iglesiabfr.iglesiabfrnaranjo.CustomSpinnerAdapter
 import com.iglesiabfr.iglesiabfrnaranjo.R
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
 import com.iglesiabfr.iglesiabfrnaranjo.schema.FavVerse
@@ -26,6 +30,7 @@ class LectureFragment : Fragment() {
     private var chapters: Int? = null
     private var actualChapter = 1
     private var email = ""
+    private lateinit var chapterSpinner: Spinner
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +49,23 @@ class LectureFragment : Fragment() {
         val nextBtn = view.findViewById<Button>(R.id.nextBtn)
         val favBtn = view.findViewById<Button>(R.id.favBtn)
         val prevBtn = view.findViewById<Button>(R.id.prevBtn)
+        chapterSpinner = view.findViewById(R.id.chapterSpinner)
+        val chapterOptions = ArrayList<String>()
+        for (i in 1..chapters!!) {
+            chapterOptions.add("Capítulo $i")
+        }
+        chapterSpinner.adapter = CustomSpinnerAdapter(requireContext(), android.R.layout.simple_spinner_item, chapterOptions)
+
+
+        chapterSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                actualChapter = position + 1
+                fetchVerses()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+        }
         nextBtn.setOnClickListener{
             nextVerse()
         }
@@ -67,7 +89,7 @@ class LectureFragment : Fragment() {
         val name = name
         val chapter = actualChapter
         val verseTitleTextView = view?.findViewById<TextView>(R.id.verseTitleTextView)
-        verseTitleTextView?.text = "$name capítulo:$actualChapter"
+        verseTitleTextView?.text = "$name"
         val request = Request.Builder()
             .url("https://bible-api.deno.dev/api/read/rv1960/$name/$chapter/")
             .build()
@@ -101,15 +123,17 @@ class LectureFragment : Fragment() {
         })
     }
     private fun nextVerse() {
-        if (actualChapter < chapters!!) {
-            actualChapter ++
+        val nextPosition = chapterSpinner.selectedItemPosition + 1
+        if (nextPosition < chapterSpinner.adapter.count) {
+            chapterSpinner.setSelection(nextPosition)
             fetchVerses()
         }
-
     }
+
     private fun prevVerse() {
-        if (actualChapter > 1) {
-            actualChapter --
+        val prevPosition = chapterSpinner.selectedItemPosition - 1
+        if (prevPosition >= 0) {
+            chapterSpinner.setSelection(prevPosition)
             fetchVerses()
         }
     }
