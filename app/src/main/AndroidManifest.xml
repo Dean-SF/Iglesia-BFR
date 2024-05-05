@@ -37,6 +37,12 @@
             android:name=".login.StartingPage"
             android:exported="false" />
         <activity
+            android:name=".homepage.MyProfile"
+            android:exported="false" />
+        <activity
+            android:name=".login.ResetPassword"
+            android:exported="false" />
+        <activity
             android:name=".InitializerActivity"
             android:exported="true"
             android:theme="@style/Theme.IglesiaBFRNaranjo" >

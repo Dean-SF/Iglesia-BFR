@@ -16,9 +16,14 @@ import kotlinx.coroutines.runBlocking
 
 object DatabaseConnector {
     lateinit var db : Realm
+    var email= ""
 
     fun getLogCurrent() : User {
         return AppConnector.app.currentUser!!
+    }
+
+    fun getCurrentEmail() : String {
+        return email
     }
 
     private suspend fun logAnonymous(): User {
