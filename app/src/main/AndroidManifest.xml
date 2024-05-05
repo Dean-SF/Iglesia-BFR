@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" >
+    xmlns:tools="http://schemas.android.com/tools">
 
     <application
         android:allowBackup="true"
@@ -11,12 +11,33 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.IglesiaBFRNaranjo"
-        tools:targetApi="31" >
+        tools:targetApi="31">
+        <activity
+            android:name=".admin.cults.DetailCult"
+            android:exported="false" />
+        <activity
+            android:name=".admin.cults.CreateCult"
+            android:exported="false" />
+        <activity
+            android:name=".admin.cults.AdminCult"
+            android:exported="false" />
+        <activity
+            android:name=".admin.events.DetailEvent"
+            android:exported="false" />
         <activity
             android:name=".admin.events.CreateEvent"
             android:exported="false" />
         <activity
             android:name=".admin.events.AdminEvent"
+            android:exported="false" />
+        <activity
+            android:name=".admin.activities.DetailAct"
+            android:exported="false" />
+        <activity
+            android:name=".admin.activities.CreateAct"
+            android:exported="false" />
+        <activity
+            android:name=".admin.activities.AdminAct"
             android:exported="false" />
         <activity
             android:name=".homepage.Homepage"
@@ -40,9 +61,15 @@
             android:name=".login.StartingPage"
             android:exported="false" />
         <activity
+            android:name=".homepage.MyProfile"
+            android:exported="false" />
+        <activity
+            android:name=".login.ResetPassword"
+            android:exported="false" />
+        <activity
             android:name=".InitializerActivity"
             android:exported="true"
-            android:theme="@style/Theme.IglesiaBFRNaranjo" >
+            android:theme="@style/Theme.IglesiaBFRNaranjo">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

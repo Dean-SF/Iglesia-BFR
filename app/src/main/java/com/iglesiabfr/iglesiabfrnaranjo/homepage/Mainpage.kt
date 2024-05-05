@@ -1,9 +1,11 @@
 package com.iglesiabfr.iglesiabfrnaranjo.homepage
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.iglesiabfr.iglesiabfrnaranjo.R
 
@@ -36,7 +38,14 @@ class Mainpage : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_mainpage, container, false)
+        val view = inflater.inflate(R.layout.fragment_mainpage, container, false)
+
+        val profBut = view.findViewById<ImageView>(R.id.profBut)
+        profBut.setOnClickListener {
+            val intent = Intent(activity, MyProfile::class.java)
+            startActivity(intent)
+        }
+        return view
     }
 
     companion object {

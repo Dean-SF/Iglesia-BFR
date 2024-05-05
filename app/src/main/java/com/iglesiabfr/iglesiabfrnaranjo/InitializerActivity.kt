@@ -3,8 +3,8 @@ package com.iglesiabfr.iglesiabfrnaranjo
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.iglesiabfr.iglesiabfrnaranjo.login.StartingPage
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
+import com.iglesiabfr.iglesiabfrnaranjo.login.StartingPage
 
 class InitializerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

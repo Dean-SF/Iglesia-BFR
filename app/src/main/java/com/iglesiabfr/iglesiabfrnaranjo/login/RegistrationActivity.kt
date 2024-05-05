@@ -143,7 +143,6 @@ class RegistrationActivity : AppCompatActivity() {
                     Toast.makeText(this@RegistrationActivity, "Usuario registrado con éxito.", Toast.LENGTH_SHORT).show()
                     callLogin()
                 } catch (e: UserAlreadyExistsException) {
-                    //Toast.makeText(this@RegistrationActivity, "Este usuario ya se encuentra registrado.", Toast.LENGTH_SHORT).show()
                     val dialog = AlertDialog.Builder(this@RegistrationActivity)
                         .setMessage("Este usuario ya se encuentra registrado.")
                         .setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }

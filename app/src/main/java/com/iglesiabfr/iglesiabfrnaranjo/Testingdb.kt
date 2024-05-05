@@ -11,8 +11,6 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Activity
-import com.iglesiabfr.iglesiabfrnaranjo.schema.Event
-import io.realm.kotlin.Configuration
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
 import io.realm.kotlin.mongodb.App
@@ -24,8 +22,6 @@ import io.realm.kotlin.mongodb.sync.SyncConfiguration
 import io.realm.kotlin.mongodb.sync.SyncSession
 import io.realm.kotlin.types.RealmInstant
 import kotlinx.coroutines.launch
-import java.util.Date
-import kotlin.math.log
 
 class Testingdb : AppCompatActivity() {
 
@@ -45,6 +41,30 @@ class Testingdb : AppCompatActivity() {
             buttonAction(button)
         }
 
+        lifecycleScope.launch {
+            runCatching {
+                login()
+            }.onSuccess {
+                Log.d("Info","Pase1")
+                val config = SyncConfiguration.Builder(it, setOf(Activity::class,Activity::class))
+                    .initialSubscriptions(rerunOnOpen = true) {realm->
+                        add(realm.query<Activity>(), updateExisting = true)
+                        add(realm.query<Activity>(), updateExisting = true)
+                    }
+                    .errorHandler { session: SyncSession, error: SyncException ->
+                        Log.d("Debuggeador",error.message.toString())
+                    }
+                    .waitForInitialRemoteData()
+                    .build()
+                realm = Realm.open(config)
+                realm.subscriptions.waitForSynchronization()
+                button.isEnabled = true
+                Log.d("Info","Pase2")
+            }.onFailure {
+                Log.d("Err",it.message.toString())
+            }
+        }
+
     }
 
     private fun buttonAction(view : View) {
@@ -52,7 +72,6 @@ class Testingdb : AppCompatActivity() {
             name = "activitasa"
             date = RealmInstant.now()
             desc = "el mero evento mi pana"
-            type = "Evento buenardo"
         }
         DatabaseConnector.db.writeBlocking {
             copyToRealm(evento)
