@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModel
 import com.iglesiabfr.iglesiabfrnaranjo.R
 import com.iglesiabfr.iglesiabfrnaranjo.Requests.getRequest
 import com.iglesiabfr.iglesiabfrnaranjo.SharedViewModel
+import com.iglesiabfr.iglesiabfrnaranjo.Verses.VersFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -39,6 +40,7 @@ class BibleBooksFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val favBtn = view.findViewById<Button>(R.id.favBtnInBibleBooks)
+        val dailyVersBtn = view.findViewById<Button>(R.id.dailyVersBtn)
         viewModel = BibleBooksViewModel()
         email = sharedViewModel.getEmail().toString()
 
@@ -47,9 +49,20 @@ class BibleBooksFragment : Fragment() {
                 createBookLayout(view, book.name, book.abbreviation, book.chapters)
             }
         }
+        dailyVersBtn.setOnClickListener(){
+            seeDaily()
+        }
         favBtn.setOnClickListener(){
             openFav()
         }
+    }
+
+    private fun seeDaily() {
+        val fragment = VersFragment()
+        fragmentManager?.beginTransaction()
+            ?.replace(R.id.framelayout, fragment)
+            ?.addToBackStack(null)
+            ?.commit()
     }
 
     private fun openFav() {

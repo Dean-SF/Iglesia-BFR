@@ -66,6 +66,7 @@
     <string name="grabacionesNavTitle">Grabaciones</string>
     <string name="adminNavTitle">Admin</string>
     <string name="FavFragmentTitle">Favoritos</string>
+    <string name="versiculo_diario">Versiculo Diario</string>
 
 
 </resources>
