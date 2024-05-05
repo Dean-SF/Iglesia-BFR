@@ -16,6 +16,8 @@
     <string name="incorrectDataWarning">Las credenciales ingresadas son incorrectas</string>
     <string name="forgotPass">Restablecer contraseña</string>
     <string name="resetPasswordEmailSent">El correo ha sido enviado exitosamente</string>
+    <string name="newPass">Nueva contraseña</string>
+    <string name="confirmNewPass">Confirmar nueva contraseña</string>
 
     // Registration
     <string name="hintName">Nombre</string>
@@ -56,6 +58,18 @@
     <string name="BibliaNavTitle">Biblia</string>
     <string name="grabacionesNavTitle">Grabaciones</string>
     <string name="adminNavTitle">Admin</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    // Mi perfil
+    <string name="myProfile">Mi Perfil</string>
+    <string name="namelb">Nombre:</string>
+    <string name="emaillb">Correo:</string>
+    <string name="birthdatelb">Fecha de nacimiento:</string>
+    <string name="logOut">cerrar sesión</string>
+    <string name="deletelb">eliminar cuenta</string>
+    <string name="changePass">Cambiar contraseña</string>
+    <string name="editlb">Editar perfil</string>
+    <string name="icondesc">icon</string>
 
 </resources>

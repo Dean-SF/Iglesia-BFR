@@ -14,34 +14,28 @@ import com.iglesiabfr.iglesiabfrnaranjo.homepage.Homepage
 import io.realm.kotlin.mongodb.App
 import io.realm.kotlin.mongodb.Credentials
 import io.realm.kotlin.mongodb.User
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
 
     private val app : App = App.create("iglesiabfr-pigqi")
     private var user : User? = null
+    private lateinit var email: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        DatabaseConnector.connect() // Conectar a bd
+        DatabaseConnector.connect()
 
         val loginBtn: Button = findViewById(R.id.loginBtn)
         loginBtn.setOnClickListener {
             checkInputs()
         }
 
-        val emailInput: EditText = findViewById(R.id.inputEmail)
-        val email = emailInput.text.toString().trim()
-
         val forgotPasswordText: TextView = findViewById(R.id.forgotPassTxt)
         forgotPasswordText.setOnClickListener {
-            CoroutineScope(Dispatchers.Main).launch {
-                forgotPassword(email)
-            }
+            callResetPassword()
         }
     }
 
@@ -50,13 +44,17 @@ class LoginActivity : AppCompatActivity() {
         val intent = Intent(this, Homepage::class.java)
         startActivity(intent)
     }
+    private fun callResetPassword() {
+        val intent = Intent(this, ResetPassword::class.java)
+        startActivity(intent)
+    }
 
     // Verificar que la informacion esta completa
     private fun checkInputs() {
         val emailInput: EditText = findViewById(R.id.inputEmail)
         val passwordInput: EditText = findViewById(R.id.inputPassword)
 
-        val email = emailInput.text.toString().trim()
+        email = emailInput.text.toString().trim()
         val password = passwordInput.text.toString()
 
         if (email.isEmpty() || password.isEmpty()) {
@@ -66,30 +64,23 @@ class LoginActivity : AppCompatActivity() {
 
         // All inputs are valid, proceed with login from coroutine
         lifecycleScope.launch {
-            user = login(email, password)
+            user = login(password)
             if (user == null) {
-                Toast.makeText(this@LoginActivity, R.string.incorrectDataWarning, Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@LoginActivity,
+                    R.string.incorrectDataWarning,
+                    Toast.LENGTH_SHORT
+                ).show()
             } else {
-                Toast.makeText(this@LoginActivity, DatabaseConnector.getLogCurrent().id, Toast.LENGTH_SHORT).show()
+                DatabaseConnector.email = email
                 callMainMenu()
             }
         }
     }
 
-    private suspend fun forgotPassword(email: String) {
-        try {
-            val emailPasswordAuth = user?.app?.emailPasswordAuth
-            emailPasswordAuth?.sendResetPasswordEmail(email)
-            Toast.makeText(this@LoginActivity, "Se ha enviado un correo para restablecer contraseña", Toast.LENGTH_SHORT).show()
-        } catch (e: Exception) {
-            // Handle any exceptions that may occur during the process
-            Toast.makeText(this@LoginActivity, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private suspend fun login(emailInput: String, passwordInput: String): User? {
+    private suspend fun login(passwordInput: String): User? {
         return try {
-            app.login(Credentials.emailPassword(emailInput, passwordInput))
+            app.login(Credentials.emailPassword(email, passwordInput))
         } catch (e: Exception) {
             null
         }
