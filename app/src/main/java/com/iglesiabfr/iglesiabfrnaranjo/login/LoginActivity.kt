@@ -40,9 +40,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     // Llamada de ventanas
-    private fun callMainMenu(email: String){
+    private fun callMainMenu(){
         val intent = Intent(this, Homepage::class.java)
-        intent.putExtra("email", email)
         startActivity(intent)
     }
     private fun callResetPassword() {
@@ -74,7 +73,6 @@ class LoginActivity : AppCompatActivity() {
                 ).show()
             } else {
                 Toast.makeText(this@LoginActivity, DatabaseConnector.getLogCurrent().id, Toast.LENGTH_SHORT).show()
-                callMainMenu(email)
                 DatabaseConnector.email = email
                 callMainMenu()
             }

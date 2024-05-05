@@ -41,29 +41,7 @@ class Testingdb : AppCompatActivity() {
             buttonAction(button)
         }
 
-        lifecycleScope.launch {
-            runCatching {
-                login()
-            }.onSuccess {
-                Log.d("Info","Pase1")
-                val config = SyncConfiguration.Builder(it, setOf(Activity::class,Activity::class))
-                    .initialSubscriptions(rerunOnOpen = true) {realm->
-                        add(realm.query<Activity>(), updateExisting = true)
-                        add(realm.query<Activity>(), updateExisting = true)
-                    }
-                    .errorHandler { session: SyncSession, error: SyncException ->
-                        Log.d("Debuggeador",error.message.toString())
-                    }
-                    .waitForInitialRemoteData()
-                    .build()
-                realm = Realm.open(config)
-                realm.subscriptions.waitForSynchronization()
-                button.isEnabled = true
-                Log.d("Info","Pase2")
-            }.onFailure {
-                Log.d("Err",it.message.toString())
-            }
-        }
+
 
     }
 
