@@ -40,7 +40,7 @@
             android:name=".admin.activities.AdminAct"
             android:exported="false" />
         <activity
-            android:name=".homepage.Homepage"
+            android:name=".homepage1.Homepage"
             android:exported="false" />
         <activity
             android:name=".DailyVers"
@@ -58,7 +58,7 @@
             android:name=".login.StartingPage"
             android:exported="false" />
         <activity
-            android:name=".homepage.MyProfile"
+            android:name=".homepage1.MyProfile"
             android:exported="false" />
         <activity
             android:name=".login.ResetPassword"

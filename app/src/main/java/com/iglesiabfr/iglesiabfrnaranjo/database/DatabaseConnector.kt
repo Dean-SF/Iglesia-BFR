@@ -1,5 +1,6 @@
 package com.iglesiabfr.iglesiabfrnaranjo.database
 
+import android.provider.ContactsContract.Data
 import android.util.Log
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Activity
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Cult
@@ -19,6 +20,8 @@ object DatabaseConnector {
     lateinit var db : Realm
     var email= ""
 
+    private var onFinished: ((Boolean) -> Unit)? = null
+
     fun getLogCurrent() : User {
         return AppConnector.app.currentUser!!
     }
@@ -29,6 +32,11 @@ object DatabaseConnector {
 
     private suspend fun logAnonymous(): User {
         return AppConnector.app.login(Credentials.anonymous())
+    }
+
+    fun setOnFinishedListener(listener : ((Boolean)->Unit)) : DatabaseConnector {
+        onFinished = listener
+        return this
     }
 
     fun connect() {
@@ -42,7 +50,7 @@ object DatabaseConnector {
                         Activity::class,
                         UserData::class,
                         Cult::class
-                ))
+                    ))
                     .initialSubscriptions(rerunOnOpen = true) {realm->
                         add(realm.query<Event>(), "subEvent",updateExisting = true)
                         add(realm.query<Cult>(), "subCult",updateExisting = true)
@@ -56,8 +64,10 @@ object DatabaseConnector {
                     .build()
                 db = Realm.open(config)
                 db.subscriptions.waitForSynchronization()
+                onFinished?.invoke(true)
                 Log.d("IglesiaInfo","Sync Finished")
             }.onFailure {
+                onFinished?.invoke(false)
                 Log.d("IglesiaError",it.message.toString())
             }
         }
