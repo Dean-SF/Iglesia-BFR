@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".homepage.Homepage">
+    tools:context=".homepage1.Homepage">
 
     <FrameLayout
         android:id="@+id/framelayout"
