@@ -2,6 +2,7 @@ package com.iglesiabfr.iglesiabfrnaranjo.database
 
 import android.util.Log
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Activity
+import com.iglesiabfr.iglesiabfrnaranjo.schema.Cult
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Event
 import com.iglesiabfr.iglesiabfrnaranjo.schema.FavVerse
 import com.iglesiabfr.iglesiabfrnaranjo.schema.UserData
@@ -17,9 +18,14 @@ import kotlinx.coroutines.runBlocking
 
 object DatabaseConnector {
     lateinit var db : Realm
+    var email= ""
 
     fun getLogCurrent() : User {
         return AppConnector.app.currentUser!!
+    }
+
+    fun getCurrentEmail() : String {
+        return email
     }
 
     private suspend fun logAnonymous(): User {
@@ -32,9 +38,16 @@ object DatabaseConnector {
                 logAnonymous()
             }.onSuccess {
                 Log.d("Info","Sync Started")
-                val config = SyncConfiguration.Builder(it, setOf(Activity::class,Event::class,UserData::class,FavVerse::class))
+                val config = SyncConfiguration.Builder(it, setOf(
+                        Event::class,
+                        Activity::class,
+                        UserData::class,
+                        Cult::class,
+                        FavVerse::class
+                ))
                     .initialSubscriptions(rerunOnOpen = true) {realm->
                         add(realm.query<Event>(), "subEvent",updateExisting = true)
+                        add(realm.query<Cult>(), "subCult",updateExisting = true)
                         add(realm.query<Activity>(), "subActivity",updateExisting = true)
                         add(realm.query<UserData>(), "userData",updateExisting = true)
                         add(realm.query<FavVerse>(),"favVerse",updateExisting = true)
