@@ -142,6 +142,7 @@ class CreateCult : AppCompatActivity() {
             weekDay = weekdaySpinner.selectedItemPosition
             time = RealmInstant.from(datetime.toEpochSecond(ZoneOffset.UTC),0)
             desc = desctext.text.toString()
+            cancelDate = RealmInstant.from(0,0)
         }
         val context = this
         lifecycleScope.launch {

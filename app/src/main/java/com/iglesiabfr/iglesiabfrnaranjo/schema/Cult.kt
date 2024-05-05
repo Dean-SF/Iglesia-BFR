@@ -14,4 +14,5 @@ class Cult : RealmObject {
     var time : RealmInstant = RealmInstant.now()
     var weekDay : Int = 0
     var desc : String = ""
+    var cancelDate : RealmInstant = RealmInstant.from(0,0)
 }
