@@ -2,6 +2,7 @@ package com.iglesiabfr.iglesiabfrnaranjo.database
 
 import android.util.Log
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Activity
+import com.iglesiabfr.iglesiabfrnaranjo.schema.Cult
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Event
 import com.iglesiabfr.iglesiabfrnaranjo.schema.UserData
 import io.realm.kotlin.Realm
@@ -36,9 +37,15 @@ object DatabaseConnector {
                 logAnonymous()
             }.onSuccess {
                 Log.d("Info","Sync Started")
-                val config = SyncConfiguration.Builder(it, setOf(Activity::class,Event::class,UserData::class))
+                val config = SyncConfiguration.Builder(it, setOf(
+                        Event::class,
+                        Activity::class,
+                        UserData::class,
+                        Cult::class
+                ))
                     .initialSubscriptions(rerunOnOpen = true) {realm->
                         add(realm.query<Event>(), "subEvent",updateExisting = true)
+                        add(realm.query<Cult>(), "subCult",updateExisting = true)
                         add(realm.query<Activity>(), "subActivity",updateExisting = true)
                         add(realm.query<UserData>(), "userData",updateExisting = true)
                     }

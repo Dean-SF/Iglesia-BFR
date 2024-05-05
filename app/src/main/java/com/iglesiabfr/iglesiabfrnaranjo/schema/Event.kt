@@ -13,5 +13,4 @@ class Event : RealmObject {
     var name : String = ""
     var date : RealmInstant = RealmInstant.now()
     var desc : String = ""
-    var type : String = ""
 }
