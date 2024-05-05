@@ -70,6 +70,19 @@
 
     <string name="cultDetailWeekday">Día</string>
 
+    <string name="cultDetailResumeSucc">Culto reanuado con éxito</string>
+    <string name="cultDetailResumeFail">Error al reanuar el culto, vuelva a intentarlo</string>
+
+    <string name="cultDetailCancelSucc">Culto cancelado con éxito</string>
+    <string name="cultDetailCancelFail">Error al cancelar el culto, vuelva a intentarlo</string>
+
+    <string name="cultDetailCancelAsk">¿Seguro que quieres cancelar este culto?</string>
+    <string name="cultDetailResumeAsk">¿Seguro que quieres reanudar este culto?</string>
+
+
+    <string name="cultDetailCancelBut">Cancelar esta semana</string>
+    <string name="cultDetailResumeBut">Reanuar esta semana</string>
+
     //Admin Act
     <string name="adminActTitle">Actividades</string>
 

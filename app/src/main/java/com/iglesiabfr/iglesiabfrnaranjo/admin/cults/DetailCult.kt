@@ -3,6 +3,7 @@ package com.iglesiabfr.iglesiabfrnaranjo.admin.cults
 import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.util.Log
 import android.view.MotionEvent
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
@@ -36,6 +37,7 @@ import java.time.LocalTime
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
+import java.time.temporal.WeekFields
 import java.util.Locale
 import java.util.TimeZone
 
@@ -54,6 +56,7 @@ class DetailCult : AppCompatActivity() {
 
     private lateinit var timeBut : ImageButton
 
+    private lateinit var cancelBut : Button
     private lateinit var modBut : Button
     private lateinit var delBut : Button
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,6 +82,7 @@ class DetailCult : AppCompatActivity() {
         time = datetime.toLocalTime()
         setUIElementProperties()
         setCultText(cult)
+        isCultCancelledProtocol(cult)
 
         modBut.setOnClickListener {
             if(modBut.text == getString(R.string.eventDetailsMod)) {
@@ -110,6 +114,21 @@ class DetailCult : AppCompatActivity() {
                 }
         }
 
+        cancelBut.setOnClickListener {
+            if (cancelBut.text == getString(R.string.cultDetailCancelBut)) {
+                confirmDialog.confirmation(getString(R.string.cultDetailCancelAsk))
+                    .setOnConfirmationListener {
+                        cancelCult(cult,true)
+                    }
+
+            } else {
+                confirmDialog.confirmation(getString(R.string.cultDetailResumeAsk))
+                    .setOnConfirmationListener {
+                        cancelCult(cult,false)
+                    }
+            }
+
+        }
 
         loadingDialog.stopLoading()
     }
@@ -157,6 +176,18 @@ class DetailCult : AppCompatActivity() {
         }
     }
 
+    private fun isCultCancelledProtocol(cult: Cult) {
+        val datetime = LocalDateTime.ofEpochSecond(cult.cancelDate.epochSeconds,0, ZoneOffset.UTC)
+        val cultCancelDate = datetime.toLocalDate()
+        val currentDate = LocalDate.now()
+        Log.d("iglesiaProtocol",currentDate.toString())
+        Log.d("iglesiaProtocol",cultCancelDate.toString())
+
+        if (areDatesInSameWeek(cultCancelDate,currentDate)) {
+            cancelBut.setText(R.string.cultDetailResumeBut)
+        }
+    }
+
     private fun setCultText(cult : Cult) {
         val timeFormatter = DateTimeFormatter.ofPattern("hh:mm a")
 
@@ -183,7 +214,7 @@ class DetailCult : AppCompatActivity() {
                 else -> false
             }
         }
-        
+
         weekdayS.adapter = WeekdaySpinnerAdapter(
             this,
             resources.getStringArray(R.array.createCultWeekdays)
@@ -238,6 +269,7 @@ class DetailCult : AppCompatActivity() {
 
         timeBut = findViewById(R.id.timeBut)
 
+        cancelBut = findViewById(R.id.detailCancelCultBut)
         modBut = findViewById(R.id.detailModCultBut)
         delBut = findViewById(R.id.detailDelCultBut)
     }
@@ -252,5 +284,43 @@ class DetailCult : AppCompatActivity() {
 
         weekdayS.isEnabled = value
         timeBut.isEnabled = value
+    }
+
+    private fun areDatesInSameWeek(date1: LocalDate, date2: LocalDate): Boolean {
+        val weekFields = WeekFields.of(Locale.getDefault())
+        if (date1.year != date2.year) return false
+        return date1.get(weekFields.weekOfWeekBasedYear()) == date2.get(weekFields.weekOfWeekBasedYear())
+    }
+
+    private fun cancelCult(cult : Cult, cancel : Boolean) {
+        val context = this
+        lifecycleScope.launch {
+            runCatching {
+                DatabaseConnector.db.write {
+                    findLatest(cult).let {
+                        if (cancel)
+                            it!!.cancelDate = RealmInstant.from(LocalDateTime.now().toEpochSecond(
+                                ZoneOffset.UTC),0)
+                        else
+                            it!!.cancelDate = RealmInstant.from(0,0)
+                    }
+                }
+            }.onSuccess {
+                loadingDialog.stopLoading()
+                finish()
+                val msg = if (cancel)
+                    getString(R.string.cultDetailCancelSucc)
+                else
+                    getString(R.string.cultDetailResumeSucc)
+                Toast.makeText(context,msg,Toast.LENGTH_SHORT).show()
+            }.onFailure {
+                loadingDialog.stopLoading()
+                val msg = if (cancel)
+                    getString(R.string.cultDetailCancelFail)
+                else
+                    getString(R.string.cultDetailResumeFail)
+                Toast.makeText(context,msg,Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }
