@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import com.iglesiabfr.iglesiabfrnaranjo.R
+import com.iglesiabfr.iglesiabfrnaranjo.admin.activities.AdminAct
+import com.iglesiabfr.iglesiabfrnaranjo.admin.cults.AdminCult
 import com.iglesiabfr.iglesiabfrnaranjo.admin.events.AdminEvent
 
 // TODO: Rename parameter arguments, choose names that match
@@ -44,6 +46,16 @@ class Adminpage : Fragment() {
 
         eventBut.setOnClickListener {
             val i = Intent(view.context, AdminEvent::class.java)
+            startActivity(i)
+        }
+
+        actBut.setOnClickListener {
+            val i = Intent(view.context, AdminAct::class.java)
+            startActivity(i)
+        }
+
+        cultBut.setOnClickListener {
+            val i = Intent(view.context, AdminCult::class.java)
             startActivity(i)
         }
 
