@@ -10,5 +10,6 @@ class PublicacionForoPastor : RealmObject {
     @PrimaryKey
     var _id: ObjectId = ObjectId()
     var content: String = ""
+    var title:String = ""
     var date : RealmInstant = RealmInstant.now()
 }
