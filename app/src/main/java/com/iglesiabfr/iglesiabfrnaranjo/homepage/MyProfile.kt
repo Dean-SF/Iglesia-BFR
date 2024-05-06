@@ -5,11 +5,12 @@ import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.iglesiabfr.iglesiabfrnaranjo.R
+import com.iglesiabfr.iglesiabfrnaranjo.database.AppConnector.app
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
+import com.iglesiabfr.iglesiabfrnaranjo.dialogs.ConfirmDialog
 import com.iglesiabfr.iglesiabfrnaranjo.login.ResetPassword
 import com.iglesiabfr.iglesiabfrnaranjo.login.StartingPage
 import com.iglesiabfr.iglesiabfrnaranjo.schema.UserData
@@ -25,12 +26,29 @@ class MyProfile : AppCompatActivity() {
 
     private var user : User? = null
     private lateinit var email: String
+    private lateinit var confirmDialog : ConfirmDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_my_profile)
 
+        if (!DatabaseConnector.getIsAdmin()) {
+            setContentView(R.layout.activity_my_profile)
+        } else {
+            setContentView(R.layout.activity_admin_profile)
+            val openFragBtn: TextView = findViewById(R.id.openFragment)
+            openFragBtn.setOnClickListener {
+                val fragmentManager = supportFragmentManager
+                val fragmentTransaction = fragmentManager.beginTransaction()
+                val fragment = AdminPermissionFragment()
+                fragmentTransaction.replace(R.id.usersFragment, fragment)
+                fragmentTransaction.addToBackStack(null)
+                fragmentTransaction.commit()
+            }
+        }
+
+        confirmDialog = ConfirmDialog(this)
         DatabaseConnector.connect()
+
         user = DatabaseConnector.getLogCurrent()
         email = DatabaseConnector.email
         getUserData()
@@ -42,22 +60,32 @@ class MyProfile : AppCompatActivity() {
 
         val logOut: TextView = findViewById(R.id.logOut)
         logOut.setOnClickListener {
-            logOut()
+            confirmDialog.confirmation(getString(R.string.cerrarSesion))
+                .setOnConfirmationListener {
+                    logOut()
+                }
         }
 
         val resetPassword: TextView = findViewById(R.id.changePasswordlb)
         resetPassword.setOnClickListener {
-            callResetPassword()
+            confirmDialog.confirmation(getString(R.string.cambiarContra))
+                .setOnConfirmationListener {
+                    callResetPassword()
+                }
         }
 
         val deleteAccount: TextView = findViewById(R.id.deleteAccount)
         deleteAccount.setOnClickListener {
-            showConfirmationDialog()
+            confirmDialog.confirmation(getString(R.string.borrarCuenta))
+                .setOnConfirmationListener {
+                    deleteAccount()
+                }
         }
     }
 
     private fun callEditProfile() {
         val intent = Intent(this, EditProfile::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
     }
 
@@ -77,68 +105,51 @@ class MyProfile : AppCompatActivity() {
 
     private fun callResetPassword() {
         val intent = Intent(this, ResetPassword::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
     }
 
     private fun deleteAccount() {
-        val userQuery = user?.let { DatabaseConnector.db.query<UserData>("email == $0", email).find().first() }
+        val userQuery = user?.let { DatabaseConnector.db.query<UserData>("email == $0", email).find().firstOrNull() }
 
         lifecycleScope.launch {
             runCatching {
-                DatabaseConnector.db.write {
+                app.login(DatabaseConnector.credentials)
+                DatabaseConnector.db.writeBlocking {
                     if (userQuery != null) {
                         findLatest(userQuery)
                             ?.also { delete(it) }
                     }
                 }
-
-                user?.remove()
+                user?.delete()
             }.onSuccess {
                 val intent = Intent(this@MyProfile, StartingPage::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)
-            }.onFailure {
+            }.onFailure { error ->
+                error.printStackTrace()
                 Toast.makeText(this@MyProfile, "Hubo un error al eliminar cuenta", Toast.LENGTH_LONG).show()
             }
         }
     }
 
-    private fun showConfirmationDialog() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("¿Está seguro que desea eliminar su cuenta?")
-        builder.setMessage("¿Desea continuar con esta acción?")
-
-        builder.setPositiveButton("Sí") { dialog, which ->
-            deleteAccount()
-        }
-
-        builder.setNegativeButton("No") { dialog, which ->
-            dialog.dismiss()
-        }
-
-        builder.show()
-    }
-
     private fun getUserData() {
-        val userQuery = user?.let { DatabaseConnector.db.query<UserData>("email == $0", email).find() }
-        if (userQuery != null) {
-            if(userQuery.isEmpty()) {
-                Toast.makeText(this,"Error al obtener información del usuario",Toast.LENGTH_SHORT).show()
-                finish()
-            }
+        val userQuery = user?.let { DatabaseConnector.db.query<UserData>("email == $0", email).find().first() }
+        if (userQuery == null) {
+            Toast.makeText(this,"Error al obtener información del usuario",Toast.LENGTH_SHORT).show()
+            finish()
+
         }
 
-        val userData = userQuery?.get(0)
-        val username = userData?.name.toString()
-        val userBirthdate = userData?.birthdate
+        val username = userQuery?.name.toString()
+        val userBirthdate = userQuery?.birthdate
 
-        val localDateTime = LocalDateTime.ofInstant(
-            userBirthdate?.let { Instant.ofEpochSecond(it.epochSeconds) },
-            ZoneId.systemDefault()
-        )
+        val localDateTime = userBirthdate?.let {
+            LocalDateTime.ofInstant(Instant.ofEpochSecond(it.epochSeconds), ZoneId.of("UTC"))
+        }
 
         val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
-        val formattedDate = localDateTime.format(formatter)
+        val formattedDate = localDateTime?.format(formatter)
 
         findViewById<TextView>(R.id.nameInfo).text = username
         findViewById<TextView>(R.id.emailInfo).text = email

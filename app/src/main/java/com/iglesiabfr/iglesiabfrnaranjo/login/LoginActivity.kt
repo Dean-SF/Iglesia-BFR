@@ -10,7 +10,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.iglesiabfr.iglesiabfrnaranjo.R
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
+import com.iglesiabfr.iglesiabfrnaranjo.dialogs.ConfirmDialog
+import com.iglesiabfr.iglesiabfrnaranjo.dialogs.LoadingDialog
 import com.iglesiabfr.iglesiabfrnaranjo.homepage.Homepage
+import com.iglesiabfr.iglesiabfrnaranjo.schema.UserData
+import io.realm.kotlin.ext.query
 import io.realm.kotlin.mongodb.App
 import io.realm.kotlin.mongodb.Credentials
 import io.realm.kotlin.mongodb.User
@@ -21,11 +25,14 @@ class LoginActivity : AppCompatActivity() {
     private val app : App = App.create("iglesiabfr-pigqi")
     private var user : User? = null
     private lateinit var email: String
+    private lateinit var loadingDialog : LoadingDialog
+    private lateinit var confirmDialog : ConfirmDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
+        loadingDialog = LoadingDialog(this)
+        confirmDialog = ConfirmDialog(this)
         DatabaseConnector.connect()
 
         val loginBtn: Button = findViewById(R.id.loginBtn)
@@ -35,22 +42,30 @@ class LoginActivity : AppCompatActivity() {
 
         val forgotPasswordText: TextView = findViewById(R.id.forgotPassTxt)
         forgotPasswordText.setOnClickListener {
-            callResetPassword()
+            confirmDialog.confirmation(getString(R.string.cambiarContra))
+                .setOnConfirmationListener {
+                    callResetPassword()
+                }
         }
     }
 
     // Llamada de ventanas
     private fun callMainMenu(){
+        loadingDialog.stopLoading()
         val intent = Intent(this, Homepage::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
     }
     private fun callResetPassword() {
+        loadingDialog.stopLoading()
         val intent = Intent(this, ResetPassword::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
     }
 
     // Verificar que la informacion esta completa
     private fun checkInputs() {
+        loadingDialog.startLoading()
         val emailInput: EditText = findViewById(R.id.inputEmail)
         val passwordInput: EditText = findViewById(R.id.inputPassword)
 
@@ -62,18 +77,34 @@ class LoginActivity : AppCompatActivity() {
             return
         }
 
-        // All inputs are valid, proceed with login from coroutine
         lifecycleScope.launch {
             user = login(password)
-            if (user == null) {
+            val userQuery = user?.let { DatabaseConnector.db.query<UserData>("email == $0", email).find().firstOrNull() }
+
+            if (user == null || userQuery == null) {
+                loadingDialog.stopLoading()
                 Toast.makeText(
                     this@LoginActivity,
                     R.string.incorrectDataWarning,
                     Toast.LENGTH_SHORT
                 ).show()
+                return@launch
+            }
+            if (user!!.state == User.State.REMOVED){
+                loadingDialog.stopLoading()
+                Toast.makeText(
+                    this@LoginActivity,
+                    R.string.userNotValid,
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@launch
             } else {
                 Toast.makeText(this@LoginActivity, DatabaseConnector.getLogCurrent().id, Toast.LENGTH_SHORT).show()
                 DatabaseConnector.email = email
+                DatabaseConnector.setUserData()
+                DatabaseConnector.setIsAdmin()
+                DatabaseConnector.getIsAdmin()
+                loadingDialog.stopLoading()
                 callMainMenu()
             }
         }
@@ -81,6 +112,7 @@ class LoginActivity : AppCompatActivity() {
 
     private suspend fun login(passwordInput: String): User? {
         return try {
+            DatabaseConnector.credentials = Credentials.emailPassword(email, passwordInput)
             app.login(Credentials.emailPassword(email, passwordInput))
         } catch (e: Exception) {
             null

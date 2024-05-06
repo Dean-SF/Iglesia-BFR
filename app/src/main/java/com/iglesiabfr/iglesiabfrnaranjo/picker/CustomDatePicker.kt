@@ -5,7 +5,6 @@ import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.iglesiabfr.iglesiabfrnaranjo.R
-import com.iglesiabfr.iglesiabfrnaranjo.dialogs.ConfirmDialog
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.util.Locale
@@ -43,7 +42,7 @@ class CustomDatePicker(fromToday : Boolean) {
         return this
     }
 
-    fun show(manager : FragmentManager) {
+    fun show(manager: FragmentManager, s: String) {
         datePicker.show(manager,"customDatePicker")
     }
 }

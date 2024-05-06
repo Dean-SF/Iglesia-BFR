@@ -27,6 +27,7 @@
     <string name="resetPasswordEmailSent">El correo ha sido enviado exitosamente</string>
     <string name="newPass">Nueva contraseña</string>
     <string name="confirmNewPass">Confirmar nueva contraseña</string>
+    <string name="userNotValid">Este usuario no existe</string>
 
     // Registration
     <string name="hintName">Nombre</string>
@@ -159,7 +160,6 @@
     <string name="ConfDiagConf">Sí</string>
     <string name="ConfDiagDeny">No</string>
 
-
     // NavBar
     <string name="calendarNavTitle">Calendario</string>
     <string name="conserjeriaNavTitle">Conserjeria</string>
@@ -181,9 +181,20 @@
     <string name="changePass">Cambiar contraseña</string>
     <string name="editlb">Editar perfil</string>
     <string name="icondesc">icon</string>
+    <string name="borrarCuenta">¿Seguro que quieres borra esta cuenta?</string>
+    <string name="cerrarSesion">¿Seguro que quieres cerrar sesión?</string>
+    <string name="cambiarContra">¿Seguro que quieres cambiar la contraseña?</string>
+    <string name="givePermission">Dar permisos de administrador</string>
+    <string name="chooseNewAdmin">Seleccione el usuario para brindarle permisos</string>
     <string name="comunnityFragmentTitle">Foros</string>
     <string name="foro_del_pastor_titulo">Foro del Pastor</string>
     <string name="agregar_publicacion">Agregar publicación</string>
     <string name="publicar">Publicar</string>
+
+    // Editar perfil
+    <string name="botonGuardar">Guardar cambios</string>
+    <string name="confirmarCambios">¿Desea guardar los cambios?</string>
+    <string name="errorName">Hubo un error al actualizar el nombre</string>
+    <string name="errorBirthdate">Hubo un error al actualizar la fecha de nacimiento</string>
 
 </resources>
