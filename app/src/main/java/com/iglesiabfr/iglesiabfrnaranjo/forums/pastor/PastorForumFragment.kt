@@ -17,6 +17,7 @@ import com.iglesiabfr.iglesiabfrnaranjo.R
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
 import com.iglesiabfr.iglesiabfrnaranjo.schema.PublicacionForoPastor
 import io.realm.kotlin.ext.query
+import io.realm.kotlin.query.Sort
 import kotlinx.coroutines.launch
 import org.mongodb.kbson.ObjectId
 import java.time.Instant
@@ -30,7 +31,7 @@ class PastorForumFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         DatabaseConnector.connect()
-        admin = true //cambiar para obtener según el usuario
+        admin = DatabaseConnector.getIsAdmin()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -47,7 +48,7 @@ class PastorForumFragment : Fragment() {
     }
 
     private fun loadPublications(view: View) {
-        val forumPublications = DatabaseConnector.db.query<PublicacionForoPastor>().find()
+        val forumPublications = DatabaseConnector.db.query<PublicacionForoPastor>().sort("date", Sort.DESCENDING).find()
         val parent = view.findViewById<LinearLayout>(R.id.pastorForumLayout)
         for (publication in forumPublications){
             val layout = createPublicationLayOut(view,publication)
@@ -108,26 +109,26 @@ class PastorForumFragment : Fragment() {
 
 
         linearLayout.setOnLongClickListener {
-            // Mostrar un diálogo de confirmación
-            val builder = AlertDialog.Builder(requireContext())
-            builder.setTitle("Eliminar publicación")
-            builder.setMessage("¿Estás seguro de que deseas eliminar esta publicación?")
-            builder.setPositiveButton("Eliminar") { _, _ ->
-                // Eliminar la publicación
-                deletePublicationFromMongo(publication._id)
-                // Eliminar el layout
-                (linearLayout.parent as ViewGroup).removeView(linearLayout)
+            if(admin){
+                // Mostrar un diálogo de confirmación
+                val builder = AlertDialog.Builder(requireContext())
+                builder.setTitle("Eliminar publicación")
+                builder.setMessage("¿Estás seguro de que deseas eliminar esta publicación?")
+                builder.setPositiveButton("Eliminar") { _, _ ->
+                    // Eliminar la publicación
+                    deletePublicationFromMongo(publication._id)
+                    // Eliminar el layout
+                    (linearLayout.parent as ViewGroup).removeView(linearLayout)
+                }
+                builder.setNegativeButton("Cancelar", null)
+                builder.show()
             }
-            builder.setNegativeButton("Cancelar", null)
-            builder.show()
             true
         }
         return linearLayout
     }
 
     private fun deletePublicationFromMongo(_id: ObjectId) {
-        println("a\na\na\na\na\na\na\n")
-        println(_id)
         try {
             DatabaseConnector.db.writeBlocking {
                 val postQuery = query<PublicacionForoPastor>("_id == $0", _id).find()

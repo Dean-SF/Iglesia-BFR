@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.util.Log
 import android.widget.TextView
 import com.iglesiabfr.iglesiabfrnaranjo.R
-import com.iglesiabfr.iglesiabfrnaranjo.requests.getRequest
+import com.iglesiabfr.iglesiabfrnaranjo.Requests.getRequest
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
