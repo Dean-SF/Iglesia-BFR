@@ -25,22 +25,26 @@ class PastorForumPublicationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val publicationText = view.findViewById<TextInputEditText>(R.id.pastorsPublicationText)
         val publicationContent = publicationText.text
+        val publicationTitleText = view.findViewById<TextInputEditText>(R.id.pastorForumPublicationTitle)
+        val publicationTitleContent = publicationTitleText.text
         val btnPublicar = view.findViewById<Button>(R.id.publicarForoPastorBtn)
         btnPublicar.setOnClickListener(){
-            addPublication(publicationContent.toString())
+            addPublication(publicationContent.toString(), publicationTitleContent.toString())
         }
 
     }
 
-    private fun addPublication(publicationContent: String) {
+    private fun addPublication(publicationContent: String,pubicationTitle: String) {
         try {
             val publication = PublicacionForoPastor().apply{
                 content = publicationContent
-             }
+                title = pubicationTitle
+            }
             DatabaseConnector.db.writeBlocking {
                 copyToRealm(publication)
             }
             requireContext().toast("Se ha añadido la publicación")
+            requireActivity().onBackPressed()
         }catch (e : Exception){
             println("Error: $e")
             requireContext().toast("Ha habia un problema al añadir la publicación")
