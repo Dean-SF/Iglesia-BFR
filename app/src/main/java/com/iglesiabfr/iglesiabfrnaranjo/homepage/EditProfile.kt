@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.iglesiabfr.iglesiabfrnaranjo.R
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
 import com.iglesiabfr.iglesiabfrnaranjo.dialogs.ConfirmDialog
@@ -16,6 +18,10 @@ import com.iglesiabfr.iglesiabfrnaranjo.schema.UserData
 import io.realm.kotlin.ext.query
 import io.realm.kotlin.mongodb.App
 import io.realm.kotlin.mongodb.User
+import io.realm.kotlin.types.RealmInstant
+import kotlinx.coroutines.launch
+import java.time.LocalDateTime
+import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 
 class EditProfile : AppCompatActivity() {
@@ -25,7 +31,7 @@ class EditProfile : AppCompatActivity() {
     private lateinit var email: String
     private lateinit var confirmDialog : ConfirmDialog
     private lateinit var loadingDialog : LoadingDialog
-    private lateinit var fullBirthdate : String
+    private var fullBirthdate = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +40,7 @@ class EditProfile : AppCompatActivity() {
         confirmDialog = ConfirmDialog(this)
         DatabaseConnector.connect()
         this.email = DatabaseConnector.email
+        this.user = DatabaseConnector.getLogCurrent()
 
         val changePasswordText: TextView = findViewById(R.id.changePasswordlb)
         changePasswordText.setOnClickListener {
@@ -55,7 +62,7 @@ class EditProfile : AppCompatActivity() {
 
         customDatePicker.setOnPickListener { localdate, s ->
             val formattedDate = localdate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-            fullBirthdate = formattedDate + "T00:00:00"
+            this.fullBirthdate = formattedDate + "T00:00:00"
         }
 
         val datePicker: ImageButton = findViewById(R.id.datePicker)
@@ -79,18 +86,53 @@ class EditProfile : AppCompatActivity() {
     private fun updateUserData() {
         loadingDialog.startLoading()
         val nameInput: EditText = findViewById(R.id.nameInput)
-        val name = nameInput.text.toString().trim()
-        val userQuery = user?.let { DatabaseConnector.db.query<UserData>("email == $0", email).find().first() }
+        val newName = nameInput.text.toString()
+        val userQuery = user?.let { DatabaseConnector.db.query<UserData>("email == $0", email).find().firstOrNull() }
 
-        if (name.isNotEmpty()) {
-
+        if (newName.isNotEmpty()) {
+            lifecycleScope.launch {
+                runCatching {
+                    DatabaseConnector.db.write {
+                        if (userQuery != null) {
+                            findLatest(userQuery)
+                                ?.let {
+                                    it.name = newName
+                                }
+                        }
+                    }
+                }.onSuccess {
+                    loadingDialog.stopLoading()
+                    callMyProfile()
+                }.onFailure {
+                    loadingDialog.stopLoading()
+                    Toast.makeText(this@EditProfile,getString(R.string.errorName), Toast.LENGTH_SHORT).show()
+                }
+            }
         }
 
         if (fullBirthdate.isNotEmpty()) {
-
+            lifecycleScope.launch {
+                lifecycleScope.launch {
+                    runCatching {
+                        DatabaseConnector.db.write {
+                            if (userQuery != null) {
+                                findLatest(userQuery)
+                                    ?.let {
+                                        val localDP = LocalDateTime.parse(fullBirthdate)
+                                        val realmDP = RealmInstant.from(localDP.toEpochSecond(ZoneOffset.UTC), localDP.nano)
+                                        it.birthdate = realmDP
+                                    }
+                            }
+                        }
+                    }.onSuccess {
+                        loadingDialog.stopLoading()
+                        callMyProfile()
+                    }.onFailure {
+                        loadingDialog.stopLoading()
+                        Toast.makeText(this@EditProfile,getString(R.string.errorBirthdate), Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
         }
-
-        loadingDialog.stopLoading()
-        callMyProfile()
     }
 }

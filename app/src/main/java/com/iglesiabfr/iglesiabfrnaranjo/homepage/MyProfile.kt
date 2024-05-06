@@ -95,7 +95,6 @@ class MyProfile : AppCompatActivity() {
     }
 
     private fun deleteAccount() {
-        println(user?.state)
         val userQuery = user?.let { DatabaseConnector.db.query<UserData>("email == $0", email).find().firstOrNull() }
 
         lifecycleScope.launch {
@@ -120,25 +119,22 @@ class MyProfile : AppCompatActivity() {
     }
 
     private fun getUserData() {
-        val userQuery = user?.let { DatabaseConnector.db.query<UserData>("email == $0", email).find() }
-        if (userQuery != null) {
-            if(userQuery.isEmpty()) {
-                Toast.makeText(this,"Error al obtener información del usuario",Toast.LENGTH_SHORT).show()
-                finish()
-            }
+        val userQuery = user?.let { DatabaseConnector.db.query<UserData>("email == $0", email).find().first() }
+        if (userQuery == null) {
+            Toast.makeText(this,"Error al obtener información del usuario",Toast.LENGTH_SHORT).show()
+            finish()
+
         }
 
-        val userData = userQuery?.get(0)
-        val username = userData?.name.toString()
-        val userBirthdate = userData?.birthdate
+        val username = userQuery?.name.toString()
+        val userBirthdate = userQuery?.birthdate
 
-        val localDateTime = LocalDateTime.ofInstant(
-            userBirthdate?.let { Instant.ofEpochSecond(it.epochSeconds) },
-            ZoneId.systemDefault()
-        )
+        val localDateTime = userBirthdate?.let {
+            LocalDateTime.ofInstant(Instant.ofEpochSecond(it.epochSeconds), ZoneId.of("UTC"))
+        }
 
         val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
-        val formattedDate = localDateTime.format(formatter)
+        val formattedDate = localDateTime?.format(formatter)
 
         findViewById<TextView>(R.id.nameInfo).text = username
         findViewById<TextView>(R.id.emailInfo).text = email

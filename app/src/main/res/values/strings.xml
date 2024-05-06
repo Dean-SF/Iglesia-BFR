@@ -178,5 +178,7 @@
     // Editar perfil
     <string name="botonGuardar">Guardar cambios</string>
     <string name="confirmarCambios">¿Desea guardar los cambios?</string>
+    <string name="errorName">Hubo un error al actualizar el nombre</string>
+    <string name="errorBirthdate">Hubo un error al actualizar la fecha de nacimiento</string>
 
 </resources>

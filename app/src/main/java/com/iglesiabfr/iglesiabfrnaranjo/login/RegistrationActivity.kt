@@ -152,7 +152,6 @@ class RegistrationActivity : AppCompatActivity() {
     private fun registerUserData(emailInput: String, nameInput: String) {
         val localDP = LocalDateTime.parse(fullBirthdate)
         val realmDP = RealmInstant.from(localDP.toEpochSecond(ZoneOffset.UTC), localDP.nano)
-        println(realmDP.toString())
 
         val event = UserData().apply {
             name = nameInput
