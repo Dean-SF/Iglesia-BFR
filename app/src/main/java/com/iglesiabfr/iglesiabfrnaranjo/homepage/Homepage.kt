@@ -8,6 +8,7 @@ import com.google.android.material.navigation.NavigationBarView
 import com.iglesiabfr.iglesiabfrnaranjo.Bible.BibleBooksFragment
 import com.iglesiabfr.iglesiabfrnaranjo.R
 import com.iglesiabfr.iglesiabfrnaranjo.SharedViewModel
+import com.iglesiabfr.iglesiabfrnaranjo.forums.ForumsFragment
 
 class Homepage : AppCompatActivity() {
     private val sharedViewModel: SharedViewModel by viewModels()
@@ -34,6 +35,10 @@ class Homepage : AppCompatActivity() {
                 }
                 R.id.item_biblia -> {
                     replaceFragment(BibleBooksFragment())
+                    true
+                }
+                R.id.item_foro -> {
+                    replaceFragment(ForumsFragment())
                     true
                 }
 

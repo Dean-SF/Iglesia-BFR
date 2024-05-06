@@ -181,5 +181,9 @@
     <string name="changePass">Cambiar contraseña</string>
     <string name="editlb">Editar perfil</string>
     <string name="icondesc">icon</string>
+    <string name="comunnityFragmentTitle">Foros</string>
+    <string name="foro_del_pastor_titulo">Foro del Pastor</string>
+    <string name="agregar_publicacion">Agregar publicación</string>
+    <string name="publicar">Publicar</string>
 
 </resources>

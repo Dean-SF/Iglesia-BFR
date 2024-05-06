@@ -12,7 +12,6 @@ import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.iglesiabfr.iglesiabfrnaranjo.R
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
-import com.iglesiabfr.iglesiabfrnaranjo.schema.Cult
 import com.iglesiabfr.iglesiabfrnaranjo.schema.FavVerse
 import io.realm.kotlin.ext.query
 import kotlinx.coroutines.launch
