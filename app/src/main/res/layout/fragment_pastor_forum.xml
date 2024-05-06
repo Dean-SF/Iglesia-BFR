@@ -26,8 +26,8 @@
 
         <ScrollView
             android:id="@+id/scrollView3"
-            android:layout_width="404dp"
-            android:layout_height="488dp"
+            android:layout_width="389dp"
+            android:layout_height="483dp"
             android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.461"
@@ -35,6 +35,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView8">
 
             <LinearLayout
+                android:id="@+id/pastorForumLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" />
