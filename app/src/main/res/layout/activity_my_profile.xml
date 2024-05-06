@@ -68,7 +68,7 @@
         android:layout_width="wrap_content"
         android:layout_height="29dp"
         android:layout_marginStart="140dp"
-        android:layout_marginTop="137dp"
+        android:layout_marginTop="140dp"
         android:fontFamily="@font/comfortaa_light"
         android:text=""
         android:textSize="16sp"
