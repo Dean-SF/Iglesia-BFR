@@ -15,7 +15,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.iglesiabfr.iglesiabfrnaranjo.R
-import com.iglesiabfr.iglesiabfrnaranjo.Requests.getRequest
 import com.iglesiabfr.iglesiabfrnaranjo.SharedViewModel
 import com.iglesiabfr.iglesiabfrnaranjo.Verses.VersFragment
 import kotlinx.coroutines.CoroutineScope
@@ -24,6 +23,10 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import org.json.JSONArray
 import org.json.JSONObject
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.net.HttpURLConnection
+import java.net.URL
 
 class BibleBooksFragment : Fragment() {
 
@@ -153,6 +156,25 @@ class BibleBooksViewModel : ViewModel() {
             _books.postValue(books)
         }
         return _books
+    }
+
+    private fun getRequest(link:String): StringBuffer? {
+        val url = URL(link)
+        val connection = url.openConnection() as HttpURLConnection
+        connection.requestMethod = "GET"
+        val responseCode = connection.responseCode
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+            val reader = BufferedReader(InputStreamReader(connection.inputStream))
+            var inputLine: String?
+            val response = StringBuffer()
+            while (reader.readLine().also { inputLine = it } != null) {
+                response.append(inputLine)
+            }
+            reader.close()
+            return response
+        } else {
+            return null
+        }
     }
 
     override fun onCleared() {

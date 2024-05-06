@@ -46,7 +46,7 @@
             android:name=".Bible.BibleBooks"
             android:exported="false" />
         <activity
-            android:name=".Verses.DailyVers"
+            android:name=".verses.DailyVers"
             android:exported="false" />
         <activity
             android:name=".Testingdb"

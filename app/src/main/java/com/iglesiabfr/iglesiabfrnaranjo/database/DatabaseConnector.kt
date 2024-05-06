@@ -5,6 +5,7 @@ import com.iglesiabfr.iglesiabfrnaranjo.schema.Activity
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Cult
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Event
 import com.iglesiabfr.iglesiabfrnaranjo.schema.FavVerse
+import com.iglesiabfr.iglesiabfrnaranjo.schema.PublicacionForoPastor
 import com.iglesiabfr.iglesiabfrnaranjo.schema.UserData
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
@@ -43,7 +44,8 @@ object DatabaseConnector {
                         Activity::class,
                         UserData::class,
                         Cult::class,
-                        FavVerse::class
+                        FavVerse::class,
+                        PublicacionForoPastor::class
                 ))
                     .initialSubscriptions(rerunOnOpen = true) {realm->
                         add(realm.query<Event>(), "subEvent",updateExisting = true)
@@ -51,6 +53,7 @@ object DatabaseConnector {
                         add(realm.query<Activity>(), "subActivity",updateExisting = true)
                         add(realm.query<UserData>(), "userData",updateExisting = true)
                         add(realm.query<FavVerse>(),"favVerse",updateExisting = true)
+                        add(realm.query<PublicacionForoPastor>(),"pastorPublication",updateExisting = true)
                     }
                     .errorHandler { session: SyncSession, error: SyncException ->
                         Log.d("IglesiaError",error.message.toString())
