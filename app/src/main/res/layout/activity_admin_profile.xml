@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:isScrollContainer="true">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
         android:layout_marginStart="50dp"
+        android:layout_marginTop="40dp"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -21,8 +22,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            app:srcCompat="@drawable/profile"
-            android:contentDescription="@string/icondesc" />
+            android:contentDescription="@string/icondesc"
+            app:srcCompat="@drawable/profile" />
 
         <TextView
             android:id="@+id/myProfileTitle"
@@ -168,6 +169,30 @@
         android:text="@string/deletelb"
         android:textColor="#490009"
         android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/usersFragment"
+        android:name="com.iglesiabfr.iglesiabfrnaranjo.homepage.AdminPermissionFragment"
+        android:layout_width="326dp"
+        android:layout_height="262dp"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="469dp"
+        android:layout_marginEnd="46dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/openFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="415dp"
+        android:fontFamily="@font/comfortaa_light"
+        android:text="@string/givePermission"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
