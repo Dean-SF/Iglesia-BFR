@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.iglesiabfr.iglesiabfrnaranjo.R
+import com.iglesiabfr.iglesiabfrnaranjo.database.AppConnector.app
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
 import com.iglesiabfr.iglesiabfrnaranjo.dialogs.ConfirmDialog
 import com.iglesiabfr.iglesiabfrnaranjo.login.ResetPassword
@@ -69,6 +70,7 @@ class MyProfile : AppCompatActivity() {
 
     private fun callEditProfile() {
         val intent = Intent(this, EditProfile::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
     }
 
@@ -88,26 +90,30 @@ class MyProfile : AppCompatActivity() {
 
     private fun callResetPassword() {
         val intent = Intent(this, ResetPassword::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
     }
 
     private fun deleteAccount() {
-        val userQuery = user?.let { DatabaseConnector.db.query<UserData>("email == $0", email).find().first() }
+        println(user?.state)
+        val userQuery = user?.let { DatabaseConnector.db.query<UserData>("email == $0", email).find().firstOrNull() }
 
         lifecycleScope.launch {
             runCatching {
-                DatabaseConnector.db.write {
+                app.login(DatabaseConnector.credentials)
+                DatabaseConnector.db.writeBlocking {
                     if (userQuery != null) {
                         findLatest(userQuery)
                             ?.also { delete(it) }
                     }
                 }
-                user?.remove()
+                user?.delete()
             }.onSuccess {
                 val intent = Intent(this@MyProfile, StartingPage::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)
-            }.onFailure {
+            }.onFailure { error ->
+                error.printStackTrace()
                 Toast.makeText(this@MyProfile, "Hubo un error al eliminar cuenta", Toast.LENGTH_LONG).show()
             }
         }

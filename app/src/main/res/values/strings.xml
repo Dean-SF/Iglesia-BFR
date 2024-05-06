@@ -18,6 +18,7 @@
     <string name="resetPasswordEmailSent">El correo ha sido enviado exitosamente</string>
     <string name="newPass">Nueva contraseña</string>
     <string name="confirmNewPass">Confirmar nueva contraseña</string>
+    <string name="userNotValid">Este usuario no existe</string>
 
     // Registration
     <string name="hintName">Nombre</string>
@@ -173,5 +174,9 @@
     <string name="borrarCuenta">¿Seguro que quieres borra esta cuenta?</string>
     <string name="cerrarSesion">¿Seguro que quieres cerrar sesión?</string>
     <string name="cambiarContra">¿Seguro que quieres cambiar la contraseña?</string>
+
+    // Editar perfil
+    <string name="botonGuardar">Guardar cambios</string>
+    <string name="confirmarCambios">¿Desea guardar los cambios?</string>
 
 </resources>
