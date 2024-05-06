@@ -64,6 +64,9 @@
             android:name=".login.ResetPassword"
             android:exported="false" />
         <activity
+            android:name=".homepage.EditProfile"
+            android:exported="false" />
+        <activity
             android:name=".InitializerActivity"
             android:exported="true"
             android:theme="@style/Theme.IglesiaBFRNaranjo">

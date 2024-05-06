@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.iglesiabfr.iglesiabfrnaranjo.R
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
+import com.iglesiabfr.iglesiabfrnaranjo.dialogs.LoadingDialog
 import com.iglesiabfr.iglesiabfrnaranjo.homepage.Homepage
 import io.realm.kotlin.mongodb.App
 import io.realm.kotlin.mongodb.Credentials
@@ -21,11 +22,12 @@ class LoginActivity : AppCompatActivity() {
     private val app : App = App.create("iglesiabfr-pigqi")
     private var user : User? = null
     private lateinit var email: String
+    private lateinit var loadingDialog : LoadingDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
+        loadingDialog = LoadingDialog(this)
         DatabaseConnector.connect()
 
         val loginBtn: Button = findViewById(R.id.loginBtn)
@@ -41,16 +43,19 @@ class LoginActivity : AppCompatActivity() {
 
     // Llamada de ventanas
     private fun callMainMenu(){
+        loadingDialog.stopLoading()
         val intent = Intent(this, Homepage::class.java)
         startActivity(intent)
     }
     private fun callResetPassword() {
+        loadingDialog.stopLoading()
         val intent = Intent(this, ResetPassword::class.java)
         startActivity(intent)
     }
 
     // Verificar que la informacion esta completa
     private fun checkInputs() {
+        loadingDialog.startLoading()
         val emailInput: EditText = findViewById(R.id.inputEmail)
         val passwordInput: EditText = findViewById(R.id.inputPassword)
 
@@ -62,10 +67,10 @@ class LoginActivity : AppCompatActivity() {
             return
         }
 
-        // All inputs are valid, proceed with login from coroutine
         lifecycleScope.launch {
             user = login(password)
             if (user == null) {
+                loadingDialog.stopLoading()
                 Toast.makeText(
                     this@LoginActivity,
                     R.string.incorrectDataWarning,

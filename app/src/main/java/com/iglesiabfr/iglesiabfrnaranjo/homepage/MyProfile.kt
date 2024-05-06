@@ -5,11 +5,11 @@ import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.iglesiabfr.iglesiabfrnaranjo.R
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
+import com.iglesiabfr.iglesiabfrnaranjo.dialogs.ConfirmDialog
 import com.iglesiabfr.iglesiabfrnaranjo.login.ResetPassword
 import com.iglesiabfr.iglesiabfrnaranjo.login.StartingPage
 import com.iglesiabfr.iglesiabfrnaranjo.schema.UserData
@@ -25,12 +25,14 @@ class MyProfile : AppCompatActivity() {
 
     private var user : User? = null
     private lateinit var email: String
+    private lateinit var confirmDialog : ConfirmDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_profile)
-
+        confirmDialog = ConfirmDialog(this)
         DatabaseConnector.connect()
+
         user = DatabaseConnector.getLogCurrent()
         email = DatabaseConnector.email
         getUserData()
@@ -42,17 +44,26 @@ class MyProfile : AppCompatActivity() {
 
         val logOut: TextView = findViewById(R.id.logOut)
         logOut.setOnClickListener {
-            logOut()
+            confirmDialog.confirmation(getString(R.string.cerrarSesion))
+                .setOnConfirmationListener {
+                    logOut()
+                }
         }
 
         val resetPassword: TextView = findViewById(R.id.changePasswordlb)
         resetPassword.setOnClickListener {
-            callResetPassword()
+            confirmDialog.confirmation(getString(R.string.cambiarContra))
+                .setOnConfirmationListener {
+                    callResetPassword()
+                }
         }
 
         val deleteAccount: TextView = findViewById(R.id.deleteAccount)
         deleteAccount.setOnClickListener {
-            showConfirmationDialog()
+            confirmDialog.confirmation(getString(R.string.borrarCuenta))
+                .setOnConfirmationListener {
+                    deleteAccount()
+                }
         }
     }
 
@@ -91,7 +102,6 @@ class MyProfile : AppCompatActivity() {
                             ?.also { delete(it) }
                     }
                 }
-
                 user?.remove()
             }.onSuccess {
                 val intent = Intent(this@MyProfile, StartingPage::class.java)
@@ -101,22 +111,6 @@ class MyProfile : AppCompatActivity() {
                 Toast.makeText(this@MyProfile, "Hubo un error al eliminar cuenta", Toast.LENGTH_LONG).show()
             }
         }
-    }
-
-    private fun showConfirmationDialog() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("¿Está seguro que desea eliminar su cuenta?")
-        builder.setMessage("¿Desea continuar con esta acción?")
-
-        builder.setPositiveButton("Sí") { dialog, which ->
-            deleteAccount()
-        }
-
-        builder.setNegativeButton("No") { dialog, which ->
-            dialog.dismiss()
-        }
-
-        builder.show()
     }
 
     private fun getUserData() {
