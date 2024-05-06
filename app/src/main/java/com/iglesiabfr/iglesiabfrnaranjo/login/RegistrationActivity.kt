@@ -128,6 +128,7 @@ class RegistrationActivity : AppCompatActivity() {
                     loadingDialog.stopLoading()
                     callLogin()
                 } catch (e: UserAlreadyExistsException) {
+                    loadingDialog.stopLoading()
                     val dialog = AlertDialog.Builder(this@RegistrationActivity)
                         .setMessage("Este usuario ya se encuentra registrado.")
                         .setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }

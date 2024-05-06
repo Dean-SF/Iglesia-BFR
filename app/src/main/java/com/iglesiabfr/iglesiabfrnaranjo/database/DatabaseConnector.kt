@@ -19,6 +19,7 @@ object DatabaseConnector {
     lateinit var db : Realm
     var email = ""
     private var isAdmin = false
+    lateinit var credentials: Credentials
 
     fun getLogCurrent() : User {
         return AppConnector.app.currentUser!!
