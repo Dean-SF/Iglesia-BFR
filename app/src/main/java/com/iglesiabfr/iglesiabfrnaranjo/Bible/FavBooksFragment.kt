@@ -1,14 +1,15 @@
 package com.iglesiabfr.iglesiabfrnaranjo.Bible
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.Gravity
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.iglesiabfr.iglesiabfrnaranjo.R
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
@@ -72,7 +73,18 @@ class FavBooksFragment : Fragment() {
             onFavClick(name, chapters, actualChapter)
         }
         linearLayout.setOnLongClickListener {
-            deletefav(email,name,actualChapter,linearLayout)
+            // Mostrar un diálogo de confirmación
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setTitle("Eliminar favorito")
+            builder.setMessage("¿Estás seguro de que deseas eliminar este favorito?")
+            builder.setPositiveButton("Eliminar") { _, _ ->
+                // Eliminar el favorito
+                deletefav(email, name, actualChapter)
+                // Eliminar el layout
+                (linearLayout.parent as ViewGroup).removeView(linearLayout)
+            }
+            builder.setNegativeButton("Cancelar", null)
+            builder.show()
             true
         }
 
@@ -95,7 +107,7 @@ class FavBooksFragment : Fragment() {
         parent.addView(linearLayout)
     }
 
-    private fun deletefav(owner:String,name:String,verse:Int,linearLayout: LinearLayout) {
+    private fun deletefav(owner:String,name:String,verse:Int) {
         try {
             DatabaseConnector.db.writeBlocking {
                 val favQuery = query<FavVerse>("owner == $0 AND chapter == $1 AND verse == $2", owner, name, verse).find()
@@ -104,7 +116,6 @@ class FavBooksFragment : Fragment() {
                     delete(fav)
                     lifecycleScope.launch {
                         Toast.makeText(context, "Se ha borrado el favorito", Toast.LENGTH_SHORT).show()
-                        (linearLayout.parent as ViewGroup).removeView(linearLayout)
                     }
                     println("borrado")
                 } else {
