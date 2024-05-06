@@ -30,7 +30,22 @@ class MyProfile : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_my_profile)
+
+        if (!DatabaseConnector.getIsAdmin()) {
+            setContentView(R.layout.activity_my_profile)
+        } else {
+            setContentView(R.layout.activity_admin_profile)
+            val openFragBtn: TextView = findViewById(R.id.openFragment)
+            openFragBtn.setOnClickListener {
+                val fragmentManager = supportFragmentManager
+                val fragmentTransaction = fragmentManager.beginTransaction()
+                val fragment = AdminPermissionFragment()
+                fragmentTransaction.replace(R.id.usersFragment, fragment)
+                fragmentTransaction.addToBackStack(null)
+                fragmentTransaction.commit()
+            }
+        }
+
         confirmDialog = ConfirmDialog(this)
         DatabaseConnector.connect()
 

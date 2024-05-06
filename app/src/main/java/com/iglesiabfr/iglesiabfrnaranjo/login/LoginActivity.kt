@@ -100,6 +100,9 @@ class LoginActivity : AppCompatActivity() {
                 return@launch
             } else {
                 DatabaseConnector.email = email
+                DatabaseConnector.setUserData()
+                DatabaseConnector.setIsAdmin()
+                DatabaseConnector.getIsAdmin()
                 loadingDialog.stopLoading()
                 callMainMenu()
             }
