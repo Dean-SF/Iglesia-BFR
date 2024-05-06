@@ -17,7 +17,8 @@ import kotlinx.coroutines.runBlocking
 
 object DatabaseConnector {
     lateinit var db : Realm
-    var email= ""
+    var email = ""
+    private var isAdmin = false
 
     fun getLogCurrent() : User {
         return AppConnector.app.currentUser!!
@@ -25,6 +26,10 @@ object DatabaseConnector {
 
     fun getCurrentEmail() : String {
         return email
+    }
+
+    fun isAdmin() : Boolean {
+        return isAdmin
     }
 
     private suspend fun logAnonymous(): User {

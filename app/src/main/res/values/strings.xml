@@ -150,7 +150,6 @@
     <string name="ConfDiagConf">Sí</string>
     <string name="ConfDiagDeny">No</string>
 
-
     // NavBar
     <string name="calendarNavTitle">Calendario</string>
     <string name="conserjeriaNavTitle">Conserjeria</string>
@@ -171,5 +170,8 @@
     <string name="changePass">Cambiar contraseña</string>
     <string name="editlb">Editar perfil</string>
     <string name="icondesc">icon</string>
+    <string name="borrarCuenta">¿Seguro que quieres borra esta cuenta?</string>
+    <string name="cerrarSesion">¿Seguro que quieres cerrar sesión?</string>
+    <string name="cambiarContra">¿Seguro que quieres cambiar la contraseña?</string>
 
 </resources>

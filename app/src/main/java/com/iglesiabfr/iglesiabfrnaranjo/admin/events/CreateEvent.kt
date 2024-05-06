@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
-import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import com.iglesiabfr.iglesiabfrnaranjo.R
@@ -23,14 +22,11 @@ import com.iglesiabfr.iglesiabfrnaranjo.picker.CustomDatePicker
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Event
 import io.realm.kotlin.types.RealmInstant
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
-import java.util.Locale
-import java.util.TimeZone
 
 class CreateEvent : AppCompatActivity() {
     private lateinit var date : LocalDate
@@ -128,14 +124,14 @@ class CreateEvent : AppCompatActivity() {
         }
 
         calendarBut.setOnClickListener {
-            customDatePicker.show(supportFragmentManager)
+            customDatePicker.show(supportFragmentManager, "tag")
         }
 
         datetext.setOnTouchListener { _, event ->
             val action = event.action
             when(action){
                 MotionEvent.ACTION_DOWN -> {
-                    customDatePicker.show(supportFragmentManager )
+                    customDatePicker.show(supportFragmentManager, "tag")
                 }
                 else ->{}
             }
