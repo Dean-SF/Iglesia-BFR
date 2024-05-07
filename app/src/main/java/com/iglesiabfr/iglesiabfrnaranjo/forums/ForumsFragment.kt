@@ -9,6 +9,7 @@ import android.widget.Button
 import com.iglesiabfr.iglesiabfrnaranjo.R
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
 import com.iglesiabfr.iglesiabfrnaranjo.forums.pastor.PastorForumFragment
+import com.iglesiabfr.iglesiabfrnaranjo.forums.petition.PetitionsForumFragment
 
 
 class ForumsFragment : Fragment() {
@@ -28,6 +29,17 @@ class ForumsFragment : Fragment() {
         btnPastor.setOnClickListener(){
             pastorForum()
         }
+        btnPeticiones.setOnClickListener(){
+            petitionForum()
+        }
+    }
+
+    private fun petitionForum() {
+        val fragment = PetitionsForumFragment()
+        fragmentManager?.beginTransaction()
+            ?.replace(R.id.framelayout, fragment)
+            ?.addToBackStack(null)
+            ?.commit()
     }
 
     private fun pastorForum() {
