@@ -47,7 +47,7 @@ class PastorForumPublicationFragment : Fragment() {
             requireActivity().onBackPressed()
         }catch (e : Exception){
             println("Error: $e")
-            requireContext().toast("Ha habia un problema al añadir la publicación")
+            requireContext().toast("Ha habido un problema al añadir la publicación")
         }
     }
 
