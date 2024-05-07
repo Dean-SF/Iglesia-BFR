@@ -174,8 +174,13 @@
     <string name="borrarCuenta">¿Seguro que quieres borra esta cuenta?</string>
     <string name="cerrarSesion">¿Seguro que quieres cerrar sesión?</string>
     <string name="cambiarContra">¿Seguro que quieres cambiar la contraseña?</string>
-    <string name="givePermission">Dar permisos de administrador</string>
-    <string name="chooseNewAdmin">Seleccione el usuario para brindarle permisos</string>
+    <string name="givePermission">Permisos de administrador</string>
+    <string name="chooseNewAdmin">Seleccione el usuario para administrar permisos</string>
+    <string name="confirmNewAdmin">¿Seguro que quiere brindarle permiso a este usuario?</string>
+    <string name="deleteAdmin">¿Seguro que quiere quitarle permisos a este usuario?</string>
+    <string name="errorNewAdmin">Hubo un error al asignar permisos</string>
+    <string name="mode1">Quitar permisos</string>
+    <string name="mode2">Dar permisos</string>
 
     // Editar perfil
     <string name="botonGuardar">Guardar cambios</string>

@@ -20,12 +20,32 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/userList"
-        android:layout_width="395dp"
-        android:layout_height="267dp"
+        android:layout_width="388dp"
+        android:layout_height="645dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="118dp"
+        android:layout_marginTop="204dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchPermission"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="124dp"
+        android:text=""
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:thumbTint="@android:color/white"
+        app:trackTint="@drawable/switch_track_color_selector" />
 
+    <TextView
+        android:id="@+id/permissionMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="110dp"
+        android:layout_marginTop="140dp"
+        android:text=""
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

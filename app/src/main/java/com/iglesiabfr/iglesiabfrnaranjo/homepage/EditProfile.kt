@@ -134,5 +134,8 @@ class EditProfile : AppCompatActivity() {
                 }
             }
         }
+
+        loadingDialog.stopLoading()
+        callMyProfile()
     }
 }
