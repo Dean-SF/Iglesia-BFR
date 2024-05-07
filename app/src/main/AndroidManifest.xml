@@ -67,6 +67,9 @@
             android:name=".homepage.EditProfile"
             android:exported="false" />
         <activity
+            android:name=".homepage.AdminPermissions"
+            android:exported="false" />
+        <activity
             android:name=".InitializerActivity"
             android:exported="true"
             android:theme="@style/Theme.IglesiaBFRNaranjo">
