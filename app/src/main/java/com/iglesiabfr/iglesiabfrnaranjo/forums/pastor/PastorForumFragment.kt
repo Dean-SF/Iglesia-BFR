@@ -78,7 +78,7 @@ class PastorForumFragment : Fragment() {
         // Contenido
         val contentTextView = TextView(requireContext())
         contentTextView.text = publication.content
-        titleTextView.textSize = 20.0F
+        contentTextView.textSize = 20.0F
         contentTextView.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.WRAP_CONTENT,
             LinearLayout.LayoutParams.WRAP_CONTENT

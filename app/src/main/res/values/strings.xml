@@ -197,5 +197,6 @@
     <string name="errorName">Hubo un error al actualizar el nombre</string>
     <string name="errorBirthdate">Hubo un error al actualizar la fecha de nacimiento</string>
     <string name="petitions_title">Peticiones Oraciones \n y Testimonios</string>
+    <string name="foro_de_seguimiento_title">Foro de Seguimiento</string>
 
 </resources>
