@@ -70,6 +70,21 @@
             android:name=".homepage.EditProfile"
             android:exported="false" />
         <activity
+            android:name=".homepage.AdminPermissions"
+            android:exported="false" />
+        <activity
+            android:name=".suggestions.SendSuggestion"
+            android:exported="false" />
+        <activity
+            android:name=".admin.emotions.SeeEmotions"
+            android:exported="false" />
+        <activity
+            android:name=".emotions.SendEmotion"
+            android:exported="false" />
+        <activity
+            android:name=".admin.suggestions.SuggestionsMailbox"
+            android:exported="false" />
+        <activity
             android:name=".InitializerActivity"
             android:exported="true"
             android:theme="@style/Theme.IglesiaBFRNaranjo">

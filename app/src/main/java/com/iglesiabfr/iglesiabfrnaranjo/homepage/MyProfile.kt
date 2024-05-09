@@ -35,14 +35,11 @@ class MyProfile : AppCompatActivity() {
             setContentView(R.layout.activity_my_profile)
         } else {
             setContentView(R.layout.activity_admin_profile)
-            val openFragBtn: TextView = findViewById(R.id.openFragment)
+            val openFragBtn: TextView = findViewById(R.id.givePermissionBtn)
             openFragBtn.setOnClickListener {
-                val fragmentManager = supportFragmentManager
-                val fragmentTransaction = fragmentManager.beginTransaction()
-                val fragment = AdminPermissionFragment()
-                fragmentTransaction.replace(R.id.usersFragment, fragment)
-                fragmentTransaction.addToBackStack(null)
-                fragmentTransaction.commit()
+                val intent = Intent(this, AdminPermissions::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
             }
         }
 

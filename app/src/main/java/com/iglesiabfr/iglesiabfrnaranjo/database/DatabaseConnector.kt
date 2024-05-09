@@ -3,7 +3,9 @@ package com.iglesiabfr.iglesiabfrnaranjo.database
 import android.util.Log
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Activity
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Cult
+import com.iglesiabfr.iglesiabfrnaranjo.schema.Emotion
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Event
+import com.iglesiabfr.iglesiabfrnaranjo.schema.Suggestion
 import com.iglesiabfr.iglesiabfrnaranjo.schema.FavVerse
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Followup
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Petition
@@ -65,21 +67,13 @@ object DatabaseConnector {
                         Event::class,
                         Activity::class,
                         UserData::class,
-                        Cult::class,
-                        FavVerse::class,
-                        PublicacionForoPastor::class,
-                        Petition::class,
-                        Followup::class
+                        Cult::class
                 ))
                     .initialSubscriptions(rerunOnOpen = true) {realm->
                         add(realm.query<Event>(), "subEvent",updateExisting = true)
                         add(realm.query<Cult>(), "subCult",updateExisting = true)
                         add(realm.query<Activity>(), "subActivity",updateExisting = true)
                         add(realm.query<UserData>(), "userData",updateExisting = true)
-                        add(realm.query<FavVerse>(),"favVerse",updateExisting = true)
-                        add(realm.query<PublicacionForoPastor>(),"pastorPublication",updateExisting = true)
-                        add(realm.query<Petition>(),"petitionPublication",updateExisting = true)
-                        add(realm.query<Followup>(),"followupPublication", updateExisting = true)
                     }
                     .errorHandler { session: SyncSession, error: SyncException ->
                         Log.d("IglesiaError",error.message.toString())
