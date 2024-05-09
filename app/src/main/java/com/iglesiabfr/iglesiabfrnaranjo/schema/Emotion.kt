@@ -6,11 +6,10 @@ import io.realm.kotlin.types.annotations.PrimaryKey
 import org.mongodb.kbson.BsonObjectId
 import org.mongodb.kbson.ObjectId
 
-class UserData : RealmObject {
+class Emotion: RealmObject {
     @PrimaryKey
     var _id: ObjectId = BsonObjectId()
-    var name : String = ""
-    var email : String = ""
-    var birthdate: RealmInstant = RealmInstant.now()
-    var isAdmin : Boolean = false
+    var emotion : String = ""
+    var emotionId : Int = 0
+    var dateRegistered: RealmInstant = RealmInstant.now()
 }

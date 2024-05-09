@@ -9,23 +9,23 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="61dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="54dp"
         android:fontFamily="@font/comfortaa_light"
-        android:text="@string/chooseNewAdmin"
-        android:textSize="16sp"
+        android:text="@string/tituloSugerencias"
+        android:textAlignment="center"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/userList"
-        android:layout_width="395dp"
-        android:layout_height="267dp"
-        android:layout_marginStart="8dp"
+        android:id="@+id/suggestionsList"
+        android:layout_width="372dp"
+        android:layout_height="703dp"
+        android:layout_marginStart="19dp"
         android:layout_marginTop="118dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
