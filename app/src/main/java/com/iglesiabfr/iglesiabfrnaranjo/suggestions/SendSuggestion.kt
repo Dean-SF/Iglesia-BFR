@@ -61,7 +61,10 @@ class SendSuggestion : AppCompatActivity() {
             Toast.makeText(this, R.string.warningSugerencia, Toast.LENGTH_SHORT).show()
             return
         } else {
-            sendSuggestion(suggestion)
+            confirmDialog.confirmation(getString(R.string.confirmSugerencia))
+                .setOnConfirmationListener {
+                    sendSuggestion(suggestion)
+                }
         }
     }
 
