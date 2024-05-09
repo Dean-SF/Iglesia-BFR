@@ -196,6 +196,7 @@
     <string name="warningSugerencia">Debe ingresar una sugerencia</string>
     <string name="errorSugerencia">Hubo un error al intentar enviar la sugerencia</string>
     <string name="exitoSugerencia">La sugerencia ha sido enviada con éxito</string>
+    <string name="confirmSugerencia">¿Desea enviar esta sugerencia?</string>
 
     // Registro de emociones
     <string name="tituloEmociones">Registro de emociones</string>

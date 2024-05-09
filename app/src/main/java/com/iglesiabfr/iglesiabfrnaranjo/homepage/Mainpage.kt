@@ -9,8 +9,10 @@ import android.widget.ImageView
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import com.iglesiabfr.iglesiabfrnaranjo.R
+import com.iglesiabfr.iglesiabfrnaranjo.admin.emotions.SeeEmotions
 import com.iglesiabfr.iglesiabfrnaranjo.admin.suggestions.SuggestionsMailbox
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
+import com.iglesiabfr.iglesiabfrnaranjo.emotions.SendEmotion
 import com.iglesiabfr.iglesiabfrnaranjo.suggestions.SendSuggestion
 
 // TODO: Rename parameter arguments, choose names that match
@@ -66,9 +68,9 @@ class Mainpage : Fragment() {
                 }
                 R.id.menu_emotion_registration -> {
                     if (DatabaseConnector.getIsAdmin()) {
-                        startActivity(Intent(activity, SuggestionsMailbox::class.java))
+                        startActivity(Intent(activity, SeeEmotions::class.java))
                     } else {
-                        startActivity(Intent(activity, SendSuggestion::class.java))
+                        startActivity(Intent(activity, SendEmotion::class.java))
                     }
                     true
                 }
