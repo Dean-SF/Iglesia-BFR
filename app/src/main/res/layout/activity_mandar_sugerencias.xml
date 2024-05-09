@@ -59,7 +59,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="124dp"
         android:layout_marginTop="704dp"
+        android:fontFamily="@font/comfortaa_light"
         android:text="@string/btnSugerencia"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

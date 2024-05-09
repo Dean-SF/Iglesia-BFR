@@ -200,5 +200,17 @@
 
     // Registro de emociones
     <string name="tituloEmociones">Registro de emociones</string>
-
+    <string name="pregunta">¿Cómo te sientes hoy?</string>
+    <string name="feliz">Feliz</string>
+    <string name="enojado">Enojado(a)</string>
+    <string name="bendecido">Bendecido(a)</string>
+    <string name="triste">Triste</string>
+    <string name="agradecido">Agradecido(a)</string>
+    <string name="conpocafe">Con poca fe</string>
+    <string name="angustiado">Angustiado(a)</string>
+    <string name="middlePart"> se sintió: </string>
+    <string name="enviarEmocion">Registrar emoción</string>
+    <string name="confirmEmocion">¿Desea registrar esta emoción?</string>
+    <string name="errorEmocion">Hubo un error al intentar registrar la emoción</string>
+    <string name="exitoEmocion">La emoción ha sido registrada con éxito</string>
 </resources>
