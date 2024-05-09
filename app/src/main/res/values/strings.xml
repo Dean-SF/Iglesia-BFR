@@ -208,7 +208,7 @@
     <string name="agradecido">Agradecido(a)</string>
     <string name="conpocafe">Con poca fe</string>
     <string name="angustiado">Angustiado(a)</string>
-    <string name="middlePart"> se sintió: </string>
+    <string name="middlePart">se sintió:</string>
     <string name="enviarEmocion">Registrar emoción</string>
     <string name="confirmEmocion">¿Desea registrar esta emoción?</string>
     <string name="errorEmocion">Hubo un error al intentar registrar la emoción</string>

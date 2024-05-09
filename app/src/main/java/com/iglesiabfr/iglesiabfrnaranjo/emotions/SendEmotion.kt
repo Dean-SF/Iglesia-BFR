@@ -25,6 +25,7 @@ class SendEmotion: AppCompatActivity() {
     private lateinit var loadingDialog : LoadingDialog
     private lateinit var confirmDialog : ConfirmDialog
     private var emotionName: String = "Feliz"
+    private var newEmotionId: Int = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,16 +45,16 @@ class SendEmotion: AppCompatActivity() {
         val pocafeImg = findViewById<ImageView>(R.id.emo6)
         val angustiadoImg = findViewById<ImageView>(R.id.emo7)
 
-        felizImg.setOnClickListener { selectEmotion(getString(R.string.feliz), felizImg) }
-        enojadoImg.setOnClickListener { selectEmotion(getString(R.string.enojado), enojadoImg) }
-        tristeImg.setOnClickListener { selectEmotion(getString(R.string.triste), tristeImg) }
-        bendecidoImg.setOnClickListener { selectEmotion(getString(R.string.bendecido), bendecidoImg) }
-        agradecidoImg.setOnClickListener { selectEmotion(getString(R.string.agradecido), agradecidoImg) }
-        pocafeImg.setOnClickListener { selectEmotion(getString(R.string.conpocafe), pocafeImg) }
-        angustiadoImg.setOnClickListener { selectEmotion(getString(R.string.angustiado), angustiadoImg) }
+        felizImg.setOnClickListener { selectEmotion(getString(R.string.feliz), felizImg, 1) }
+        enojadoImg.setOnClickListener { selectEmotion(getString(R.string.enojado), enojadoImg, 2) }
+        tristeImg.setOnClickListener { selectEmotion(getString(R.string.triste), tristeImg, 3) }
+        bendecidoImg.setOnClickListener { selectEmotion(getString(R.string.bendecido), bendecidoImg, 4) }
+        agradecidoImg.setOnClickListener { selectEmotion(getString(R.string.agradecido), agradecidoImg, 5) }
+        pocafeImg.setOnClickListener { selectEmotion(getString(R.string.conpocafe), pocafeImg, 6) }
+        angustiadoImg.setOnClickListener { selectEmotion(getString(R.string.angustiado), angustiadoImg, 7) }
 
         selectedEmoImageView = felizImg
-        selectEmotion(getString(R.string.feliz), felizImg)
+        selectEmotion(getString(R.string.feliz), felizImg, 1)
 
         val registerBtn = findViewById<Button>(R.id.registerBtn)
         registerBtn.setOnClickListener {
@@ -63,11 +64,12 @@ class SendEmotion: AppCompatActivity() {
         }
     }
 
-    private fun selectEmotion(emotion: String, imageView: ImageView) {
+    private fun selectEmotion(emotion: String, imageView: ImageView, thisEmotionId: Int) {
         selectedEmoImageView.background = null                // Restablecer el fondo del seleccionado anteriormente
         imageView.setBackgroundResource(R.color.lightGreen)   // Actualizar el color del seleccionado
         selectedEmoImageView = imageView
         emotionName = emotion
+        newEmotionId = thisEmotionId
     }
 
     private fun registerEmotion() {
@@ -84,10 +86,11 @@ class SendEmotion: AppCompatActivity() {
                 ).show()
                 return@launch
             } else {
+                val newRegister = userQuery.name + " " + getString(R.string.middlePart) + " " + emotionName
                 val event = Emotion().apply {
-                    name = userQuery.name
                     dateRegistered = RealmInstant.now()
-                    emotion = emotionName
+                    emotion = newRegister
+                    emotionId = newEmotionId
                 }
                 DatabaseConnector.db.writeBlocking {
                     copyToRealm(event)
