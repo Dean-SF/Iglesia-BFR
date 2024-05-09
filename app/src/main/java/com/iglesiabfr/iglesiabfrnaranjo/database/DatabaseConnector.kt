@@ -4,6 +4,7 @@ import android.util.Log
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Activity
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Cult
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Event
+import com.iglesiabfr.iglesiabfrnaranjo.schema.Suggestion
 import com.iglesiabfr.iglesiabfrnaranjo.schema.UserData
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
@@ -61,13 +62,15 @@ object DatabaseConnector {
                         Event::class,
                         Activity::class,
                         UserData::class,
-                        Cult::class
+                        Cult::class,
+                        Suggestion::class
                 ))
                     .initialSubscriptions(rerunOnOpen = true) {realm->
                         add(realm.query<Event>(), "subEvent",updateExisting = true)
                         add(realm.query<Cult>(), "subCult",updateExisting = true)
                         add(realm.query<Activity>(), "subActivity",updateExisting = true)
                         add(realm.query<UserData>(), "userData",updateExisting = true)
+                        add(realm.query<Suggestion>(), "suggestion",updateExisting = true)
                     }
                     .errorHandler { session: SyncSession, error: SyncException ->
                         Log.d("IglesiaError",error.message.toString())

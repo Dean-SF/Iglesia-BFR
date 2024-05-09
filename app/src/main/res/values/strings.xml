@@ -188,4 +188,16 @@
     <string name="errorName">Hubo un error al actualizar el nombre</string>
     <string name="errorBirthdate">Hubo un error al actualizar la fecha de nacimiento</string>
 
+    // Enviar sugerencias
+    <string name="tituloSugerencias">Buzón de sugerencias</string>
+    <string name="subtituloSugerencias">Ingrese una sugerencia para el templo o el pastor</string>
+    <string name="hintSugerencia">Ingrese su sugerencia</string>
+    <string name="btnSugerencia">Enviar sugerencia</string>
+    <string name="warningSugerencia">Debe ingresar una sugerencia</string>
+    <string name="errorSugerencia">Hubo un error al intentar enviar la sugerencia</string>
+    <string name="exitoSugerencia">La sugerencia ha sido enviada con éxito</string>
+
+    // Registro de emociones
+    <string name="tituloEmociones">Registro de emociones</string>
+
 </resources>

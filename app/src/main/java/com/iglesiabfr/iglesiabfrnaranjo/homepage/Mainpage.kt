@@ -6,8 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import com.iglesiabfr.iglesiabfrnaranjo.R
+import com.iglesiabfr.iglesiabfrnaranjo.admin.suggestions.SuggestionsMailbox
+import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
+import com.iglesiabfr.iglesiabfrnaranjo.suggestions.SendSuggestion
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -23,6 +27,8 @@ class Mainpage : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private var popupMenu: PopupMenu? = null
+    private var isSubMenuShowing: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,10 +48,46 @@ class Mainpage : Fragment() {
 
         val profBut = view.findViewById<ImageView>(R.id.profBut)
         profBut.setOnClickListener {
-            val intent = Intent(activity, MyProfile::class.java)
-            startActivity(intent)
+            if (popupMenu == null || !isSubMenuShowing) {
+                showSubMenu(profBut)
+            }
         }
         return view
+    }
+
+    private fun showSubMenu(view: View) {
+        popupMenu = PopupMenu(requireContext(), view)
+        popupMenu!!.menuInflater.inflate(R.menu.submenu_profile, popupMenu!!.menu)
+        popupMenu!!.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.menu_profile -> {
+                    startActivity(Intent(activity, MyProfile::class.java))
+                    true
+                }
+                R.id.menu_emotion_registration -> {
+                    if (DatabaseConnector.getIsAdmin()) {
+                        startActivity(Intent(activity, SuggestionsMailbox::class.java))
+                    } else {
+                        startActivity(Intent(activity, SendSuggestion::class.java))
+                    }
+                    true
+                }
+                R.id.menu_suggestion_box -> {
+                    if (DatabaseConnector.getIsAdmin()) {
+                        startActivity(Intent(activity, SuggestionsMailbox::class.java))
+                    } else {
+                        startActivity(Intent(activity, SendSuggestion::class.java))
+                    }
+                    true
+                }
+                else -> false
+            }
+        }
+        popupMenu!!.setOnDismissListener {
+            isSubMenuShowing = false
+        }
+        popupMenu!!.show()
+        isSubMenuShowing = true
     }
 
     companion object {
