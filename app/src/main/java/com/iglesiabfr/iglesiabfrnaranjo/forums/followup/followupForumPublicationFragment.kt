@@ -1,4 +1,4 @@
-package com.iglesiabfr.iglesiabfrnaranjo.forums.pastor
+package com.iglesiabfr.iglesiabfrnaranjo.forums.followup
 
 import android.content.Context
 import android.os.Bundle
@@ -11,10 +11,11 @@ import android.widget.Toast
 import com.google.android.material.textfield.TextInputEditText
 import com.iglesiabfr.iglesiabfrnaranjo.R
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
+import com.iglesiabfr.iglesiabfrnaranjo.schema.Followup
 import com.iglesiabfr.iglesiabfrnaranjo.schema.PublicacionForoPastor
 
+class followupForumPublicationFragment : Fragment() {
 
-class PastorForumPublicationFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,22 +24,19 @@ class PastorForumPublicationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val publicationText = view.findViewById<TextInputEditText>(R.id.pastorsPublicationText)
+        val publicationText = view.findViewById<TextInputEditText>(R.id.followupPublicationText)
         val publicationContent = publicationText.text
-        val publicationTitleText = view.findViewById<TextInputEditText>(R.id.pastorForumPublicationTitle)
-        val publicationTitleContent = publicationTitleText.text
-        val btnPublicar = view.findViewById<Button>(R.id.publicarForoPastorBtn)
+        val btnPublicar = view.findViewById<Button>(R.id.publishFollowupBtn)
         btnPublicar.setOnClickListener(){
-            addPublication(publicationContent.toString(), publicationTitleContent.toString())
+            addPublication(publicationContent.toString())
         }
 
     }
 
-    private fun addPublication(publicationContent: String,pubicationTitle: String) {
+    private fun addPublication(publicationContent: String) {
         try {
-            val publication = PublicacionForoPastor().apply{
+            val publication = Followup().apply{
                 content = publicationContent
-                title = pubicationTitle
             }
             DatabaseConnector.db.writeBlocking {
                 copyToRealm(publication)
@@ -60,8 +58,6 @@ class PastorForumPublicationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pastor_forum_publication, container, false)
+        return inflater.inflate(R.layout.fragment_followup_forum_publication, container, false)
     }
-
-
 }

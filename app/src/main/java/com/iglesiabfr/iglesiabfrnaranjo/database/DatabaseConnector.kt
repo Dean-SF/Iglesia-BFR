@@ -5,6 +5,7 @@ import com.iglesiabfr.iglesiabfrnaranjo.schema.Activity
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Cult
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Event
 import com.iglesiabfr.iglesiabfrnaranjo.schema.FavVerse
+import com.iglesiabfr.iglesiabfrnaranjo.schema.Followup
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Petition
 import com.iglesiabfr.iglesiabfrnaranjo.schema.PublicacionForoPastor
 import com.iglesiabfr.iglesiabfrnaranjo.schema.UserData
@@ -67,7 +68,8 @@ object DatabaseConnector {
                         Cult::class,
                         FavVerse::class,
                         PublicacionForoPastor::class,
-                        Petition::class
+                        Petition::class,
+                        Followup::class
                 ))
                     .initialSubscriptions(rerunOnOpen = true) {realm->
                         add(realm.query<Event>(), "subEvent",updateExisting = true)
@@ -77,6 +79,7 @@ object DatabaseConnector {
                         add(realm.query<FavVerse>(),"favVerse",updateExisting = true)
                         add(realm.query<PublicacionForoPastor>(),"pastorPublication",updateExisting = true)
                         add(realm.query<Petition>(),"petitionPublication",updateExisting = true)
+                        add(realm.query<Followup>(),"followupPublication", updateExisting = true)
                     }
                     .errorHandler { session: SyncSession, error: SyncException ->
                         Log.d("IglesiaError",error.message.toString())

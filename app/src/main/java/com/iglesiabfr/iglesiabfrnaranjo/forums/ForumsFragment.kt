@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import com.iglesiabfr.iglesiabfrnaranjo.R
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
+import com.iglesiabfr.iglesiabfrnaranjo.forums.followup.followupForumFragment
 import com.iglesiabfr.iglesiabfrnaranjo.forums.pastor.PastorForumFragment
 import com.iglesiabfr.iglesiabfrnaranjo.forums.petition.PetitionsForumFragment
 
@@ -32,6 +33,17 @@ class ForumsFragment : Fragment() {
         btnPeticiones.setOnClickListener(){
             petitionForum()
         }
+        btnSeguimiento.setOnClickListener(){
+            followupForum()
+        }
+    }
+
+    private fun followupForum() {
+        val fragment = followupForumFragment()
+        fragmentManager?.beginTransaction()
+            ?.replace(R.id.framelayout, fragment)
+            ?.addToBackStack(null)
+            ?.commit()
     }
 
     private fun petitionForum() {
