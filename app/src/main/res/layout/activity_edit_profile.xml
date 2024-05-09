@@ -111,8 +111,10 @@
         android:layout_marginStart="127dp"
         android:layout_marginTop="421dp"
         android:layout_marginEnd="128dp"
+        android:fontFamily="@font/comfortaa_light"
         android:soundEffectsEnabled="true"
         android:text="@string/botonGuardar"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

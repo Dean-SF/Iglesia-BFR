@@ -15,4 +15,5 @@
     <color name="whitebackground">#FDF6FE</color>
     <color name="darktheme">#1F1F20</color>
     <color name="orange">#FF5722</color>
+    <color name="lightGreen">#FFE0EFCE</color>
 </resources>

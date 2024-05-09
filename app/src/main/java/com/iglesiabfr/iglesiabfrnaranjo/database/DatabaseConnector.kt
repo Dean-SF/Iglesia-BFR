@@ -3,6 +3,7 @@ package com.iglesiabfr.iglesiabfrnaranjo.database
 import android.util.Log
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Activity
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Cult
+import com.iglesiabfr.iglesiabfrnaranjo.schema.Emotion
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Event
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Suggestion
 import com.iglesiabfr.iglesiabfrnaranjo.schema.UserData
@@ -63,7 +64,8 @@ object DatabaseConnector {
                         Activity::class,
                         UserData::class,
                         Cult::class,
-                        Suggestion::class
+                        Suggestion::class,
+                        Emotion::class
                 ))
                     .initialSubscriptions(rerunOnOpen = true) {realm->
                         add(realm.query<Event>(), "subEvent",updateExisting = true)
@@ -71,6 +73,7 @@ object DatabaseConnector {
                         add(realm.query<Activity>(), "subActivity",updateExisting = true)
                         add(realm.query<UserData>(), "userData",updateExisting = true)
                         add(realm.query<Suggestion>(), "suggestion",updateExisting = true)
+                        add(realm.query<Emotion>(), "emotion",updateExisting = true)
                     }
                     .errorHandler { session: SyncSession, error: SyncException ->
                         Log.d("IglesiaError",error.message.toString())
