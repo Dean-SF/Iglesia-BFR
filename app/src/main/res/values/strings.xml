@@ -2,6 +2,18 @@
     <string name="app_name">Iglesia BFR, Naranjo</string>
     <string name="TittleDailyVersTxt">Versiculo Diario</string>
     <string name="ErrorCargaMsg">Error al cargar, vuelva a intentar</string>
+    <string name="ErrorCargaMsgRtr">Error al cargar, volviendo a intentar…</string>
+
+    <string name="InitializingApp">Iniciando…</string>
+
+    // Notificaciones
+    <string name="NotifGranted">Recibirás notificaciones sobre nuevos eventos y actividades</string>
+    <string name="NotifNotGranted">No recibirás notificaciones sobre nuevos eventos y actividades</string>
+
+
+    <string name="NotifTitle">Notificación Iglesia</string>
+    <string name="NotifId" translatable="false">IglesiaNotif</string>
+    <string name="NotifName" translatable="false">Actualizaciones</string>
 
     // Starting page
     <string name="registrarlb">REGISTRAR</string>

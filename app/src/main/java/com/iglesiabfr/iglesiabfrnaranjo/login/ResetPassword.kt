@@ -23,7 +23,6 @@ class ResetPassword : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reset_password)
 
-        DatabaseConnector.connect()
         user = app.currentUser
         password1 = findViewById(R.id.inputNewPassword)
         password2 = findViewById(R.id.inputNewPasswordConfirm)

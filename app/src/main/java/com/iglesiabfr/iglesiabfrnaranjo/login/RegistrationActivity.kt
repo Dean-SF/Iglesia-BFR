@@ -30,12 +30,9 @@ class RegistrationActivity : AppCompatActivity() {
     private val app : App = App.create("iglesiabfr-pigqi")
     private lateinit var birthdate : String
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
-
-        DatabaseConnector.connect() // Conectar a bd
 
         val datePicker: ImageButton = findViewById(R.id.calendar)
         datePicker.isEnabled = true

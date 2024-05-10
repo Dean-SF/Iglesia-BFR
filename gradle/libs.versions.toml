@@ -1,5 +1,6 @@
 [versions]
 agp = "8.3.1"
+firebaseBom = "33.0.0"
 jsoup = "1.11.3"
 kotlin = "1.9.0"
 coreKtx = "1.10.1"
@@ -14,9 +15,12 @@ appcompat = "1.6.1"
 material = "1.11.0"
 activity = "1.8.0"
 constraintlayout = "2.1.4"
+gmsVer = "4.4.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+firebase-messaging = { module = "com.google.firebase:firebase-messaging"}
 jsoup = { module = "org.jsoup:jsoup", version.ref = "jsoup" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
@@ -40,6 +44,7 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+googleServicesPlug = { id = "com.google.gms.google-services", version.ref = "gmsVer"}
 realm = { id = "io.realm.kotlin", version.ref = "realmVer" }
 
 

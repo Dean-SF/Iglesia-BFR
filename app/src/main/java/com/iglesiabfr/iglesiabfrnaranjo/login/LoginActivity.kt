@@ -26,8 +26,6 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        DatabaseConnector.connect()
-
         val loginBtn: Button = findViewById(R.id.loginBtn)
         loginBtn.setOnClickListener {
             checkInputs()
