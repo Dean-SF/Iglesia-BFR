@@ -30,7 +30,6 @@ class MyProfile : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_profile)
 
-        DatabaseConnector.connect()
         user = DatabaseConnector.getLogCurrent()
         email = DatabaseConnector.email
         getUserData()
