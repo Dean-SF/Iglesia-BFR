@@ -17,15 +17,25 @@ import java.time.format.DateTimeFormatter
 class RecordAdapter(private val records: RealmResults<CounselingSession>) :
     RecyclerView.Adapter<EmotionAdapter.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.record_list_item, parent, false)
-        return ViewHolder(view)
+        // quitar despues
+    override fun onBindViewHolder(holder: EmotionAdapter.ViewHolder, position: Int) {
+        TODO("Not yet implemented")
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EmotionAdapter.ViewHolder {
+        TODO("Not yet implemented")
+    }
+
+
+    /*override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.record_list_item, parent, false)
+        return ViewHolder(view)
+    }*/
+
+    /*override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val emotion = records[position]
         holder.bind(emotion)
-    }
+    }*/
 
     override fun getItemCount(): Int {
         return records.size
@@ -46,8 +56,8 @@ class RecordAdapter(private val records: RealmResults<CounselingSession>) :
                 .toLocalDateTime()
 
             textDateTime.text = datetimeCostaRica.format(datetimeFormatter)
-            emotion.text = newEmotion.emotion
-            emoticon.setImageResource(getEmotionImageResource(newEmotion.emotionId))
+            //emotion.text = newEmotion.emotion
+            //emoticon.setImageResource(getEmotionImageResource(newEmotion.emotionId))
         }
 
         private fun getEmotionImageResource(emotionId: Int): Int {

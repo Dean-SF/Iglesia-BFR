@@ -30,7 +30,6 @@ class RegistrationActivity : AppCompatActivity() {
     private lateinit var fullBirthdate : String
     private lateinit var loadingDialog : LoadingDialog
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
