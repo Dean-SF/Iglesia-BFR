@@ -33,7 +33,6 @@ class SendEmotion: AppCompatActivity() {
 
         loadingDialog = LoadingDialog(this)
         confirmDialog = ConfirmDialog(this)
-        DatabaseConnector.connect()
         user = DatabaseConnector.getLogCurrent()
         email = DatabaseConnector.getCurrentEmail()
 

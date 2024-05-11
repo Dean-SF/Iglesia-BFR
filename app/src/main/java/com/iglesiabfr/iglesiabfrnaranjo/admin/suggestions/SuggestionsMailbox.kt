@@ -9,6 +9,7 @@ import com.iglesiabfr.iglesiabfrnaranjo.customRecyclers.SuggestionAdapter
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Suggestion
 import io.realm.kotlin.ext.query
+import io.realm.kotlin.query.Sort
 
 class SuggestionsMailbox : AppCompatActivity() {
 
@@ -19,7 +20,7 @@ class SuggestionsMailbox : AppCompatActivity() {
         val suggestionsRecycler: RecyclerView = findViewById(R.id.suggestionsList)
         suggestionsRecycler.layoutManager = LinearLayoutManager(this)
 
-        val suggestions = DatabaseConnector.db.query<Suggestion>().sort("dateSent").find()
+        val suggestions = DatabaseConnector.db.query<Suggestion>().sort("dateSent", Sort.DESCENDING).find()
         val adapter = SuggestionAdapter(suggestions)
         suggestionsRecycler.adapter = adapter
     }

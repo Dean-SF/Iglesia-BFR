@@ -33,7 +33,6 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
         loadingDialog = LoadingDialog(this)
         confirmDialog = ConfirmDialog(this)
-        DatabaseConnector.connect()
 
         val loginBtn: Button = findViewById(R.id.loginBtn)
         loginBtn.setOnClickListener {
