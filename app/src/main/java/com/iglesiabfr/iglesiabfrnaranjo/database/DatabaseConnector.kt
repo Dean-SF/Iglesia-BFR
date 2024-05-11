@@ -1,6 +1,8 @@
 package com.iglesiabfr.iglesiabfrnaranjo.database
 
+import android.provider.ContactsContract.Data
 import android.util.Log
+import androidx.lifecycle.LifecycleCoroutineScope
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Activity
 import com.iglesiabfr.iglesiabfrnaranjo.schema.CounselingSession
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Cult
@@ -16,6 +18,8 @@ import io.realm.kotlin.mongodb.exceptions.SyncException
 import io.realm.kotlin.mongodb.subscriptions
 import io.realm.kotlin.mongodb.sync.SyncConfiguration
 import io.realm.kotlin.mongodb.sync.SyncSession
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 object DatabaseConnector {
@@ -24,6 +28,8 @@ object DatabaseConnector {
     private var isAdmin : Boolean = false
     lateinit var credentials: Credentials
     private var userData: UserData? = null
+
+    private var onFinished: ((Boolean) -> Unit)? = null
 
     fun getLogCurrent() : User {
         return AppConnector.app.currentUser!!
@@ -54,13 +60,19 @@ object DatabaseConnector {
         return AppConnector.app.login(Credentials.anonymous())
     }
 
-    fun connect() {
-        runBlocking {
+    fun setOnFinishedListener(listener : ((Boolean)->Unit)) : DatabaseConnector {
+        onFinished = listener
+        return this
+    }
+
+    fun connect(lifecyclescope: LifecycleCoroutineScope) {
+        lifecyclescope.launch {
             runCatching {
                 logAnonymous()
             }.onSuccess {
-                Log.d("Info","Sync Started")
-                val config = SyncConfiguration.Builder(it, setOf(
+                Log.d("Info", "Sync Started")
+                val config = SyncConfiguration.Builder(
+                    it, setOf(
                         Event::class,
                         Activity::class,
                         UserData::class,
@@ -79,15 +91,17 @@ object DatabaseConnector {
                         add(realm.query<CounselingSession>(), "counsellingSession",updateExisting = true)
                     }
                     .errorHandler { session: SyncSession, error: SyncException ->
-                        Log.d("IglesiaError",error.message.toString())
+                        Log.d("IglesiaError", error.message.toString())
                     }
                     .waitForInitialRemoteData()
                     .build()
                 db = Realm.open(config)
-                db.subscriptions.waitForSynchronization()
-                Log.d("IglesiaInfo","Sync Finished")
+                //db.subscriptions.waitForSynchronization()
+                onFinished?.invoke(true)
+                Log.d("IglesiaInfo", "Sync Finished")
             }.onFailure {
-                Log.d("IglesiaError",it.message.toString())
+                onFinished?.invoke(false)
+                Log.d("IglesiaError", it.message.toString())
             }
         }
     }
