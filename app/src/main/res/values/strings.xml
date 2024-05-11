@@ -54,6 +54,12 @@
     <string name="BibliaNavTitle">Biblia</string>
     <string name="grabacionesNavTitle">Grabaciones</string>
     <string name="adminNavTitle">Admin</string>
+    <string name="asistencia_de_evento">Asistencia de evento</string>
+    <string name="regresar">Regresar</string>
+    <string name="Regresar">Regresar</string>
+    <string name="createattendancebutt">createAttendanceButt</string>
+    <string name="RegresarCE">Regresar</string>
+    <string name="todo">TODO</string>
 
 
 </resources>
