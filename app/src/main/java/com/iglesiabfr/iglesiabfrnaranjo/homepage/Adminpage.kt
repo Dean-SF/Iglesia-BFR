@@ -47,6 +47,11 @@ class Adminpage : Fragment() {
             startActivity(i)
         }
 
+        cultBut.setOnClickListener {
+            val i = Intent(view.context, AdminEvent::class.java)
+            startActivity(i)
+        }
+
         return view
     }
 
