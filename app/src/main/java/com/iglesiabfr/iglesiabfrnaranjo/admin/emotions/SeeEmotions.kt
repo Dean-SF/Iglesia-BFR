@@ -9,6 +9,7 @@ import com.iglesiabfr.iglesiabfrnaranjo.customRecyclers.EmotionAdapter
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Emotion
 import io.realm.kotlin.ext.query
+import io.realm.kotlin.query.Sort
 
 class SeeEmotions: AppCompatActivity() {
 
@@ -19,7 +20,7 @@ class SeeEmotions: AppCompatActivity() {
         val emotionsRecycler: RecyclerView = findViewById(R.id.emotionsList)
         emotionsRecycler.layoutManager = LinearLayoutManager(this)
 
-        val emotions = DatabaseConnector.db.query<Emotion>().sort("dateRegistered").find()
+        val emotions = DatabaseConnector.db.query<Emotion>().sort("dateRegistered", Sort.DESCENDING).find()
         val adapter = EmotionAdapter(emotions)
         emotionsRecycler.adapter = adapter
     }

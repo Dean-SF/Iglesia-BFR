@@ -35,7 +35,6 @@ class RegistrationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
         loadingDialog = LoadingDialog(this)
-        DatabaseConnector.connect() // Conectar a bd
 
         val registerBtn: Button = findViewById(R.id.registerBtn)
         registerBtn.isEnabled = false

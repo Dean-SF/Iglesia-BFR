@@ -38,7 +38,6 @@ class EditProfile : AppCompatActivity() {
         setContentView(R.layout.activity_edit_profile)
         loadingDialog = LoadingDialog(this)
         confirmDialog = ConfirmDialog(this)
-        DatabaseConnector.connect()
         this.email = DatabaseConnector.email
         this.user = DatabaseConnector.getLogCurrent()
 
