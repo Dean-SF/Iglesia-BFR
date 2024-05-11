@@ -153,7 +153,7 @@
 
     // NavBar
     <string name="calendarNavTitle">Calendario</string>
-    <string name="conserjeriaNavTitle">Conserjeria</string>
+    <string name="consejeriaNavTitle">Consejeria</string>
     <string name="foroNavTitle">Foro</string>
     <string name="BibliaNavTitle">Biblia</string>
     <string name="grabacionesNavTitle">Grabaciones</string>
@@ -213,4 +213,19 @@
     <string name="confirmEmocion">¿Desea registrar esta emoción?</string>
     <string name="errorEmocion">Hubo un error al intentar registrar la emoción</string>
     <string name="exitoEmocion">La emoción ha sido registrada con éxito</string>
+
+    // Sesiones consejeria
+    <string name="counselingTitle">Sesión de Consejería</string>
+    <string name="counselingAdminTitle">Sesiones de Consejería</string>
+    <string name="counselingNormalRecordTitle">Sesiones de Consejería agendadas</string>
+    <string name="counselingSchedule">Agendar Sesión</string>
+    <string name="navigationSchedule">Agendar</string>
+    <string name="navigationRecord">Historial</string>
+    <string name="navigationRequest">Solicitar</string>
+    <string name="descRequest">Solicite una sesión de consejería al pastor. El pastor será notificado y cuando su sesión sea agendada va a ser notificado con la fecha y hora.</string>
+    <string name="counselingErrorRequest">Hubo un error al intentar solicitar la sesión</string>
+    <string name="counselingErrorSchedule">Hubo un error al intentar agendar la sesión</string>
+    <string name="counselingSuccessSchedule">La sesión fue agendada con éxito</string>
+    <string name="counselingSuccessRequest">La sesión fue solicitada con éxito</string>
+
 </resources>
