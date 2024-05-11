@@ -25,9 +25,15 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        val loginBtn: Button = findViewById(R.id.loginBtn)
+        val loginBtn: Button = findViewById(R.id.LoginBtn)
         loginBtn.setOnClickListener {
             checkInputs()
+        }
+
+        val backBtn: Button = findViewById(R.id.BackLoginABtn)
+        backBtn.setOnClickListener {
+            val intent = Intent(this, StartingPage::class.java)
+            startActivity(intent)
         }
     }
 

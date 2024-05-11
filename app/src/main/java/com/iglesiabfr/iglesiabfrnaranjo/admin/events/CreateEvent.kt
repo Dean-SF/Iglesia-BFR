@@ -8,11 +8,9 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.material3.DatePickerDialog
 import com.iglesiabfr.iglesiabfrnaranjo.R
+import com.iglesiabfr.iglesiabfrnaranjo.login.StartingPage
 import java.time.LocalDate
-import java.time.LocalDateTime
-import java.util.Calendar
 
 class CreateEvent : AppCompatActivity() {
 
@@ -32,6 +30,11 @@ class CreateEvent : AppCompatActivity() {
             DatePickerDialog(this).show()
         }
 
+        val backBtn: Button = findViewById(R.id.BackEventBtn)
+        backBtn.setOnClickListener {
+            val intent = Intent(this, AdminEvent::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun updateDate() {
