@@ -9,7 +9,7 @@
         android:id="@+id/item_conserjeria"
         android:enabled="true"
         android:icon="@drawable/conserjeria"
-        android:title="@string/conserjeriaNavTitle"/>
+        android:title="@string/consejeriaNavTitle"/>
     <item
         android:id="@+id/item_foro"
         android:enabled="true"
