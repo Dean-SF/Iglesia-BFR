@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".homepage.AdminCounseling">
+    android:orientation="vertical">
 
     <FrameLayout
         android:id="@+id/cousenlingFrame"
@@ -21,7 +20,7 @@
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="812dp"
+        android:layout_marginTop="750dp"
         android:background="@color/blue"
         android:clickable="true"
         app:layout_constraintStart_toStartOf="parent"

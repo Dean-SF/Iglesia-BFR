@@ -9,8 +9,8 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginStart="112dp"
+        android:layout_marginTop="52dp"
         android:fontFamily="@font/comfortaa_light"
         android:text="@string/counselingAdminTitle"
         android:textSize="20sp"
@@ -19,10 +19,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="409dp"
-        android:layout_height="794dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="96dp"
+        android:id="@+id/recyclerView"
+        android:layout_width="312dp"
+        android:layout_height="763dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="100dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
