@@ -33,7 +33,6 @@ class LectureFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        DatabaseConnector.connect()
         arguments?.let {
             name = it.getString("name")
             chapters = it.getInt("chapters")
