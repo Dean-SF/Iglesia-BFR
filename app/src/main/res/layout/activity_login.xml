@@ -83,7 +83,7 @@
     </FrameLayout>
 
     <Button
-        android:id="@+id/loginBtn"
+        android:id="@+id/LoginBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -94,5 +94,17 @@
         android:text="@string/loginBtn"
         android:textColor="@color/white"
         android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/BackLoginABtn"
+        android:layout_width="333dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/ripple_soft_rectangle_btn"
+        android:backgroundTint="@color/blue"
+        android:text="Regresar"
+        tools:text="Regresar" />
 
 </LinearLayout>

@@ -7,26 +7,26 @@ import androidx.appcompat.app.AppCompatActivity
 import com.iglesiabfr.iglesiabfrnaranjo.R
 import com.iglesiabfr.iglesiabfrnaranjo.homepage.Adminpage
 
-class AdminEvent : AppCompatActivity() {
+class AdminCult : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_admin_eventos)
+        setContentView(R.layout.activity_admin_cults)
 
-        val createButt : Button = findViewById(R.id.createEventBut)
+        val createEventCultBut : Button = findViewById(R.id.createEventCultBut)
 
-        createButt.setOnClickListener {
-            val i = Intent(this,CreateEvent::class.java)
+        createEventCultBut.setOnClickListener {
+            val i = Intent(this,CreateCultEvent::class.java)
             startActivity(i)
         }
 
-        val markAttendanceButt: Button = findViewById(R.id.markEventAttendanceBut)
+        val markAttendanceButt: Button = findViewById(R.id.MarkEventAttendanceCultBut)
 
         markAttendanceButt.setOnClickListener {
-            val i = Intent(this,CreateEvent::class.java)
+            val i = Intent(this,CreateCultEvent::class.java)
             startActivity(i)
         }
 
-        val backBtn: Button = findViewById(R.id.backAdminEventButton)
+        val backBtn: Button = findViewById(R.id.BackAdminEventCultButton)
         backBtn.setOnClickListener {
             val intent = Intent(this, Adminpage::class.java)
             startActivity(intent)

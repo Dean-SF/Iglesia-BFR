@@ -11,7 +11,7 @@ class StartingPage : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_starting_page)
 
-        val loginBtn: Button = findViewById(R.id.loginBtn)
+        val loginBtn: Button = findViewById(R.id.LoginBtn)
         loginBtn.setOnClickListener {
             callLogin()
         }

@@ -7,22 +7,15 @@ import androidx.appcompat.app.AppCompatActivity
 import com.iglesiabfr.iglesiabfrnaranjo.R
 import com.iglesiabfr.iglesiabfrnaranjo.homepage.Adminpage
 
-class AdminEvent : AppCompatActivity() {
+class PrincipalAdminLibrary : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_admin_eventos)
+        setContentView(R.layout.activity_admin_library)
 
-        val createButt : Button = findViewById(R.id.createEventBut)
+        val createEventCultBut : Button = findViewById(R.id.createEventBut)
 
-        createButt.setOnClickListener {
-            val i = Intent(this,CreateEvent::class.java)
-            startActivity(i)
-        }
-
-        val markAttendanceButt: Button = findViewById(R.id.markEventAttendanceBut)
-
-        markAttendanceButt.setOnClickListener {
-            val i = Intent(this,CreateEvent::class.java)
+        createEventCultBut.setOnClickListener {
+            val i = Intent(this, AdminLibraryInventory::class.java)
             startActivity(i)
         }
 

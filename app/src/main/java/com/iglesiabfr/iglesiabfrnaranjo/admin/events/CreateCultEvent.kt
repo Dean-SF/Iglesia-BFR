@@ -11,12 +11,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.iglesiabfr.iglesiabfrnaranjo.R
 import java.time.LocalDate
 
-class CreateEvent : AppCompatActivity() {
+class CreateCultEvent : AppCompatActivity() {
 
     private lateinit var date : LocalDate
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_create_event)
+        setContentView(R.layout.activity_create_cult)
 
         DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
             Log.d("IglesiaInfo","adsad")
@@ -31,7 +31,7 @@ class CreateEvent : AppCompatActivity() {
 
         val backBtn: Button = findViewById(R.id.BackEventBtn)
         backBtn.setOnClickListener {
-            val intent = Intent(this, AdminEvent::class.java)
+            val intent = Intent(this, AdminCult::class.java)
             startActivity(intent)
         }
     }

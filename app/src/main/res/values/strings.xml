@@ -54,6 +54,44 @@
     <string name="BibliaNavTitle">Biblia</string>
     <string name="grabacionesNavTitle">Grabaciones</string>
     <string name="adminNavTitle">Admin</string>
+    <string name="asistencia_de_evento">Asistencia de evento</string>
+    <string name="regresar">Regresar</string>
+    <string name="Regresar">Regresar</string>
+    <string name="createattendancebutt">createAttendanceButt</string>
+    <string name="RegresarCE">Regresar</string>
+    <string name="todo">TODO</string>
+    <string name="Titulo">Titulo</string>
+    <string name="Url">Url</string>
+    <string name="Todo">TODO</string>
+    <string name="loadvideo">loadVideo</string>
+    <string name="ispersonpresent">Presente</string>
+    <string name="createEventTitleCult">Control de asistencia</string>
+    <string name="ispersonpresentCult">Presente</string>
+    <string name="createAttendanceCultButt">Guardar asistencia</string>
+    <string name="RegresarCult">Regresar</string>
+    <string name="createNameCult">Nombre</string>
+    <string name="isPersonPresentCult">Present</string>
+    <string name="createEventTitlecult">Asistencia de culto</string>
+    <string name="createNamecult">Nombre</string>
+    <string name="createAttendancecultButt">Guardar asistencia</string>
+    <string name="isPersonPresentcult">Presente</string>
+    <string name="Regresarcult">Regresar</string>
+    <string name="loadvideos">Cargar video nuevo</string>
+    <string name="libraryInvent">Inventario de la librería</string>
+    <string name="libraryInventB">Inventario de biblioteca</string>
+    <string name="materialsInvent">Inventario de la escuela</string>
+    <string name="materialInvent">Inventario de la escuela</string>
+    <string name="loadVideo">Crear nuevo video</string>
+    <string name="libraryBut">Inventario de la librería</string>
+    <string name="materialInventBut">Inventario de la escuela</string>
+    <string name="adminSchoolBut">Gestión de la escuela dominical</string>
+    <string name="homepageTitleCult">Cultos</string>
+    <string name="markEventAttendanceCultBut">Registrar asistencia</string>
+    <string name="backAdminEventCultButton">Regresar</string>
+    <string name="createEventCultBut">Crear culto</string>
+    <string name="createEventTitlec">Culto</string>
+    <string name="adminLibraryTitle">"Gestión de la Biblioteca "</string>
+    <string name="addProductBut">Añadir un nuevo producto</string>
 
 
 </resources>

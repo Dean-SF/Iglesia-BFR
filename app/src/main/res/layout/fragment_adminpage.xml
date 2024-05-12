@@ -29,6 +29,7 @@
         android:layout_marginEnd="15dp"
         android:background="@drawable/ripple_profile"
         android:backgroundTint="@color/blue"
+        android:contentDescription="@string/todo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -79,5 +80,70 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ActBut" />
+
+    <Button
+        android:id="@+id/LoadVideo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/ripple_soft_rectangle_btn"
+        android:backgroundTint="@color/blue"
+        android:text="@string/loadVideo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CultBut"
+        app:layout_constraintVertical_bias="0.017" />
+
+    <Button
+        android:id="@+id/MaterialInventBut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="196dp"
+        android:background="@drawable/ripple_soft_rectangle_btn"
+        android:backgroundTint="@color/blue"
+        android:text="@string/materialInventBut"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LibraryBut" />
+
+    <Button
+        android:id="@+id/LibraryBut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="260dp"
+        android:background="@drawable/ripple_soft_rectangle_btn"
+        android:backgroundTint="@color/blue"
+        android:text="@string/libraryBut"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/AdminSchoolBut" />
+
+    <Button
+        android:id="@+id/AdminSchoolBut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/ripple_soft_rectangle_btn"
+        android:backgroundTint="@color/blue"
+        android:text="@string/adminSchoolBut"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LoadVideo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 package com.iglesiabfr.iglesiabfrnaranjo.login
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.widget.Button
@@ -36,6 +37,12 @@ class RegistrationActivity : AppCompatActivity() {
         registerBtn.isEnabled = false
         registerBtn.setOnClickListener {
             checkInputs()
+        }
+
+        val backBtn: Button = findViewById(R.id.BackRegistrationBtn)
+        backBtn.setOnClickListener {
+            val intent = Intent(this, StartingPage::class.java)
+            startActivity(intent)
         }
     }
 
