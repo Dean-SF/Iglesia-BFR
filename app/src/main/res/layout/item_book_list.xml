@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/ivAvatar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/ivAvatar"
+        android:layout_toRightOf="@+id/ivAvatar"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        tools:text="dadawdawdwd" />
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvTitle"
+        android:layout_toEndOf="@+id/ivAvatar"
+        android:layout_toRightOf="@+id/ivAvatar"
+        android:textSize="15sp"
+        tools:text="wdawd" />
+
+
+    <EditText
+        android:id="@+id/etPrice"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvName"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="173dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="149dp"
+        android:layout_marginRight="32dp"
+        android:ems="10"
+        android:inputType="number"
+        android:textSize="15sp"
+        android:textStyle="italic"
+        tools:text="ds" />
+
+    <EditText
+        android:id="@+id/etQuantity"
+        android:layout_width="66dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etPrice"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="323dp"
+        android:layout_marginTop="-41dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginRight="32dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:textSize="15sp"
+        tools:text="ds" />
+
+    <!-- LinearLayout for buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etQuantity"
+        android:gravity="center"
+        android:orientation="horizontal"
+        tools:layout_marginTop="52dp">
+
+        <Button
+            android:id="@+id/btnAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="Agregar" />
+
+        <Button
+            android:id="@+id/btnUpdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="Actualizar" />
+
+        <Button
+            android:id="@+id/btnDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Eliminar" />
+    </LinearLayout>
+
+</RelativeLayout>
