@@ -55,16 +55,6 @@ class CreateEvent : AppCompatActivity() {
             .setTitleText(R.string.createTimePicker)
             .build()
 
-        val constraintsBuilder = CalendarConstraints.Builder()
-                .setValidator(
-                    DateValidatorPointForward.now())
-
-        /*val customDatePicker = MaterialDatePicker.Builder.datePicker()
-            .setTitleText(R.string.createDatePicker)
-            .setTheme(R.style.ThemeOverlay_App_DatePicker)
-            .setCalendarConstraints(constraintsBuilder.build())
-            .build()*/
-
         val customDatePicker = CustomDatePicker(true)
 
         nametext.setOnEditorActionListener {_, action, _ ->
@@ -80,15 +70,6 @@ class CreateEvent : AppCompatActivity() {
             }
         }
 
-        /*customDatePicker.addOnPositiveButtonClickListener {
-            var sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-            sdf.timeZone = TimeZone.getTimeZone("UTC")
-            date = LocalDate.parse(sdf.format(it))
-            sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-            sdf.timeZone = TimeZone.getTimeZone("UTC")
-            datetext.text = sdf.format(it)
-            datetext.error = null
-        }*/
 
         customDatePicker.setOnPickListener { pickedDate, dateString ->
             date = pickedDate

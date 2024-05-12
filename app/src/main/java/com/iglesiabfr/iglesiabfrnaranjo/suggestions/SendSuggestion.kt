@@ -33,7 +33,6 @@ class SendSuggestion : AppCompatActivity() {
         setContentView(R.layout.activity_mandar_sugerencias)
         loadingDialog = LoadingDialog(this)
         confirmDialog = ConfirmDialog(this)
-        DatabaseConnector.connect()
         user = DatabaseConnector.getLogCurrent()
         email = DatabaseConnector.getCurrentEmail()
 
