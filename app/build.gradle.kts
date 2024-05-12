@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.realm)
+    alias(libs.plugins.googleServicesPlug)
 }
 
 android {
@@ -31,6 +32,7 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = "1.8"
     }
@@ -72,6 +74,11 @@ dependencies {
     implementation(libs.jsoup)
     implementation(libs.okhttp)
     implementation (libs.androidx.fragment.ktx)
+
+    implementation(platform(libs.firebase.bom))
+
+    implementation(libs.firebase.messaging)
+
     implementation(libs.library.sync)
 
 

@@ -44,8 +44,6 @@ class MyProfile : AppCompatActivity() {
         }
 
         confirmDialog = ConfirmDialog(this)
-        DatabaseConnector.connect()
-
         user = DatabaseConnector.getLogCurrent()
         email = DatabaseConnector.email
         getUserData()
