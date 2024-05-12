@@ -1,10 +1,12 @@
 package com.iglesiabfr.iglesiabfrnaranjo.homepage
 
+import AdminCounselingHome
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationBarView
 import com.iglesiabfr.iglesiabfrnaranjo.R
+import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
 
 class Homepage : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,6 +25,12 @@ class Homepage : AppCompatActivity() {
                 R.id.item_admin -> {
                     replaceFragment(Adminpage())
                     true
+                }
+                R.id.item_consejeria -> {
+                    if (DatabaseConnector.getIsAdmin()) {
+                        replaceFragment(AdminCounselingHome())
+                    }
+                true
                 }
 
                 else -> false

@@ -6,7 +6,7 @@
         android:icon="@drawable/calendar"
         android:title="@string/calendarNavTitle"/>
     <item
-        android:id="@+id/item_conserjeria"
+        android:id="@+id/item_consejeria"
         android:enabled="true"
         android:icon="@drawable/conserjeria"
         android:title="@string/consejeriaNavTitle"/>
