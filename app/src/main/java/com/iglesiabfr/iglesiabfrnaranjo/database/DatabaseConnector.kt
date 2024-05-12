@@ -83,8 +83,13 @@ object DatabaseConnector {
                         Cult::class,
                         Suggestion::class,
                         Emotion::class,
-                        CounselingSession::class
+                        CounselingSession::class,
+                        FavVerse::class,
+                        Followup::class,
+                        Petition::class,
+                        PublicacionForoPastor::class
                 ))
+
                     .initialSubscriptions(rerunOnOpen = true) {realm->
                         add(realm.query<Event>(), "subEvent",updateExisting = true)
                         add(realm.query<Cult>(), "subCult",updateExisting = true)
@@ -93,6 +98,10 @@ object DatabaseConnector {
                         add(realm.query<Suggestion>(), "suggestion",updateExisting = true)
                         add(realm.query<Emotion>(), "emotion",updateExisting = true)
                         add(realm.query<CounselingSession>(), "counsellingSession",updateExisting = true)
+                        add(realm.query<FavVerse>(), "FavVerse",updateExisting = true)
+                        add(realm.query<Followup>(), "Followup",updateExisting = true)
+                        add(realm.query<Petition>(), "Petition",updateExisting = true)
+                        add(realm.query<PublicacionForoPastor>(), "PublicacionForoPastor",updateExisting = true)
                     }
                     .errorHandler { session: SyncSession, error: SyncException ->
                         Log.d("IglesiaError", error.message.toString())

@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:locale="es">
     <string name="app_name">Iglesia BFR, Naranjo</string>
-    <string name="TittleDailyVersTxt">Versiculo Diario</string>
+    <string name="TittleDailyVersTxt">Versículo Diario</string>
     <string name="ErrorCargaMsg">Error al cargar, vuelva a intentar</string>
     <string name="ErrorCargaMsgRtr">Error al cargar, volviendo a intentar…</string>
     <string name="librosTitle">Libros</string>
@@ -181,7 +181,7 @@
     <string name="adminNavTitle">Admin</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="FavFragmentTitle">Favoritos</string>
-    <string name="versiculo_diario">Versiculo Diario</string>
+    <string name="versiculo_diario">Versículo Diario</string>
 
     // Mi perfil
     <string name="myProfile">Mi Perfil</string>
@@ -203,8 +203,6 @@
     <string name="errorNewAdmin">Hubo un error al asignar permisos</string>
     <string name="mode1">Quitar permisos</string>
     <string name="mode2">Dar permisos</string>
-    <string name="givePermission">Dar permisos de administrador</string>
-    <string name="chooseNewAdmin">Seleccione el usuario para brindarle permisos</string>
     <string name="comunnityFragmentTitle">Foros</string>
     <string name="foro_del_pastor_titulo">Foro del Pastor</string>
     <string name="agregar_publicacion">Agregar publicación</string>
@@ -215,7 +213,7 @@
     <string name="confirmarCambios">¿Desea guardar los cambios?</string>
     <string name="errorName">Hubo un error al actualizar el nombre</string>
     <string name="errorBirthdate">Hubo un error al actualizar la fecha de nacimiento</string>
-    <string name="petitions_title">Peticiones Oraciones \n y Testimonios</string>
+    <string name="petitions_title">Peticiones, Oraciones \n y Testimonios</string>
     <string name="foro_de_seguimiento_title">Foro de Seguimiento</string>
 
     // Enviar sugerencias

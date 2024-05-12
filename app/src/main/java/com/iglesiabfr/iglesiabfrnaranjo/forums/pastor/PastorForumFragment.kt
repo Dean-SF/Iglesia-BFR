@@ -30,7 +30,6 @@ class PastorForumFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        DatabaseConnector.connect()
         admin = DatabaseConnector.getIsAdmin()
     }
 
