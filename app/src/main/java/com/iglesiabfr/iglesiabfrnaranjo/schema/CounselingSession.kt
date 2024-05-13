@@ -11,7 +11,7 @@ class CounselingSession : RealmObject {
     var _id: ObjectId = BsonObjectId()
     var name : String = ""
     var email : String = ""
-    var postDatetime: RealmInstant = RealmInstant.now()
+    var postDateTime: RealmInstant = RealmInstant.now()
     var sessionDateTime: RealmInstant = RealmInstant.now()
     var scheduled : Boolean = false
 }

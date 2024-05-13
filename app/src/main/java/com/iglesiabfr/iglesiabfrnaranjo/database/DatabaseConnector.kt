@@ -1,6 +1,5 @@
 package com.iglesiabfr.iglesiabfrnaranjo.database
 
-import android.provider.ContactsContract.Data
 import android.util.Log
 import androidx.lifecycle.LifecycleCoroutineScope
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Activity
@@ -15,12 +14,9 @@ import io.realm.kotlin.ext.query
 import io.realm.kotlin.mongodb.Credentials
 import io.realm.kotlin.mongodb.User
 import io.realm.kotlin.mongodb.exceptions.SyncException
-import io.realm.kotlin.mongodb.subscriptions
 import io.realm.kotlin.mongodb.sync.SyncConfiguration
 import io.realm.kotlin.mongodb.sync.SyncSession
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 object DatabaseConnector {
     lateinit var db : Realm
