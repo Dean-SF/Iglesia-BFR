@@ -156,6 +156,7 @@ class RegistrationActivity : AppCompatActivity() {
             email = emailInput
             birthdate = realmDP
             isAdmin = false
+            rememberSession = false
         }
         DatabaseConnector.db.writeBlocking {
             copyToRealm(event)

@@ -2,7 +2,9 @@ package com.iglesiabfr.iglesiabfrnaranjo.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
@@ -28,6 +30,8 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var email: String
     private lateinit var loadingDialog : LoadingDialog
     private lateinit var confirmDialog : ConfirmDialog
+    private lateinit var rememberSessionCheckbox: CheckBox
+    private var rememberSessionValue: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +50,12 @@ class LoginActivity : AppCompatActivity() {
                 .setOnConfirmationListener {
                     callResetPassword()
                 }
+        }
+
+        // Si esta activado recuerda la sesion, si esta desactivado debe hacer login cada vez
+        rememberSessionCheckbox = findViewById(R.id.sessionCheckbox)
+        rememberSessionCheckbox.setOnCheckedChangeListener { _, isChecked ->
+            rememberSessionValue = isChecked
         }
     }
 
@@ -100,6 +110,7 @@ class LoginActivity : AppCompatActivity() {
                 ).show()
                 return@launch
             } else {
+                setRememberSession(userQuery)
                 DatabaseConnector.email = email
                 DatabaseConnector.setUserData()
                 DatabaseConnector.setIsAdmin()
@@ -109,6 +120,23 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
+
+    private suspend fun setRememberSession(userQuery: UserData?) {
+        lifecycleScope.launch {
+            runCatching {
+                DatabaseConnector.db.write {
+                    if (userQuery != null) {
+                        findLatest(userQuery)?.let {
+                            it.rememberSession = rememberSessionValue
+                        }
+                    }
+                }
+            }.onFailure { error ->
+                Log.e("LoginActivity", "Error: ${error.message}")
+            }
+        }
+    }
+
 
     private suspend fun login(passwordInput: String): User? {
         return try {
