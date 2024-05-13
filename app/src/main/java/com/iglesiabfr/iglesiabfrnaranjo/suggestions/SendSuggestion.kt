@@ -15,14 +15,12 @@ import com.iglesiabfr.iglesiabfrnaranjo.homepage.Homepage
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Suggestion
 import com.iglesiabfr.iglesiabfrnaranjo.schema.UserData
 import io.realm.kotlin.ext.query
-import io.realm.kotlin.mongodb.App
 import io.realm.kotlin.mongodb.User
 import io.realm.kotlin.types.RealmInstant
 import kotlinx.coroutines.launch
 
 class SendSuggestion : AppCompatActivity() {
 
-    private val app : App = App.create("iglesiabfr-pigqi")
     private var user : User? = null
     private lateinit var email: String
     private lateinit var loadingDialog : LoadingDialog

@@ -9,12 +9,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.iglesiabfr.iglesiabfrnaranjo.R
+import com.iglesiabfr.iglesiabfrnaranjo.database.AppConnector
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
 import com.iglesiabfr.iglesiabfrnaranjo.dialogs.ConfirmDialog
 import com.iglesiabfr.iglesiabfrnaranjo.dialogs.LoadingDialog
+import com.iglesiabfr.iglesiabfrnaranjo.homepage.Homepage
 import com.iglesiabfr.iglesiabfrnaranjo.schema.UserData
 import io.realm.kotlin.ext.query
-import com.iglesiabfr.iglesiabfrnaranjo.homepage.Homepage
 import io.realm.kotlin.mongodb.App
 import io.realm.kotlin.mongodb.Credentials
 import io.realm.kotlin.mongodb.User
@@ -22,7 +23,7 @@ import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
 
-    private val app : App = App.create("iglesiabfr-pigqi")
+    private val app : App = AppConnector.app
     private var user : User? = null
     private lateinit var email: String
     private lateinit var loadingDialog : LoadingDialog
@@ -72,6 +73,7 @@ class LoginActivity : AppCompatActivity() {
         val password = passwordInput.text.toString()
 
         if (email.isEmpty() || password.isEmpty()) {
+            loadingDialog.stopLoading()
             Toast.makeText(this, R.string.incompleteDataWarning, Toast.LENGTH_SHORT).show()
             return
         }

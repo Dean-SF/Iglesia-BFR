@@ -93,6 +93,9 @@
             android:name=".admin.suggestions.SuggestionsMailbox"
             android:exported="false" />
         <activity
+            android:name=".homepage.AdminCounselingScheduling"
+            android:exported="false" />
+        <activity
             android:name=".InitializerActivity"
             android:exported="true"
             android:theme="@style/Theme.IglesiaBFRNaranjo">

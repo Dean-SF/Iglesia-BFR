@@ -39,15 +39,17 @@ class RecordAdapter(private val records: RealmResults<CounselingSession>) :
         fun bind(newRecord: CounselingSession) {
             val dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yy")
             val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
-            val zoneIdCostaRica = ZoneId.of("America/Costa_Rica")
-            val epochSeconds = newRecord.sessionDateTime.epochSeconds
-            val datetimeCostaRica = LocalDateTime.ofEpochSecond(epochSeconds, 0, ZoneOffset.UTC)
-                .atZone(ZoneOffset.UTC)
-                .withZoneSameInstant(zoneIdCostaRica)
-                .toLocalDateTime()
 
-            textDate.text = datetimeCostaRica.format(dateFormatter)
-            textTime.text = datetimeCostaRica.format(timeFormatter)
+            val epochSeconds = newRecord.sessionDateTime.epochSeconds
+            val utcDateTime = LocalDateTime.ofEpochSecond(epochSeconds, 0, ZoneOffset.UTC)
+
+            val localDateTime = utcDateTime.atZone(ZoneId.systemDefault()).toLocalDateTime()
+
+            val formattedDate = localDateTime.format(dateFormatter)
+            val formattedTime = localDateTime.format(timeFormatter)
+
+            textDate.text = formattedDate
+            textTime.text = formattedTime
         }
     }
 }

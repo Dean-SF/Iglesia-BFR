@@ -29,6 +29,8 @@ class Homepage : AppCompatActivity() {
                 R.id.item_consejeria -> {
                     if (DatabaseConnector.getIsAdmin()) {
                         replaceFragment(AdminCounselingHome())
+                    } else {
+                        replaceFragment(CounselingHome())
                     }
                 true
                 }

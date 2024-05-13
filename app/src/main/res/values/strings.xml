@@ -239,5 +239,7 @@
     <string name="counselingErrorSchedule">Hubo un error al intentar agendar la sesión</string>
     <string name="counselingSuccessSchedule">La sesión fue agendada con éxito</string>
     <string name="counselingSuccessRequest">La sesión fue solicitada con éxito</string>
+    <string name="counselingConfirm">¿Desea agendar esta sesión?</string>
+    <string name="refreshBtn">Refrescar</string>
 
 </resources>
