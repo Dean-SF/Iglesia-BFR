@@ -11,7 +11,7 @@ class SchoolMaterialViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     fun render(
         schoolMaterialModel: SchoolMaterial,
-        onClickListener: (Book) -> Unit,
+        onClickListener: (SchoolMaterial) -> Unit,
         onClickDelete: (Int) -> Unit
     ) {
         binding.tvTeacher.text = schoolMaterialModel.teacherName

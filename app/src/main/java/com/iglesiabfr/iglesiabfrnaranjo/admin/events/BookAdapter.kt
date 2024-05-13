@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.iglesiabfr.iglesiabfrnaranjo.R
 
 class BookAdapter(
-    private val bookList: MutableList<SchoolMaterial>,
+    private val bookList: MutableList<Book>,
     private val onClickListener: (Book) -> Unit,
     private val onClickDelete:(Int) -> Unit
 ): RecyclerView.Adapter<BookViewHolder>() {
