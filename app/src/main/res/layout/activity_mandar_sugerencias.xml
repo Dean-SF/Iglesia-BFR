@@ -9,36 +9,42 @@
         android:id="@+id/enviarbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="132dp"
-        android:layout_marginTop="704dp"
+        android:layout_marginTop="75dp"
+        android:layout_marginBottom="104dp"
         android:fontFamily="@font/comfortaa_light"
         android:text="@string/btnSugerencia"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="76dp"
-        android:layout_marginTop="72dp"
         android:fontFamily="@font/comfortaa_light"
         android:text="@string/tituloSugerencias"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/subtitle"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.565" />
 
     <FrameLayout
+        android:id="@+id/frameLayout"
         android:layout_width="388dp"
         android:layout_height="437dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="212dp"
         android:background="@drawable/text_input_border"
+        app:layout_constraintBottom_toTopOf="@+id/enviarbtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/subtitle">
 
         <EditText
             android:id="@+id/sugerenciaInput"
@@ -56,14 +62,17 @@
         android:id="@+id/subtitle"
         android:layout_width="293dp"
         android:layout_height="50dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="124dp"
+        android:layout_marginBottom="37dp"
         android:fontFamily="@font/comfortaa_light"
         android:text="@string/subtituloSugerencias"
         android:textAlignment="center"
         android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/frameLayout"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.312" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
