@@ -8,7 +8,7 @@
 
 
     <TextView
-        android:id="@+id/tvTitle"
+        android:id="@+id/tvTeacher"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -16,45 +16,46 @@
         android:textStyle="bold"
         tools:text="dadawdawdwd" />
 
+
     <TextView
-        android:id="@+id/tvName"
-        android:layout_width="wrap_content"
+        android:id="@+id/tvClase"
+        android:layout_width="133dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvTitle"
+        android:layout_below="@+id/tvTeacher"
+        android:layout_marginTop="14dp"
         android:textSize="15sp"
         tools:text="wdawd" />
 
-
     <TextView
-        android:id="@+id/etPrice"
-        android:layout_width="70dp"
+        android:id="@+id/etInitialMonth"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvName"
+        android:layout_below="@+id/tvClase"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="9dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="313dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="260dp"
         android:layout_marginRight="32dp"
         android:ems="10"
-        android:inputType="number"
+        android:inputType="date"
         android:textSize="15sp"
         android:textStyle="italic"
         tools:text="ds" />
 
     <TextView
-        android:id="@+id/etQuantity"
-        android:layout_width="66dp"
+        android:id="@+id/etFinalMonth"
+        android:layout_width="136dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/etPrice"
+        android:layout_below="@+id/etInitialMonth"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="124dp"
+        android:layout_marginStart="173dp"
         android:layout_marginTop="-20dp"
-        android:layout_marginEnd="202dp"
+        android:layout_marginEnd="83dp"
         android:layout_marginRight="32dp"
         android:ems="10"
-        android:inputType="numberDecimal"
+        android:inputType="date"
         android:textSize="15sp"
         tools:text="ds" />
 
@@ -66,7 +67,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginStart="130dp"
         android:layout_marginEnd="3dp"
-        android:layout_toEndOf="@+id/tvTitle"
+        android:layout_toEndOf="@+id/tvTeacher"
         android:backgroundTint="@color/red"
         android:text="Eliminar" />
 

@@ -80,11 +80,10 @@
         android:layout_marginBottom="92dp"
         android:background="@drawable/ripple_soft_rectangle_btn"
         android:backgroundTint="@color/blue"
-        android:text="@string/createattendancebutt"
+        android:text="@string/createattendancebutto"
         app:layout_constraintBottom_toTopOf="@+id/backAttendanceBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="Guardar asistencia" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/isPersonPresent"

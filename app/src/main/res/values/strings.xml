@@ -92,6 +92,20 @@
     <string name="createEventTitlec">Culto</string>
     <string name="adminLibraryTitle">"Gestión de la Biblioteca "</string>
     <string name="addProductBut">Añadir un nuevo producto</string>
+    <string name="AdminLibrary">Gestión de la Biblioteca</string>
+    <string name="createattendancebut">Guardar asistencia</string>
+    <string name="createattendancebutto">Guardar asistencia</string>
+    <string name="addNewItem">Añadir nuevo</string>
+    <string name="Title">Título</string>
+    <string name="Name">Nombre</string>
+    <string name="Quantity">Cantidad</string>
+    <string name="Price">Precio</string>
+    <string name="adminSchoolTitle">Gestión de la escuela dominical</string>
+    <string name="addMaterialBut">Añadir nuevo horario</string>
+    <string name="TitleTeacher">Nombre de la profesora</string>
+    <string name="TypeClass">Tipo de clase(Bebés, Niños, Joven)</string>
+    <string name="InitialMonth">Fecha de inicio</string>
+    <string name="FinalMonth">Fecha final</string>
 
 
 </resources>

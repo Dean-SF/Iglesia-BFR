@@ -4,6 +4,5 @@ data class Book(
     var title: String,
     var name: String,
     var quantity: Int,
-    var price: Int,
-    var imgUrl: String
+    var price: Int
 )

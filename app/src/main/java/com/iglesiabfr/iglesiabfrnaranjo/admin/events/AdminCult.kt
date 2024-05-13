@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.iglesiabfr.iglesiabfrnaranjo.R
-import com.iglesiabfr.iglesiabfrnaranjo.homepage.Adminpage
+import com.iglesiabfr.iglesiabfrnaranjo.homepage.Homepage
 
 class AdminCult : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +28,7 @@ class AdminCult : AppCompatActivity() {
 
         val backBtn: Button = findViewById(R.id.BackAdminEventCultButton)
         backBtn.setOnClickListener {
-            val intent = Intent(this, Adminpage::class.java)
+            val intent = Intent(this, Homepage::class.java)
             startActivity(intent)
         }
     }
