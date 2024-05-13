@@ -127,7 +127,7 @@ class AdminCounselingScheduling : AppCompatActivity() {
         }
 
         scheduleBtn.setOnClickListener {
-            confirmDialog.confirmation(getString(R.string.counselingConfirm))
+            confirmDialog.confirmation(getString(R.string.counselingConfirm ))
                 .setOnConfirmationListener {
                     scheduleSession()
                 }
