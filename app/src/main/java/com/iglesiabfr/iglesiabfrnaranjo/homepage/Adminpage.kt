@@ -11,6 +11,7 @@ import com.iglesiabfr.iglesiabfrnaranjo.R
 import com.iglesiabfr.iglesiabfrnaranjo.admin.events.AdminCult
 import com.iglesiabfr.iglesiabfrnaranjo.admin.events.AdminEvent
 import com.iglesiabfr.iglesiabfrnaranjo.admin.events.PrincipalAdminLibrary
+import com.iglesiabfr.iglesiabfrnaranjo.admin.events.PrincipalAdminSchoolMaterial
 import com.iglesiabfr.iglesiabfrnaranjo.admin.events.UploadVideoAdmin
 
 // TODO: Rename parameter arguments, choose names that match
@@ -61,6 +62,11 @@ class Adminpage : Fragment() {
 
         loadVideosBut.setOnClickListener {
             val i = Intent(view.context, UploadVideoAdmin::class.java)
+            startActivity(i)
+        }
+
+        adminSchoolBut.setOnClickListener {
+            val i = Intent(view.context, PrincipalAdminSchoolMaterial::class.java)
             startActivity(i)
         }
 

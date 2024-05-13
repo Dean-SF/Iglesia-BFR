@@ -1,21 +1,15 @@
 package com.iglesiabfr.iglesiabfrnaranjo.admin.events
 
-import android.os.Bundle
-import io.realm.kotlin.Realm
-import android.app.DatePickerDialog
 import android.content.Intent
-import android.util.Log
+import android.os.Bundle
 import android.widget.Button
-import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.iglesiabfr.iglesiabfrnaranjo.R
-import com.iglesiabfr.iglesiabfrnaranjo.login.StartingPage
-import com.iglesiabfr.iglesiabfrnaranjo.schema.Attendance
 import com.iglesiabfr.iglesiabfrnaranjo.schema.AttendanceCults
 import com.iglesiabfr.iglesiabfrnaranjo.schema.EventData
+import io.realm.kotlin.Realm
 import io.realm.kotlin.types.RealmInstant
-import java.time.LocalDate
 
 class MarkAttendanceCults : AppCompatActivity() {
     private lateinit var realm : Realm
@@ -36,7 +30,7 @@ class MarkAttendanceCults : AppCompatActivity() {
 
         val backCultsBtn: Button = findViewById(R.id.backAttendancecultBtn)
         backCultsBtn.setOnClickListener {
-            val intent = Intent(this, AdminEvent::class.java)
+            val intent = Intent(this, AdminCult::class.java)
             startActivity(intent)
         }
     }

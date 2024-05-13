@@ -18,7 +18,28 @@
             android:name=".admin.events.CreateEvent"
             android:exported="false" />
         <activity
+            android:name=".admin.events.CreateCultEvent"
+            android:exported="false" />
+        <activity
             android:name=".admin.events.AdminEvent"
+            android:exported="false" />
+        <activity
+            android:name=".admin.events.AdminCult"
+            android:exported="false" />
+        <activity
+            android:name=".admin.events.AdminLibraryInventory"
+            android:exported="false" />
+        <activity
+            android:name=".admin.events.MarkAttendance"
+            android:exported="false" />
+        <activity
+            android:name=".admin.events.MarkAttendanceCults"
+            android:exported="false" />
+        <activity
+            android:name=".admin.events.PrincipalAdminLibrary"
+            android:exported="false" />
+        <activity
+            android:name=".admin.events.UploadVideoAdmin"
             android:exported="false" />
         <activity
             android:name=".homepage.Homepage"
