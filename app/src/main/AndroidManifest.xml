@@ -30,6 +30,9 @@
             android:name=".admin.events.AdminLibraryInventory"
             android:exported="false" />
         <activity
+            android:name=".admin.events.AdminSchoolMaterial"
+            android:exported="false" />
+        <activity
             android:name=".admin.events.MarkAttendance"
             android:exported="false" />
         <activity
@@ -37,6 +40,9 @@
             android:exported="false" />
         <activity
             android:name=".admin.events.PrincipalAdminLibrary"
+            android:exported="false" />
+        <activity
+            android:name=".admin.events.PrincipalAdminSchoolMaterial"
             android:exported="false" />
         <activity
             android:name=".admin.events.UploadVideoAdmin"
