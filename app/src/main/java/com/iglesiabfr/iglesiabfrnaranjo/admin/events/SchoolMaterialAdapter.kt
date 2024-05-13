@@ -6,21 +6,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.iglesiabfr.iglesiabfrnaranjo.R
 
 class SchoolMaterialAdapter(
-    private val bookList: List<Book>,
-    private val onClickListener: (Book) -> Unit,
+    private val schoolMaterialList: List<SchoolMaterial>,
+    private val onClickListener: (SchoolMaterial) -> Unit,
     private val onClickDelete:(Int) -> Unit
-): RecyclerView.Adapter<BookViewHolder>() {
+): RecyclerView.Adapter<SchoolMaterialViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SchoolMaterialViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        return BookViewHolder(layoutInflater.inflate(R.layout.item_book_list, parent, false))
+        return SchoolMaterialViewHolder(layoutInflater.inflate(R.layout.item_school_material_list, parent, false))
     }
 
-    override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
-        val item = bookList[position]
+    override fun onBindViewHolder(holder: SchoolMaterialViewHolder, position: Int) {
+        val item = schoolMaterialList[position]
         holder.render(item, onClickListener, onClickDelete)
     }
 
-    override fun getItemCount(): Int = bookList.size
+    override fun getItemCount(): Int = schoolMaterialList.size
 }
 

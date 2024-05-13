@@ -11,7 +11,7 @@ class AdminSchoolMaterial : AppCompatActivity() {
     private lateinit var binding: ActivitySchoolMaterialAdminBinding
     private var schoolMaterialMutableList: MutableList<SchoolMaterial> =
         SchoolMaterialProvider.schoolMaterialList.toMutableList()
-    private lateinit var adapter: BookAdapter
+    private lateinit var adapter: SchoolMaterialAdapter
     private val llmanager = LinearLayoutManager(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,17 +52,17 @@ class AdminSchoolMaterial : AppCompatActivity() {
     }
 
     private fun initRecyclerView(){
-        adapter = BookAdapter(
-            bookList = schoolMaterialMutableList,
-            onClickListener = { book -> onItemSelected(book) },
+        adapter = SchoolMaterialAdapter(
+            schoolMaterialList = schoolMaterialMutableList,
+            onClickListener = { schoolMaterial -> onItemSelected(schoolMaterial) },
             onClickDelete = { position -> onDeletedItem(position) }
         )
         binding.recyclerSchoolMaterial.layoutManager = llmanager
         binding.recyclerSchoolMaterial.adapter = adapter
     }
 
-    private fun onItemSelected(book: Book) {
-        Toast.makeText(this, book.name, Toast.LENGTH_SHORT).show()
+    private fun onItemSelected(schoolMaterial: SchoolMaterial) {
+        Toast.makeText(this, schoolMaterial.clase, Toast.LENGTH_SHORT).show()
     }
 
     private fun onDeletedItem(position: Int) {
