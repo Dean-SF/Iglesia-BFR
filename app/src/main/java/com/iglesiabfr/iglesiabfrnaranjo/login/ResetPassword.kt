@@ -6,7 +6,6 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.iglesiabfr.iglesiabfrnaranjo.R
-import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
 import io.realm.kotlin.mongodb.App
 import io.realm.kotlin.mongodb.User
 
@@ -23,7 +22,6 @@ class ResetPassword : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reset_password)
 
-        DatabaseConnector.connect()
         user = app.currentUser
         password1 = findViewById(R.id.inputNewPassword)
         password2 = findViewById(R.id.inputNewPasswordConfirm)

@@ -7,25 +7,26 @@
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="96dp"
-        android:layout_marginTop="60dp"
+        android:layout_width="266dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="48dp"
         android:fontFamily="@font/comfortaa_light"
-        android:text="@string/tituloEmociones"
+        android:text="@string/counselingNormalRecordTitle"
         android:textAlignment="center"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/emotionsList"
-        android:layout_width="372dp"
-        android:layout_height="703dp"
-        android:layout_marginStart="36dp"
+        android:id="@+id/recyclerview"
+        android:layout_width="324dp"
+        android:layout_height="690dp"
+        android:layout_marginStart="60dp"
         android:layout_marginTop="120dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

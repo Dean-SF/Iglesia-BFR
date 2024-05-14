@@ -9,23 +9,23 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="96dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginStart="112dp"
+        android:layout_marginTop="52dp"
         android:fontFamily="@font/comfortaa_light"
-        android:text="@string/tituloEmociones"
-        android:textAlignment="center"
-        android:textSize="24sp"
+        android:text="@string/counselingAdminTitle"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/emotionsList"
-        android:layout_width="372dp"
-        android:layout_height="703dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="120dp"
+        android:id="@+id/recyclerView"
+        android:layout_width="312dp"
+        android:layout_height="763dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="100dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

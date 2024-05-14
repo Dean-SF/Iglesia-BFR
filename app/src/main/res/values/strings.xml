@@ -1,11 +1,23 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:locale="es">
     <string name="app_name">Iglesia BFR, Naranjo</string>
-    <string name="TittleDailyVersTxt">Versiculo Diario</string>
+    <string name="TittleDailyVersTxt">Versículo Diario</string>
     <string name="ErrorCargaMsg">Error al cargar, vuelva a intentar</string>
+    <string name="ErrorCargaMsgRtr">Error al cargar, volviendo a intentar…</string>
     <string name="librosTitle">Libros</string>
     <string name="favoritosBtn">Favoritos</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="InitializingApp">Iniciando…</string>
+
+    // Notificaciones
+    <string name="NotifGranted">Recibirás notificaciones sobre nuevos eventos y actividades</string>
+    <string name="NotifNotGranted">No recibirás notificaciones sobre nuevos eventos y actividades</string>
+
+
+    <string name="NotifTitle">Notificación Iglesia</string>
+    <string name="NotifId" translatable="false">IglesiaNotif</string>
+    <string name="NotifName" translatable="false">Actualizaciones</string>
 
     <string name="anterior">Anterior</string>
     <string name="favoritos">+ Favorito</string>
@@ -162,14 +174,14 @@
 
     // NavBar
     <string name="calendarNavTitle">Calendario</string>
-    <string name="conserjeriaNavTitle">Conserjeria</string>
+    <string name="consejeriaNavTitle">Consejeria</string>
     <string name="foroNavTitle">Foro</string>
     <string name="BibliaNavTitle">Biblia</string>
     <string name="grabacionesNavTitle">Grabaciones</string>
     <string name="adminNavTitle">Admin</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="FavFragmentTitle">Favoritos</string>
-    <string name="versiculo_diario">Versiculo Diario</string>
+    <string name="versiculo_diario">Versículo Diario</string>
 
     // Mi perfil
     <string name="myProfile">Mi Perfil</string>
@@ -191,8 +203,6 @@
     <string name="errorNewAdmin">Hubo un error al asignar permisos</string>
     <string name="mode1">Quitar permisos</string>
     <string name="mode2">Dar permisos</string>
-    <string name="givePermission">Dar permisos de administrador</string>
-    <string name="chooseNewAdmin">Seleccione el usuario para brindarle permisos</string>
     <string name="comunnityFragmentTitle">Foros</string>
     <string name="foro_del_pastor_titulo">Foro del Pastor</string>
     <string name="agregar_publicacion">Agregar publicación</string>
@@ -203,7 +213,7 @@
     <string name="confirmarCambios">¿Desea guardar los cambios?</string>
     <string name="errorName">Hubo un error al actualizar el nombre</string>
     <string name="errorBirthdate">Hubo un error al actualizar la fecha de nacimiento</string>
-    <string name="petitions_title">Peticiones Oraciones \n y Testimonios</string>
+    <string name="petitions_title">Peticiones, Oraciones \n y Testimonios</string>
     <string name="foro_de_seguimiento_title">Foro de Seguimiento</string>
 
     // Enviar sugerencias
@@ -231,4 +241,19 @@
     <string name="confirmEmocion">¿Desea registrar esta emoción?</string>
     <string name="errorEmocion">Hubo un error al intentar registrar la emoción</string>
     <string name="exitoEmocion">La emoción ha sido registrada con éxito</string>
+
+    // Sesiones consejeria
+    <string name="counselingTitle">Sesión de Consejería</string>
+    <string name="counselingAdminTitle">Sesiones de Consejería</string>
+    <string name="counselingNormalRecordTitle">Sesiones de Consejería agendadas</string>
+    <string name="counselingSchedule">Agendar Sesión</string>
+    <string name="navigationSchedule">Agendar</string>
+    <string name="navigationRecord">Historial</string>
+    <string name="navigationRequest">Solicitar</string>
+    <string name="descRequest">Solicite una sesión de consejería al pastor. El pastor será notificado y cuando su sesión sea agendada va a ser notificado con la fecha y hora.</string>
+    <string name="counselingErrorRequest">Hubo un error al intentar solicitar la sesión</string>
+    <string name="counselingErrorSchedule">Hubo un error al intentar agendar la sesión</string>
+    <string name="counselingSuccessSchedule">La sesión fue agendada con éxito</string>
+    <string name="counselingSuccessRequest">La sesión fue solicitada con éxito</string>
+
 </resources>

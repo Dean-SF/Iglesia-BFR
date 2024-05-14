@@ -24,7 +24,6 @@ class FavBooksFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        DatabaseConnector.connect()
     }
 
     override fun onCreateView(
