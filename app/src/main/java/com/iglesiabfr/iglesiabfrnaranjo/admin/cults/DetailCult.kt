@@ -31,12 +31,14 @@ import io.realm.kotlin.types.RealmInstant
 import kotlinx.coroutines.launch
 import org.mongodb.kbson.ObjectId
 import java.text.SimpleDateFormat
+import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
+import java.time.temporal.TemporalAdjusters
 import java.time.temporal.WeekFields
 import java.util.Locale
 import java.util.TimeZone
@@ -287,9 +289,10 @@ class DetailCult : AppCompatActivity() {
     }
 
     private fun areDatesInSameWeek(date1: LocalDate, date2: LocalDate): Boolean {
-        val weekFields = WeekFields.of(Locale.getDefault())
+        val monday1 = date1.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY))
+        val monday2 = date2.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY))
         if (date1.year != date2.year) return false
-        return date1.get(weekFields.weekOfWeekBasedYear()) == date2.get(weekFields.weekOfWeekBasedYear())
+        return ChronoUnit.WEEKS.between(monday1, monday2) == 0L
     }
 
     private fun cancelCult(cult : Cult, cancel : Boolean) {

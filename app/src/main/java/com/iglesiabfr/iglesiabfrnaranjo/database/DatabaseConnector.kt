@@ -93,7 +93,7 @@ object DatabaseConnector {
                     .errorHandler { session: SyncSession, error: SyncException ->
                         Log.d("IglesiaError", error.message.toString())
                     }
-                    .waitForInitialRemoteData()
+                    //.waitForInitialRemoteData()
                     .build()
                 db = Realm.open(config)
                 //db.subscriptions.waitForSynchronization()
