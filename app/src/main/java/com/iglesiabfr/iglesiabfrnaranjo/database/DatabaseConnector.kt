@@ -44,7 +44,7 @@ object DatabaseConnector {
         this.isAdmin = getUserData()?.isAdmin == true
     }
 
-    private fun getUserData(): UserData? {
+    fun getUserData(): UserData? {
         return userData
     }
 

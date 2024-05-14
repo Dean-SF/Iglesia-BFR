@@ -9,8 +9,7 @@ import org.mongodb.kbson.ObjectId
 class CounselingSession : RealmObject {
     @PrimaryKey
     var _id: ObjectId = BsonObjectId()
-    var name : String = ""
-    var email : String = ""
+    var user : UserData? = null
     var postDateTime: RealmInstant = RealmInstant.now()
     var sessionDateTime: RealmInstant = RealmInstant.now()
     var scheduled : Boolean = false
