@@ -2,17 +2,16 @@ package com.iglesiabfr.iglesiabfrnaranjo.forums.followup
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.google.android.material.textfield.TextInputEditText
 import com.iglesiabfr.iglesiabfrnaranjo.R
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Followup
-import com.iglesiabfr.iglesiabfrnaranjo.schema.PublicacionForoPastor
 
 class followupForumPublicationFragment : Fragment() {
 
@@ -27,8 +26,13 @@ class followupForumPublicationFragment : Fragment() {
         val publicationText = view.findViewById<TextInputEditText>(R.id.followupPublicationText)
         val publicationContent = publicationText.text
         val btnPublicar = view.findViewById<Button>(R.id.publishFollowupBtn)
-        btnPublicar.setOnClickListener(){
-            addPublication(publicationContent.toString())
+        btnPublicar.setOnClickListener {
+            val content = publicationContent.toString().trim()
+            if (content.isEmpty()) {
+                requireContext().toast("El contenido de la publicación no debe estar vacío")
+            } else {
+                addPublication(content)
+            }
         }
 
     }

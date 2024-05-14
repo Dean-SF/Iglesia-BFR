@@ -2,12 +2,12 @@ package com.iglesiabfr.iglesiabfrnaranjo.forums.pastor
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.google.android.material.textfield.TextInputEditText
 import com.iglesiabfr.iglesiabfrnaranjo.R
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
@@ -28,9 +28,22 @@ class PastorForumPublicationFragment : Fragment() {
         val publicationTitleText = view.findViewById<TextInputEditText>(R.id.pastorForumPublicationTitle)
         val publicationTitleContent = publicationTitleText.text
         val btnPublicar = view.findViewById<Button>(R.id.publicarForoPastorBtn)
-        btnPublicar.setOnClickListener(){
-            addPublication(publicationContent.toString(), publicationTitleContent.toString())
+        btnPublicar.setOnClickListener {
+            val title = publicationTitleContent.toString().trim()
+            val content = publicationContent.toString().trim()
+
+            if (title.isEmpty() || content.isEmpty()) {
+                if (title.isEmpty()) {
+                    requireContext().toast("El título de la publicación no ouede estar vacío")
+                }
+                if (content.isEmpty()) {
+                    requireContext().toast("El contenido de la publicación no ouede estar vacío")
+                }
+            } else {
+                addPublication(content, title)
+            }
         }
+
 
     }
 
