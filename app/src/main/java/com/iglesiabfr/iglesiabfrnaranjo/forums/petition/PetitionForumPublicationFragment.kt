@@ -40,7 +40,7 @@ class PetitionForumPublicationFragment : Fragment() {
             val content = publicationContent.toString().trim()
 
             if (content.isEmpty()) {
-                requireContext().toast("El contenido de la publicación no puede estar vacío")
+                requireContext().toast("El contenido de la publicación no debe estar vacío")
             } else {
                 addPublication(content, selectedOption)
             }

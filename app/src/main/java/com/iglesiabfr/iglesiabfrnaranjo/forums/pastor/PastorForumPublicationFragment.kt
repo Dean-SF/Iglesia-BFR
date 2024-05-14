@@ -33,10 +33,10 @@ class PastorForumPublicationFragment : Fragment() {
 
             if (title.isEmpty() || content.isEmpty()) {
                 if (title.isEmpty()) {
-                    requireContext().toast("El título de la publicación no ouede estar vacío")
+                    requireContext().toast("El título de la publicación no debe estar vacío")
                 }
                 if (content.isEmpty()) {
-                    requireContext().toast("El contenido de la publicación no ouede estar vacío")
+                    requireContext().toast("El contenido de la publicación no debe estar vacío")
                 }
             } else {
                 addPublication(content, title)
