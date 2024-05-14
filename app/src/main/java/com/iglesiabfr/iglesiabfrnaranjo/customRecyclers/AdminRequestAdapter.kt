@@ -57,7 +57,7 @@ class AdminRequestAdapter(private val requests: RealmResults<CounselingSession>,
                 .toLocalDateTime()
             textDateTime.text = datetimeCostaRica.format(datetimeFormatter)
 
-            val userName = newRequest.name
+            val userName = newRequest.user?.name
             val fullTextRequest = "$userName solicitó una sesión"
             textRequest.text = fullTextRequest
         }

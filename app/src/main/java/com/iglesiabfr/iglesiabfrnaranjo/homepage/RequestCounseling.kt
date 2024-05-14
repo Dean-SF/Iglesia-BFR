@@ -1,6 +1,7 @@
 package com.iglesiabfr.iglesiabfrnaranjo.homepage
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,14 +41,18 @@ class RequestCounseling : Fragment() {
                 user?.let { DatabaseConnector.db.query<UserData>("email == $0", currentEmail).find().firstOrNull() }
 
             try {
-                val event = CounselingSession().apply {
-                    name = userQuery?.name.toString()
-                    email = currentEmail
-                    postDateTime = RealmInstant.now()
-                    scheduled = false
-                }
-                DatabaseConnector.db.writeBlocking {
-                    copyToRealm(event)
+                DatabaseConnector.db.write {
+                    if (userQuery != null) {
+                        val event = CounselingSession().apply {
+                            findLatest(userQuery)
+                                ?. let {
+                                    user = it
+                                }
+                                postDateTime = RealmInstant.now()
+                                scheduled = false
+                        }
+                        copyToRealm(event)
+                    }
                 }
                 Toast.makeText(
                     requireContext(),
@@ -56,6 +61,7 @@ class RequestCounseling : Fragment() {
                 ).show()
 
             } catch (e: Exception) {
+                Log.d("ERROR", e.toString())
                 Toast.makeText(
                     requireContext(),
                     R.string.counselingErrorRequest,

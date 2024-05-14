@@ -1,6 +1,5 @@
 package com.iglesiabfr.iglesiabfrnaranjo.customRecyclers
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,8 +51,7 @@ class AdminRecordAdapter(private val records: RealmResults<CounselingSession>) :
 
             textDate.text = formattedDate
             textTime.text = formattedTime
-            textName.text = newRecord.name
-            Log.d("AdminRecordAdapter", "$newRecord.name - ${textDate.text}")
+            textName.text = newRecord.user?.name
         }
     }
 }

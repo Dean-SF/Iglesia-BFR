@@ -46,7 +46,8 @@ class EmotionAdapter(private val emotions: RealmResults<Emotion>) :
                 .toLocalDateTime()
 
             textDateTime.text = datetimeCostaRica.format(datetimeFormatter)
-            emotion.text = newEmotion.emotion
+            val userName = newEmotion.user?.name + " " + newEmotion.emotion
+            emotion.text = userName
             emoticon.setImageResource(getEmotionImageResource(newEmotion.emotionId))
         }
 

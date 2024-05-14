@@ -28,7 +28,8 @@ class RecordCounseling : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         val email = DatabaseConnector.getCurrentEmail()
-        val records = DatabaseConnector.db.query<CounselingSession>("scheduled == $0 AND email == $1", true, email)
+        val records = DatabaseConnector.db.query<CounselingSession>("scheduled == $0 AND user == $1",
+            true, DatabaseConnector.getUserData())
             .sort("sessionDateTime", Sort.DESCENDING).find()
 
         recordAdapter = RecordAdapter(records)
