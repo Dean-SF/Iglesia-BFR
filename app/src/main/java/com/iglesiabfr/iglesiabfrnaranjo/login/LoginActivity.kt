@@ -12,9 +12,9 @@ import com.iglesiabfr.iglesiabfrnaranjo.R
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
 import com.iglesiabfr.iglesiabfrnaranjo.dialogs.ConfirmDialog
 import com.iglesiabfr.iglesiabfrnaranjo.dialogs.LoadingDialog
-import com.iglesiabfr.iglesiabfrnaranjo.homepage.Homepage
 import com.iglesiabfr.iglesiabfrnaranjo.schema.UserData
 import io.realm.kotlin.ext.query
+import com.iglesiabfr.iglesiabfrnaranjo.homepage.Homepage
 import io.realm.kotlin.mongodb.App
 import io.realm.kotlin.mongodb.Credentials
 import io.realm.kotlin.mongodb.User
@@ -33,7 +33,6 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
         loadingDialog = LoadingDialog(this)
         confirmDialog = ConfirmDialog(this)
-        DatabaseConnector.connect()
 
         val loginBtn: Button = findViewById(R.id.loginBtn)
         loginBtn.setOnClickListener {

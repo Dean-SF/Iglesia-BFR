@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".homepage.Counseling">
+
+    <FrameLayout
+        android:id="@+id/counselingFrame"
+        android:layout_width="409dp"
+        android:layout_height="810dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp">
+    </FrameLayout>
+
+    <com.iglesiabfr.iglesiabfrnaranjo.CustomBottNavBar
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="812dp"
+        android:background="@color/blue"
+        android:clickable="true" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

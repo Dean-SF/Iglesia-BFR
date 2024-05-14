@@ -1,5 +1,6 @@
 package com.iglesiabfr.iglesiabfrnaranjo.homepage
 
+import AdminCounselingHome
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationBarView
 import com.iglesiabfr.iglesiabfrnaranjo.Bible.BibleBooksFragment
 import com.iglesiabfr.iglesiabfrnaranjo.R
+import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
 import com.iglesiabfr.iglesiabfrnaranjo.SharedViewModel
 import com.iglesiabfr.iglesiabfrnaranjo.forums.ForumsFragment
 
@@ -32,6 +34,12 @@ class Homepage : AppCompatActivity() {
                 R.id.item_admin -> {
                     replaceFragment(Adminpage())
                     true
+                }
+                R.id.item_consejeria -> {
+                    if (DatabaseConnector.getIsAdmin()) {
+                        replaceFragment(AdminCounselingHome())
+                    }
+                true
                 }
                 R.id.item_biblia -> {
                     replaceFragment(BibleBooksFragment())
