@@ -1,6 +1,5 @@
 package com.iglesiabfr.iglesiabfrnaranjo.calendar
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -58,7 +57,7 @@ class CalendarEntryAdapter(val dataList: LinkedList<CalendarEntry>,val types : A
 
     override fun getItemCount(): Int = dataList.size
 
-    inner class CalendarEntryViewHolder(val binding: CalendarEventItemViewBinding, val types : Array<String>) :
+    inner class CalendarEntryViewHolder(private val binding: CalendarEventItemViewBinding, val types : Array<String>) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(entry: CalendarEntry) {
             when(entry) {
@@ -77,7 +76,7 @@ class CalendarEntryAdapter(val dataList: LinkedList<CalendarEntry>,val types : A
     }
 }
 
-class Example5Fragment() : Fragment(R.layout.calendar_fragment) {
+class CalendarFragment() : Fragment(R.layout.calendar_fragment) {
 
     private var selectedDate: LocalDate? = null
 
@@ -129,7 +128,6 @@ class Example5Fragment() : Fragment(R.layout.calendar_fragment) {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             adapter = entriesAdapter
         }
-        entriesAdapter.notifyDataSetChanged()
 
         val daysOfWeek = daysOfWeek()
         val currentMonth = YearMonth.now()
@@ -164,7 +162,16 @@ class Example5Fragment() : Fragment(R.layout.calendar_fragment) {
 
     private fun updateAdapterForDate(date: LocalDate?) {
         entriesAdapter.dataList.clear()
-        entriesAdapter.dataList.addAll(calendarEntries[date].orEmpty())
+        entriesAdapter.dataList.addAll(calendarEntries[date].orEmpty().sortedBy {
+            when(it) {
+                is CalendarEntry.EventCalendar -> {
+                    it.date.toLocalTime()
+                }
+                is CalendarEntry.CultCalendar -> {
+                    it.date.toLocalTime()
+                }
+            }
+        })
         entriesAdapter.notifyDataSetChanged()
     }
 
@@ -179,7 +186,7 @@ class Example5Fragment() : Fragment(R.layout.calendar_fragment) {
                         if (selectedDate != day.date) {
                             val oldDate = selectedDate
                             selectedDate = day.date
-                            val binding = this@Example5Fragment.binding
+                            val binding = this@CalendarFragment.binding
                             binding.exFiveCalendar.notifyDateChanged(day.date)
                             oldDate?.let { binding.exFiveCalendar.notifyDateChanged(it) }
                             updateAdapterForDate(day.date)
