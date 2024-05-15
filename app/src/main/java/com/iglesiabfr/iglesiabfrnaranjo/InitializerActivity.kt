@@ -39,27 +39,25 @@ class InitializerActivity : AppCompatActivity() {
 
         val context = this
         if (hasCredentialsDataStore) {
-            Log.d("aa","aaa")
             lifecycleScope.launch(Dispatchers.IO) {
                 rememberSession().collect{
                     withContext(Dispatchers.Main) {
                         AppConnector.app.login(Credentials.emailPassword(it.email, it.password))
                         emailFromPreferences = it.email
                     }
-                }
+                    DatabaseConnector.setOnFinishedListener {
+                        DatabaseConnector.email = emailFromPreferences
+                        DatabaseConnector.setUserData()
+                        DatabaseConnector.setIsAdmin()
+                        Log.d("TESTINGGGGGG", "USER DATA NAME: ${DatabaseConnector.getUserData()?.name}")
+                        val homeIntent = Intent(context, Homepage::class.java)
+                        homeIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                        startActivity(homeIntent)
+                        finish()
+                    }
 
-                DatabaseConnector.setOnFinishedListener {
-                    DatabaseConnector.email = emailFromPreferences
-                    DatabaseConnector.setUserData()
-                    DatabaseConnector.setIsAdmin()
-                    Log.d("TESTINGGGGGG", "USER DATA NAME: ${DatabaseConnector.getUserData()?.name}")
-                    val homeIntent = Intent(context, Homepage::class.java)
-                    homeIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                    startActivity(homeIntent)
-                    finish()
+                    DatabaseConnector.connect(lifecycleScope)
                 }
-                DatabaseConnector.connect(lifecycleScope)
-
             }
 
         } else {
