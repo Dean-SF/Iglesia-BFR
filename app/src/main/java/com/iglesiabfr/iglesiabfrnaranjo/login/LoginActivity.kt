@@ -79,7 +79,7 @@ class LoginActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    // Verificar que la informacion esta completa
+    // Verificar que la informacion esta completa y si lo está entonces inicia sesión
     private fun checkInputs() {
         loadingDialog.startLoading()
         val emailInput: EditText = findViewById(R.id.inputEmail)
@@ -153,42 +153,14 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    // Función para determinar si se debe borrar el archivo de preferencias o no
     private suspend fun setRememberSession(userQuery: UserData?) {
-        lifecycleScope.launch {
-            runCatching {
-                DatabaseConnector.db.write {
-                    if (userQuery != null) {
-                        findLatest(userQuery)?.let {
-                            it.rememberSession = rememberSessionValue
-                        }
-                    }
-                }
-            }.onFailure { error ->
-                Log.e("LoginActivity", "Error: ${error.message}")
-            }
-        }
-        // Si se desactivó la opción de recordar sesión, entonces se elimina el archivo de preferencias
-        val originalValue = userQuery?.rememberSession
-        if (originalValue == true && !rememberSessionValue) {
-            applicationContext.deleteDataStoreFile("credentials")
+        if (!rememberSessionValue) {
+            applicationContext.deleteDataStoreFile("credentials.preferences_pb")
         }
     }
 
-    // Función para eliminar el archivo de DataStore
-    private fun Context.deleteDataStoreFile(name: String) {
-        val dataStoreFile = File(filesDir, "${name}.preferences_pb")
-        if (dataStoreFile.exists()) {
-            val deleted = dataStoreFile.delete()
-            if (deleted) {
-                Log.d("RememberSession", "Las preferencias se eliminaron con éxito.")
-            } else {
-                Log.d("RememberSession", "Las preferencias no se pudieron eliminar.")
-            }
-        } else {
-            Log.d("RememberSession", "El archivo de preferencias no existe.")
-        }
-    }
-
+    // Función para guardar las credenciales en DataStore para recordar sesión
     private suspend fun saveCredentials(passwordInput: String) {
         dataStore.edit { preferences ->
             preferences[stringPreferencesKey("email")] = email
@@ -196,6 +168,28 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    // Función para borrar el archivo de preferencias cuando el usuario ya no desea recordar la sesión
+    private fun Context.deleteDataStoreFile(fileName: String) {
+        val dataStoreDirectory = File("/data/data/com.iglesiabfr.iglesiabfrnaranjo/files/datastore/")
+        if (dataStoreDirectory.exists() && dataStoreDirectory.isDirectory) {
+            val fileList = dataStoreDirectory.listFiles()
+            fileList?.forEach { file ->
+                if (file.name == fileName) {
+                    val deleted = file.delete()
+                    if (deleted) {
+                        Log.d("RememberSession", "El archivo $fileName se eliminó con éxito.")
+                    } else {
+                        Log.d("RememberSession", "No se pudo eliminar el archivo $fileName.")
+                    }
+                    return@forEach
+                }
+            }
+        } else {
+            Log.d("RememberSession", "El directorio de datastore no existe o no es un directorio.")
+        }
+    }
+
+    // Obtener credenciales e iniciar sesión
     private suspend fun login(passwordInput: String): User? {
         return try {
             DatabaseConnector.credentials = Credentials.emailPassword(email, passwordInput)
