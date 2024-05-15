@@ -1,0 +1,35 @@
+package com.iglesiabfr.iglesiabfrnaranjo.admin.events
+
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.iglesiabfr.iglesiabfrnaranjo.R
+
+class InventoryMaterialAdapter(
+    private val onClickListener: (InventoryMaterial) -> Unit,
+    private val onClickDelete:(Int) -> Unit
+): RecyclerView.Adapter<InventoryMaterialViewHolder>() {
+
+    private val inventoryMaterialList = mutableListOf<InventoryMaterial>()
+
+    fun submitList(newList: List<InventoryMaterial>) {
+        inventoryMaterialList.clear()
+        inventoryMaterialList.addAll(newList)
+        notifyDataSetChanged()
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InventoryMaterialViewHolder {
+        val layoutInflater = LayoutInflater.from(parent.context)
+        return InventoryMaterialViewHolder(layoutInflater.inflate(R.layout.item_inventory_material_list, parent, false))
+    }
+
+    override fun onBindViewHolder(holder: InventoryMaterialViewHolder, position: Int) {
+        val item = inventoryMaterialList[position]
+        holder.render(item, onClickListener, onClickDelete)
+    }
+
+    override fun getItemCount(): Int = inventoryMaterialList.size
+}
+
+
+

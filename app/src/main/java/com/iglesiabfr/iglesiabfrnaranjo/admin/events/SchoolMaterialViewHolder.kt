@@ -1,7 +1,6 @@
 package com.iglesiabfr.iglesiabfrnaranjo.admin.events
 
 import android.view.View
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.iglesiabfr.iglesiabfrnaranjo.databinding.ItemSchoolMaterialListBinding
 
@@ -16,9 +15,10 @@ class SchoolMaterialViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     ) {
         binding.tvTeacher.text = schoolMaterialModel.teacherName
         binding.tvClase.text = schoolMaterialModel.clase
-        binding.etInitialMonth.text = schoolMaterialModel.initialMonth.toString()
-        binding.etFinalMonth.text = schoolMaterialModel.finalMonth.toString()
-        itemView.setOnClickListener { Toast.makeText(itemView.context, "KotlinMan", Toast.LENGTH_SHORT).show() }
+        binding.etInitialMonth.text = schoolMaterialModel.initialMonth
+        binding.etFinalMonth.text = schoolMaterialModel.finalMonth
+
+        itemView.setOnClickListener { onClickListener(schoolMaterialModel) }
         binding.btnDelete.setOnClickListener { onClickDelete(absoluteAdapterPosition) }
     }
 }

@@ -12,78 +12,61 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="70dp"
+        android:layout_marginStart="80dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="70dp"
-        android:text="@string/titleListTeachers"
+        android:layout_marginEnd="80dp"
+        android:text="@string/TitleListMaterials"
         android:textSize="16sp"
         android:textStyle="bold"
-        tools:text="Inventario de lista de profesores" />
-
+        tools:text="Inventario de lista de materiales" />
 
     <TextView
-        android:id="@+id/tvTeacher"
-        android:layout_width="193dp"
-        android:layout_height="25dp"
+        android:id="@+id/tvName"
+        android:layout_width="151dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/tvTitleList"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="98dp"
+        android:layout_marginStart="119dp"
         android:layout_marginTop="25dp"
-        android:layout_marginEnd="98dp"
+        android:layout_marginEnd="119dp"
         android:textSize="20sp"
         android:textStyle="bold"
         tools:text="dadawdawdwd" />
 
     <TextView
-        android:id="@+id/tvClase"
-        android:layout_width="133dp"
+        android:id="@+id/tvQuantity"
+        android:layout_width="154dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvTeacher"
+        android:layout_below="@+id/tvName"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="128dp"
+        android:layout_marginStart="119dp"
         android:layout_marginTop="25dp"
-        android:layout_marginEnd="128dp"
+        android:layout_marginEnd="119dp"
+        android:inputType="number"
         android:textSize="15sp"
         tools:text="wdawd" />
 
     <TextView
-        android:id="@+id/etInitialMonth"
-        android:layout_width="149dp"
+        android:id="@+id/etType"
+        android:layout_width="155dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvClase"
+        android:layout_below="@+id/tvQuantity"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="119dp"
         android:layout_marginTop="25dp"
-        android:layout_marginEnd="226dp"
-        android:ems="10"
-        android:inputType="date"
+        android:layout_marginEnd="119dp"
         android:textSize="15sp"
         android:textStyle="italic"
         tools:text="ds" />
 
-    <TextView
-        android:id="@+id/etFinalMonth"
-        android:layout_width="136dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvClase"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="201dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="20dp"
-        android:ems="10"
-        android:inputType="date"
-        android:textSize="15sp"
-        tools:text="ds" />
-
     <Button
         android:id="@+id/btnDelete"
-        android:layout_width="124dp"
-        android:layout_height="41dp"
-        android:layout_below="@+id/etFinalMonth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etType"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="135dp"
@@ -92,5 +75,6 @@
         android:backgroundTint="@color/red"
         android:text="Eliminar"
         tools:text="Eliminar" />
+
 
 </RelativeLayout>

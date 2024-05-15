@@ -8,54 +8,33 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <EditText
-        android:id="@+id/etTeacherName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="395dp"
-        android:autofillHints=""
-        android:hint="@string/TitleTeacher" />
-
-    <EditText
-        android:id="@+id/etClase"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:autofillHints=""
-        android:hint="@string/TypeClass"
-        android:layout_below="@+id/etTeacherName"
-        android:layout_marginTop="20dp"/>
-
-    <EditText
-        android:id="@+id/etInitialMonth"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:autofillHints=""
-        android:hint="@string/InitialMonth"
-        android:layout_below="@+id/etClase"
-        android:layout_marginTop="20dp"
-        android:inputType="date" />
-
-    <EditText
-        android:id="@+id/etFinalMonth"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:autofillHints=""
-        android:hint="@string/FinalMonth"
-        android:layout_below="@+id/etInitialMonth"
-        android:layout_marginTop="20dp"
-        android:inputType="date" />
-
     <Button
         android:id="@+id/btnAddSchoolMaterial"
         android:layout_width="373dp"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/BackAdminEventCultButton"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/ripple_soft_rectangle_btn"
+        android:backgroundTint="@color/blue"
+        android:text="@string/addNewItem" />
+
+    <Button
+        android:id="@+id/BackAdminEventCultButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom"
-        android:layout_marginStart="18dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginBottom="18dp"
-        android:text="@string/addNewItem" />
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/ripple_soft_rectangle_btn"
+        android:backgroundTint="@color/blue"
+        android:text="@string/backAdminEventCultButton" />
 
 </RelativeLayout>
