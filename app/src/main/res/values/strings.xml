@@ -248,5 +248,6 @@
     <string name="instructionsReset">Favor copiar el link que se envió por correo electrónico y pegar aquí</string>
     <string name="linkHint">pegar link aquí</string>
     <string name="sendEmail">Enviar correo de restablecimiento</string>
+    <string name="invalidLink">El link es inválido</string>
 
 </resources>
