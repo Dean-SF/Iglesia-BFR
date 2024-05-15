@@ -55,11 +55,10 @@ class ResetPassword : AppCompatActivity() {
                 Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_LONG).show()
             } else {
                 val (token, tokenId) = parseLink(link) ?: run {
-                    println("Unable to parse URL")
+                    Toast.makeText(this@ResetPassword, R.string.invalidLink, Toast.LENGTH_LONG).show()
+                    Log.d("PARSINGLINK","Hubo un error al parsear el link")
                     return
                 }
-                Log.d("TOKEN","Token: $token")
-                Log.d("TOKEN ID", "Token ID: $tokenId")
                 resetPassword(token, tokenId, password1Text)
             }
         }
@@ -92,7 +91,7 @@ class ResetPassword : AppCompatActivity() {
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)
             }.onFailure {
-                Toast.makeText(this@ResetPassword, it.message, Toast.LENGTH_LONG).show()
+                Toast.makeText(this@ResetPassword, R.string.resetPassError, Toast.LENGTH_LONG).show()
             }
         }
     }
