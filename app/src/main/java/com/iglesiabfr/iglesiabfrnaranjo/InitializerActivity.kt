@@ -4,8 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
@@ -49,7 +47,7 @@ class InitializerActivity : AppCompatActivity() {
                         DatabaseConnector.email = emailFromPreferences
                         DatabaseConnector.setUserData()
                         DatabaseConnector.setIsAdmin()
-                        Log.d("TESTINGGGGGG", "USER DATA NAME: ${DatabaseConnector.getUserData()?.name}")
+
                         val homeIntent = Intent(context, Homepage::class.java)
                         homeIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                         startActivity(homeIntent)
