@@ -242,4 +242,11 @@
     <string name="counselingConfirm">¿Desea agendar esta sesión?</string>
     <string name="refreshBtn">Refrescar</string>
 
+    // Resetear contraseña
+    <string name="resetPassSuccess">La contraseña ha sido restablecida con éxito</string>
+    <string name="resetPassError">Hubo un error al intentar restablecer contraseña</string>
+    <string name="instructionsReset">Favor copiar el link que se envió por correo electrónico y pegar aquí</string>
+    <string name="linkHint">pegar link aquí</string>
+    <string name="sendEmail">Enviar correo de restablecimiento</string>
+
 </resources>
