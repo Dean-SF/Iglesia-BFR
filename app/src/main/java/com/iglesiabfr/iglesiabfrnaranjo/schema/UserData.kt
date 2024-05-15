@@ -14,4 +14,5 @@ class UserData : RealmObject {
     var birthdate: RealmInstant = RealmInstant.now()
     var isAdmin : Boolean = false
     var rememberSession: Boolean = false
+    var notifToken : String = ""
 }
