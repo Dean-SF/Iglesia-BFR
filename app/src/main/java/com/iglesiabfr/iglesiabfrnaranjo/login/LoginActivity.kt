@@ -1,5 +1,6 @@
 package com.iglesiabfr.iglesiabfrnaranjo.login
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,8 +10,11 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.lifecycle.lifecycleScope
 import com.iglesiabfr.iglesiabfrnaranjo.R
+import com.iglesiabfr.iglesiabfrnaranjo.dataStore
 import com.iglesiabfr.iglesiabfrnaranjo.database.AppConnector
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
 import com.iglesiabfr.iglesiabfrnaranjo.dialogs.ConfirmDialog
@@ -22,6 +26,8 @@ import io.realm.kotlin.mongodb.App
 import io.realm.kotlin.mongodb.Credentials
 import io.realm.kotlin.mongodb.User
 import kotlinx.coroutines.launch
+import java.io.File
+
 
 class LoginActivity : AppCompatActivity() {
 
@@ -114,7 +120,6 @@ class LoginActivity : AppCompatActivity() {
                 DatabaseConnector.email = email
                 DatabaseConnector.setUserData()
                 DatabaseConnector.setIsAdmin()
-                DatabaseConnector.getIsAdmin()
                 loadingDialog.stopLoading()
                 callMainMenu()
             }
@@ -135,13 +140,46 @@ class LoginActivity : AppCompatActivity() {
                 Log.e("LoginActivity", "Error: ${error.message}")
             }
         }
+        // Si se desactivó la opción de recordar sesión, entonces se elimina el archivo de preferencias
+        val originalValue = userQuery?.rememberSession
+        if (originalValue == true && !rememberSessionValue) {
+            applicationContext.deleteDataStoreFile("credentials")
+        }
     }
 
+    // Función para eliminar el archivo de DataStore
+    private fun Context.deleteDataStoreFile(name: String) {
+        val dataStoreFile = File(filesDir, "${name}.preferences_pb")
+        if (dataStoreFile.exists()) {
+            val deleted = dataStoreFile.delete()
+            if (deleted) {
+                Log.d("RememberSession", "Las preferencias se eliminaron con éxito.")
+            } else {
+                Log.d("RememberSession", "Las preferencias no se pudieron eliminar.")
+            }
+        } else {
+            Log.d("RememberSession", "El archivo de preferencias no existe.")
+        }
+    }
+
+    private suspend fun saveCredentials(passwordInput: String) {
+        dataStore.edit { preferences ->
+            preferences[stringPreferencesKey("email")] = email
+            preferences[stringPreferencesKey("password")] = passwordInput
+        }
+    }
 
     private suspend fun login(passwordInput: String): User? {
         return try {
             DatabaseConnector.credentials = Credentials.emailPassword(email, passwordInput)
+
+            // Si va a recordar la sesión, se guardan las credenciales en DataStore
+            if (rememberSessionValue) {
+                saveCredentials(passwordInput)
+            }
+
             app.login(Credentials.emailPassword(email, passwordInput))
+
         } catch (e: Exception) {
             null
         }

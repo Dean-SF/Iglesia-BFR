@@ -36,7 +36,6 @@ object DatabaseConnector {
     }
 
     fun getIsAdmin() : Boolean {
-        println(isAdmin)
         return isAdmin
     }
 
