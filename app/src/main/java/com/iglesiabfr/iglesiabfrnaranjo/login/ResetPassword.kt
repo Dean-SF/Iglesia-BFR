@@ -40,6 +40,7 @@ class ResetPassword : AppCompatActivity() {
         }
     }
 
+    // Verificar que todos los datos hayan sido ingresado
     private fun checkInputs() {
         val password1Text = password1.text.toString()
         val password2Text = password2.text.toString()
@@ -64,14 +65,11 @@ class ResetPassword : AppCompatActivity() {
         }
     }
 
+    // Función para obtener el token y tokenID del link
     private fun parseLink(url: String): Pair<String?, String?>? {
-        // Define the regular expression pattern to match the token and tokenId
         val pattern = Regex("""token=([^&]+)&tokenId=([^&]+)""")
-
-        // Match the pattern against the URL
         val matchResult = pattern.find(url)
 
-        // If there's a match, extract the token and tokenId and return them
         return matchResult?.let {
             val token = it.groups[1]?.value
             val tokenId = it.groups[2]?.value
@@ -79,6 +77,7 @@ class ResetPassword : AppCompatActivity() {
         }
     }
 
+    // Función para restablecer la contraseña y volver a pantalla de login
     private fun  resetPassword(token: String?, tokenId: String?, newPassword: String) {
         lifecycleScope.launch {
             runCatching {

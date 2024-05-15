@@ -38,7 +38,6 @@ class ResetPasswordSendEmail : AppCompatActivity() {
     private suspend fun checkInputs() {
         email = emailInput.text.toString()
 
-        // Verify that all fields were entered
         if (email.isEmpty()) {
             Toast.makeText(this, "Los datos están incompletos", Toast.LENGTH_LONG).show()
         } else {
@@ -49,17 +48,4 @@ class ResetPasswordSendEmail : AppCompatActivity() {
         }
     }
 
-//    private suspend fun resetPassword(newPassword: String) {
-//        lifecycleScope.launch {
-//            runCatching {
-//                app.emailPasswordAuth.sendResetPasswordEmail(email)
-//            }.onSuccess {
-//                val intent = Intent(this@ResetPasswordSendEmail, StartingPage::class.java)
-//                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-//                startActivity(intent)
-//            }.onFailure {
-//                Toast.makeText(this@ResetPasswordSendEmail, it.message, Toast.LENGTH_LONG).show()
-//            }
-//        }
-//    }
 }
