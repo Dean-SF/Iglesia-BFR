@@ -72,6 +72,9 @@
             android:name=".homepage.MyProfile"
             android:exported="false" />
         <activity
+            android:name=".login.ResetPasswordSendEmail"
+            android:exported="false" />
+        <activity
             android:name=".login.ResetPassword"
             android:exported="false" />
         <activity

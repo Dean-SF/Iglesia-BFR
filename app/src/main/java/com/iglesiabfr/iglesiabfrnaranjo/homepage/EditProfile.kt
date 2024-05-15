@@ -12,7 +12,7 @@ import com.iglesiabfr.iglesiabfrnaranjo.R
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
 import com.iglesiabfr.iglesiabfrnaranjo.dialogs.ConfirmDialog
 import com.iglesiabfr.iglesiabfrnaranjo.dialogs.LoadingDialog
-import com.iglesiabfr.iglesiabfrnaranjo.login.ResetPassword
+import com.iglesiabfr.iglesiabfrnaranjo.login.ResetPasswordSendEmail
 import com.iglesiabfr.iglesiabfrnaranjo.picker.CustomDatePicker
 import com.iglesiabfr.iglesiabfrnaranjo.schema.UserData
 import io.realm.kotlin.ext.query
@@ -69,7 +69,7 @@ class EditProfile : AppCompatActivity() {
     }
 
     private fun callResetPassword() {
-        val intent = Intent(this, ResetPassword::class.java)
+        val intent = Intent(this, ResetPasswordSendEmail::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
     }
