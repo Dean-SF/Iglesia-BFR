@@ -36,26 +36,10 @@ class InitializerActivity : AppCompatActivity() {
         hasCredentialsDataStore = hasCredentialsDataStore()
 
         NotifHandler.initNotifs(this)
-        DatabaseConnector.setOnFinishedListener {
-            if (it) {
-                if (!hasCredentialsDataStore) {
-                    val i =  Intent(this, StartingPage::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                    startActivity(i)
-                    finish()
-                }
-            }
-            else {
-                val intent = Intent(this, InitializerActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-                finish()
-                startActivity(intent)
-                Toast.makeText(this,getString(R.string.ErrorCargaMsgRtr),Toast.LENGTH_SHORT).show()
-            }
-        }
-        DatabaseConnector.connect(lifecycleScope)
 
+        val context = this
         if (hasCredentialsDataStore) {
+            Log.d("aa","aaa")
             lifecycleScope.launch(Dispatchers.IO) {
                 rememberSession().collect{
                     withContext(Dispatchers.Main) {
@@ -63,14 +47,25 @@ class InitializerActivity : AppCompatActivity() {
                         emailFromPreferences = it.email
                     }
                 }
-                DatabaseConnector.email = emailFromPreferences
-                DatabaseConnector.setUserData()
-                DatabaseConnector.setIsAdmin()
-                Log.d("TESTINGGGGGG", "USER DATA NAME: ${DatabaseConnector.getUserData()?.name}")
+
+                DatabaseConnector.setOnFinishedListener {
+                    DatabaseConnector.email = emailFromPreferences
+                    DatabaseConnector.setUserData()
+                    DatabaseConnector.setIsAdmin()
+                    Log.d("TESTINGGGGGG", "USER DATA NAME: ${DatabaseConnector.getUserData()?.name}")
+                    val homeIntent = Intent(context, Homepage::class.java)
+                    homeIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                    startActivity(homeIntent)
+                    finish()
+                }
+                DatabaseConnector.connect(lifecycleScope)
+
             }
-            val homeIntent = Intent(this, Homepage::class.java)
-            homeIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-            startActivity(homeIntent)
+
+        } else {
+            val i =  Intent(this, StartingPage::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(i)
             finish()
         }
     }

@@ -94,11 +94,10 @@ class LoginActivity : AppCompatActivity() {
             return
         }
 
+
         lifecycleScope.launch {
             user = login(password)
-            val userQuery = user?.let { DatabaseConnector.db.query<UserData>("email == $0", email).find().firstOrNull() }
-
-            if (user == null || userQuery == null) {
+            if (user == null) {
                 loadingDialog.stopLoading()
                 Toast.makeText(
                     this@LoginActivity,
@@ -107,22 +106,50 @@ class LoginActivity : AppCompatActivity() {
                 ).show()
                 return@launch
             }
-            if (user!!.state == User.State.REMOVED){
-                loadingDialog.stopLoading()
-                Toast.makeText(
-                    this@LoginActivity,
-                    R.string.userNotValid,
-                    Toast.LENGTH_SHORT
-                ).show()
-                return@launch
-            } else {
-                setRememberSession(userQuery)
-                DatabaseConnector.email = email
-                DatabaseConnector.setUserData()
-                DatabaseConnector.setIsAdmin()
-                loadingDialog.stopLoading()
-                callMainMenu()
+
+            DatabaseConnector.setOnFinishedListener {
+                if (!it) {
+                    loadingDialog.stopLoading()
+                    Toast.makeText(
+                        this@LoginActivity,
+                        R.string.ErrorCargaMsg,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    return@setOnFinishedListener
+                }
+
+                val userQuery = user?.let { DatabaseConnector.db.query<UserData>("email == $0", email).find().firstOrNull() }
+
+                if (userQuery == null) {
+                    loadingDialog.stopLoading()
+                    Toast.makeText(
+                        this@LoginActivity,
+                        R.string.incorrectDataWarning,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    return@setOnFinishedListener
+                }
+                if (user!!.state == User.State.REMOVED){
+                    loadingDialog.stopLoading()
+                    Toast.makeText(
+                        this@LoginActivity,
+                        R.string.userNotValid,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    return@setOnFinishedListener
+                } else {
+                    lifecycleScope.launch {
+                        setRememberSession(userQuery)
+                        DatabaseConnector.email = email
+                        DatabaseConnector.setUserData()
+                        DatabaseConnector.setIsAdmin()
+                        loadingDialog.stopLoading()
+                        callMainMenu()
+                    }
+                }
             }
+
+            DatabaseConnector.connect(lifecycleScope)
         }
     }
 
