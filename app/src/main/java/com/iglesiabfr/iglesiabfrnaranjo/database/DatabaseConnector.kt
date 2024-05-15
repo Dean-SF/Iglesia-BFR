@@ -14,6 +14,7 @@ import io.realm.kotlin.ext.query
 import io.realm.kotlin.mongodb.Credentials
 import io.realm.kotlin.mongodb.User
 import io.realm.kotlin.mongodb.exceptions.SyncException
+import io.realm.kotlin.mongodb.subscriptions
 import io.realm.kotlin.mongodb.sync.SyncConfiguration
 import io.realm.kotlin.mongodb.sync.SyncSession
 import kotlinx.coroutines.launch
@@ -63,7 +64,7 @@ object DatabaseConnector {
     fun connect(lifecyclescope: LifecycleCoroutineScope) {
         lifecyclescope.launch {
             runCatching {
-                logAnonymous()
+                getLogCurrent()
             }.onSuccess {
                 Log.d("Info", "Sync Started")
                 val config = SyncConfiguration.Builder(
@@ -88,10 +89,10 @@ object DatabaseConnector {
                     .errorHandler { session: SyncSession, error: SyncException ->
                         Log.d("IglesiaError", error.message.toString())
                     }
-                    .waitForInitialRemoteData()
+                    //.waitForInitialRemoteData()
                     .build()
                 db = Realm.open(config)
-                //db.subscriptions.waitForSynchronization()
+                db.subscriptions.waitForSynchronization()
                 onFinished?.invoke(true)
                 Log.d("IglesiaInfo", "Sync Finished")
             }.onFailure {
