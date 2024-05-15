@@ -6,10 +6,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.iglesiabfr.iglesiabfrnaranjo.R
 
 class SchoolMaterialAdapter(
-    private val schoolMaterialList: List<SchoolMaterial>,
     private val onClickListener: (SchoolMaterial) -> Unit,
     private val onClickDelete:(Int) -> Unit
 ): RecyclerView.Adapter<SchoolMaterialViewHolder>() {
+
+    private val schoolMaterialList = mutableListOf<SchoolMaterial>()
+
+    fun submitList(newList: List<SchoolMaterial>) {
+        schoolMaterialList.clear()
+        schoolMaterialList.addAll(newList)
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SchoolMaterialViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)

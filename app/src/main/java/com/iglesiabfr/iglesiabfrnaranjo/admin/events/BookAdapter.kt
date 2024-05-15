@@ -6,10 +6,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.iglesiabfr.iglesiabfrnaranjo.R
 
 class BookAdapter(
-    private val bookList: MutableList<Book>,
     private val onClickListener: (Book) -> Unit,
     private val onClickDelete:(Int) -> Unit
 ): RecyclerView.Adapter<BookViewHolder>() {
+
+    private val bookList = mutableListOf<Book>()
+
+    fun submitList(newList: List<Book>) {
+        bookList.clear()
+        bookList.addAll(newList)
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)

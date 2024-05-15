@@ -1,26 +1,46 @@
 package com.iglesiabfr.iglesiabfrnaranjo.admin.events
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.iglesiabfr.iglesiabfrnaranjo.databinding.ActivityAddSchoolMaterialAdminBinding
 import com.iglesiabfr.iglesiabfrnaranjo.databinding.ActivitySchoolMaterialAdminBinding
+import com.iglesiabfr.iglesiabfrnaranjo.homepage.Homepage
 
 class AdminSchoolMaterial : AppCompatActivity() {
 
-    private lateinit var binding: ActivitySchoolMaterialAdminBinding
-    private var schoolMaterialMutableList: MutableList<SchoolMaterial> =
-        SchoolMaterialProvider.schoolMaterialList.toMutableList()
+    private lateinit var binding: ActivityAddSchoolMaterialAdminBinding
+    private lateinit var binding1: ActivitySchoolMaterialAdminBinding
     private lateinit var adapter: SchoolMaterialAdapter
     private val llmanager = LinearLayoutManager(this)
+    private val schoolMaterialMutableList = mutableListOf<SchoolMaterial>() // Lista mutable de la materia de la escuela
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySchoolMaterialAdminBinding.inflate(layoutInflater)
+        binding = ActivityAddSchoolMaterialAdminBinding.inflate(layoutInflater)
+        binding1 = ActivitySchoolMaterialAdminBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.btnAddSchoolMaterial.setOnClickListener { createSchoolMaterial() }
+        binding1.btnAddSchoolMaterial.setOnClickListener {
+            // Set content view to binding1 after adding inventory schoolMaterial
+            setContentView(binding.root)
+        }
+
+        binding1.BackAdminEventCultButton.setOnClickListener {
+            val intent = Intent(this, Homepage::class.java)
+            startActivity(intent)
+        }
+
+        binding.btnAddSchoolMaterial.setOnClickListener {
+            createSchoolMaterial()
+        }
         initRecyclerView()
+
+        binding.BackAdminEventCultButton.setOnClickListener {
+            setContentView(binding1.root)
+        }
     }
 
     private fun createSchoolMaterial() {
@@ -37,9 +57,8 @@ class AdminSchoolMaterial : AppCompatActivity() {
                 finalMonth = finalMonth
             )
 
-            schoolMaterialMutableList.add(index = 1, schoolMaterial)
-            adapter.notifyItemInserted(1)
-            llmanager.scrollToPositionWithOffset(1, 10)
+            schoolMaterialMutableList.add(schoolMaterial)
+            adapter.submitList(schoolMaterialMutableList)
 
             // Limpiar los EditText después de agregar el libro
             binding.etTeacherName.text.clear()
@@ -53,12 +72,11 @@ class AdminSchoolMaterial : AppCompatActivity() {
 
     private fun initRecyclerView(){
         adapter = SchoolMaterialAdapter(
-            schoolMaterialList = schoolMaterialMutableList,
             onClickListener = { schoolMaterial -> onItemSelected(schoolMaterial) },
             onClickDelete = { position -> onDeletedItem(position) }
         )
-        binding.recyclerSchoolMaterial.layoutManager = llmanager
-        binding.recyclerSchoolMaterial.adapter = adapter
+        binding1.recyclerSchoolMaterial.layoutManager = llmanager
+        binding1.recyclerSchoolMaterial.adapter = adapter
     }
 
     private fun onItemSelected(schoolMaterial: SchoolMaterial) {
@@ -66,8 +84,10 @@ class AdminSchoolMaterial : AppCompatActivity() {
     }
 
     private fun onDeletedItem(position: Int) {
-        schoolMaterialMutableList.removeAt(position)
-        adapter.notifyItemRemoved(position)
+        if (position in 0 until schoolMaterialMutableList.size) {
+            schoolMaterialMutableList.removeAt(position)
+            adapter.notifyItemRemoved(position)
+        }
     }
 
 }

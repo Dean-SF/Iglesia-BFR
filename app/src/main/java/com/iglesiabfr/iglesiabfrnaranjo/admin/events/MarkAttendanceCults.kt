@@ -16,16 +16,16 @@ class MarkAttendanceCults : AppCompatActivity() {
     private lateinit var eventId: String // Id del evento seleccionado
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // Obtener el id del evento seleccionado
-        eventId = intent.getStringExtra("eventId") ?: ""
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_attendance_cults)
+
+        // Obtener el id del evento seleccionado
+        eventId = intent.getStringExtra("eventId") ?: ""
 
         // Guardar el registro de la asistencia
         val createAttendanceCultsButt: Button = findViewById(R.id.createAttendancecultBut)
         createAttendanceCultsButt.setOnClickListener {
-            markAttendance()
+            markAttendanceCult()
         }
 
         val backCultsBtn: Button = findViewById(R.id.backAttendancecultBtn)
@@ -35,16 +35,8 @@ class MarkAttendanceCults : AppCompatActivity() {
         }
     }
 
-    private fun getEventData(): EventData {
-        val eventName = findViewById<TextView>(R.id.nameInput).text.toString()
-        val eventDescription = findViewById<TextView>(R.id.descInput).text.toString()
-
-        return EventData(eventName, eventDescription)
-    }
-
-
     // Método para registrar asistencia a los eventos
-    private fun markAttendance() {
+    private fun markAttendanceCult() {
         val eventData = getEventData()
 
         // Aquí registras la asistencia en la base de datos Realm
@@ -62,11 +54,10 @@ class MarkAttendanceCults : AppCompatActivity() {
         }
     }
 
-    // Método de ejemplo para obtener la lista de miembros que asistieron (simulado)
-    private fun getMemberList(): List<String> {
-        // Aquí deberías obtener la lista de miembros que asistieron al evento (simulado,
-        // debería venir de la base de datos)
-        return listOf("member1", "member2", "member3")
-    }
+    private fun getEventData(): EventData {
+        val eventName = findViewById<TextView>(R.id.nameInput).text.toString()
+        val eventDescription = findViewById<TextView>(R.id.descInput).text.toString()
 
+        return EventData(eventName, eventDescription)
+    }
 }

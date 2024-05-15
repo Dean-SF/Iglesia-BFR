@@ -7,22 +7,20 @@ import androidx.appcompat.app.AppCompatActivity
 import com.iglesiabfr.iglesiabfrnaranjo.R
 import com.iglesiabfr.iglesiabfrnaranjo.homepage.Homepage
 
-class PrincipalAdminSchoolMaterial : AppCompatActivity() {
+class PrincipalAdminInventoryMaterial : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_admin_school_material)
+        setContentView(R.layout.activity_admin_inventory_material)
 
         val createEventCultBut : Button = findViewById(R.id.createEventBut)
 
         createEventCultBut.setOnClickListener {
-            val i = Intent(this, AdminSchoolMaterial::class.java)
-            startActivity(i)
+            startActivity(Intent(this, AdminInventoryMaterial::class.java))
         }
 
         val backBtn: Button = findViewById(R.id.backAdminEventButton)
         backBtn.setOnClickListener {
-            val intent = Intent(this, Homepage::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, Homepage::class.java))
         }
     }
 }

@@ -75,6 +75,10 @@ class Adminpage : Fragment() {
             startActivity(i)
         }
 
+        materialBut.setOnClickListener {
+            val i = Intent(view.context, PrincipalAdminLibrary::class.java)
+            startActivity(i)
+        }
 
         return view
     }

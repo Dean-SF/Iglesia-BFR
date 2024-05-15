@@ -1,8 +1,13 @@
 package com.iglesiabfr.iglesiabfrnaranjo.admin.events
 
 data class Book(
-    var title: String,
-    var name: String,
-    var quantity: Int,
-    var price: Int
-)
+    val title: String,
+    val name: String,
+    val quantity: Int,
+    val price: Double
+) {
+    init {
+        require(quantity >= 0) { "Quantity must be non-negative" }
+        require(price >= 0.0) { "Price must be non-negative" }
+    }
+}

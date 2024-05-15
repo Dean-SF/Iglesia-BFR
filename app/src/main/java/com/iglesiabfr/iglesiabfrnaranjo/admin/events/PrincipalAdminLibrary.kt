@@ -13,7 +13,6 @@ class PrincipalAdminLibrary : AppCompatActivity() {
         setContentView(R.layout.activity_admin_library)
 
         val createEventCultBut : Button = findViewById(R.id.createEventBut)
-
         createEventCultBut.setOnClickListener {
             val i = Intent(this, AdminLibraryInventory::class.java)
             startActivity(i)
