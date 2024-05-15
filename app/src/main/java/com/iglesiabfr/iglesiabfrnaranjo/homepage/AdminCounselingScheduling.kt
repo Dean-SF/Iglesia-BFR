@@ -63,7 +63,6 @@ class AdminCounselingScheduling : AppCompatActivity() {
         dateText = findViewById(R.id.fechainput)
         timeText = findViewById(R.id.horainput)
 
-        // Retrieve sessionId from intent
         scheduleSessionIdString = intent.getStringExtra("sessionId")
         scheduleSessionId = scheduleSessionIdString?.let { ObjectId(it) }
 
