@@ -61,4 +61,3 @@ class MarkAttendance : AppCompatActivity() {
         return EventData(eventName, eventDescription)
     }
 }
-
