@@ -53,14 +53,40 @@ object DatabaseConnector {
     }
 
     private suspend fun logAnonymous(): User {
-        return AppConnector.app.login(Credentials.anonymous())
+        return AppConnector.app.login(Credentials.anonymous(reuseExisting = true))
     }
 
     fun setOnFinishedListener(listener : ((Boolean)->Unit)) : DatabaseConnector {
         onFinished = listener
         return this
     }
-
+    fun connectForRegister(lifecyclescope: LifecycleCoroutineScope) {
+        lifecyclescope.launch {
+            runCatching {
+                logAnonymous()
+            }.onSuccess {
+                Log.d("Info", "Sync Started")
+                val config = SyncConfiguration.Builder(
+                    it, setOf(
+                        UserData::class,
+                    ))
+                    .initialSubscriptions(rerunOnOpen = true) {realm->
+                        add(realm.query<UserData>(), "userData",updateExisting = true)
+                    }
+                    .errorHandler { session: SyncSession, error: SyncException ->
+                        Log.d("IglesiaError", error.message.toString())
+                    }
+                    .build()
+                db = Realm.open(config)
+                db.subscriptions.waitForSynchronization()
+                onFinished?.invoke(true)
+                Log.d("IglesiaInfo", "Sync Finished")
+            }.onFailure {
+                onFinished?.invoke(false)
+                Log.d("IglesiaError", it.message.toString())
+            }
+        }
+    }
     fun connect(lifecyclescope: LifecycleCoroutineScope) {
         lifecyclescope.launch {
             runCatching {

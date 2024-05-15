@@ -62,7 +62,6 @@ class RegistrationActivity : AppCompatActivity() {
     }
 
     // Verificar que la informacion esta completa
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun checkInputs() {
         loadingDialog.startLoading()
         val nameInput: EditText = findViewById(R.id.inputName)
@@ -146,19 +145,23 @@ class RegistrationActivity : AppCompatActivity() {
     }
 
     // Agregar un documento de informacion de usuario a la coleccion UserData
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun registerUserData(emailInput: String, nameInput: String) {
         val localDP = LocalDateTime.parse(fullBirthdate)
         val realmDP = RealmInstant.from(localDP.toEpochSecond(ZoneOffset.UTC), localDP.nano)
 
-        val event = UserData().apply {
-            name = nameInput
-            email = emailInput
-            birthdate = realmDP
-            isAdmin = false
+        DatabaseConnector.setOnFinishedListener {
+            val event = UserData().apply {
+                name = nameInput
+                email = emailInput
+                birthdate = realmDP
+                isAdmin = false
+            }
+            DatabaseConnector.db.writeBlocking {
+                copyToRealm(event)
+            }
         }
-        DatabaseConnector.db.writeBlocking {
-            copyToRealm(event)
-        }
+
+        DatabaseConnector.connectForRegister(lifecycleScope)
+
     }
 }
