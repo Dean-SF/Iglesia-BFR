@@ -1,4 +1,4 @@
-package com.iglesiabfr.iglesiabfrnaranjo.admin.events
+package com.iglesiabfr.iglesiabfrnaranjo.admin.adminLibraryInventory
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

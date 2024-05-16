@@ -1,4 +1,4 @@
-package com.iglesiabfr.iglesiabfrnaranjo.admin.events
+package com.iglesiabfr.iglesiabfrnaranjo.admin.adminLibraryInventory
 
 import android.content.Intent
 import android.os.Bundle

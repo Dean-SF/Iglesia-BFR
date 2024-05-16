@@ -1,4 +1,4 @@
-package com.iglesiabfr.iglesiabfrnaranjo.admin.events
+package com.iglesiabfr.iglesiabfrnaranjo.admin.adminSchoolMaterial
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

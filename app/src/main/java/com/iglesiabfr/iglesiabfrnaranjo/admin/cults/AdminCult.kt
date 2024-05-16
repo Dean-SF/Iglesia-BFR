@@ -16,7 +16,6 @@ import com.iglesiabfr.iglesiabfrnaranjo.customRecyclers.EagListA
 import com.iglesiabfr.iglesiabfrnaranjo.customRecyclers.items.EagItemA
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
 import com.iglesiabfr.iglesiabfrnaranjo.dialogs.LoadingDialog
-import com.iglesiabfr.iglesiabfrnaranjo.schema.Activity
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Cult
 import io.realm.kotlin.ext.query
 import org.mongodb.kbson.ObjectId
@@ -43,6 +42,8 @@ class AdminCult : AppCompatActivity() {
         val searchInput : EditText = findViewById(R.id.searchinput)
 
         val createButt : Button = findViewById(R.id.createActBut)
+        val markAttendanceButt: Button = findViewById(R.id.MarkEventAttendanceCultBut)
+        val backBtn: Button = findViewById(R.id.BackAdminEventCultButton)
         recyclerView = findViewById(R.id.cultlist)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
