@@ -10,6 +10,11 @@ import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import com.iglesiabfr.iglesiabfrnaranjo.R
 import com.iglesiabfr.iglesiabfrnaranjo.homepage.Homepage
+import com.iglesiabfr.iglesiabfrnaranjo.schema.Event
+import io.realm.kotlin.Realm
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class AdminEvent : AppCompatActivity() {
     private lateinit var eventSpinner: Spinner
@@ -23,11 +28,14 @@ class AdminEvent : AppCompatActivity() {
         val createButt : Button = findViewById(R.id.createEventBut)
         val markAttendanceButt: Button = findViewById(R.id.markEventAttendanceBut)
 
+        // Deshabilitar el botón markAttendanceButt inicialmente
+        markAttendanceButt.isEnabled = false
+
         // Obtener referencias de UI
         eventSpinner = findViewById(R.id.eventSpinner)
 
         // Obtener la lista de IDs de eventos disponibles (de tu base de datos, por ejemplo)
-        eventIds = getListOfEventIds()
+        getListOfEventIds()
 
         // Crear un ArrayAdapter para el Spinner
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, eventIds)
@@ -67,10 +75,32 @@ class AdminEvent : AppCompatActivity() {
     }
 
     // Método para obtener la lista de IDs de eventos disponibles
-    private fun getListOfEventIds(): List<String> {
-        // Aquí obtienes la lista de IDs de eventos de tu base de datos
-        // Por ahora, simplemente retornamos una lista vacía
-        return emptyList()
+    private fun getListOfEventIds() {
+        GlobalScope.launch(Dispatchers.Main) {
+            val realm = Realm.getDefaultInstance()
+            val events = realm.where(Event::class.java).findAll()
+            eventIds = events.map { it._id.toHexString() }
+            realm.close()
+
+            // Crear un ArrayAdapter para el Spinner
+            val adapter = ArrayAdapter(this@AdminEvent, android.R.layout.simple_spinner_item, eventIds)
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+            // Asignar el ArrayAdapter al Spinner
+            eventSpinner.adapter = adapter
+
+            // Manejar la selección del usuario
+            eventSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    selectedEventId = eventIds[position]
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    // Deshabilitar el botón markAttendanceButt
+                    markAttendanceButt.isEnabled = false
+                }
+            }
+        }
     }
 }
 

@@ -57,7 +57,7 @@ class AdminCult : AppCompatActivity() {
         }
 
         markAttendanceButt.setOnClickListener {
-            val i = Intent(this,CreateCultEvent::class.java)
+            val i = Intent(this,MarkAttendanceCults::class.java)
             intent.putExtra("eventId", intent.getStringExtra("eventId"))
             startActivity(i)
         }
