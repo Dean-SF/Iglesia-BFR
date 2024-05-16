@@ -114,6 +114,11 @@
     <string name="TitleListMaterials" />
     <string name="titleListTeachers" />
     <string name="titleListInventBook" />
+    <string name="RegresarLogin">Regresar</string>
+    <string name="inventaryListTitle">Inventario de lista de profesores</string>
+    <string name="inventaryMaterialListTitle">Inventario de lista de materiales</string>
+    <string name="inventaryBookListTitle">Inventario de lista de libros</string>
+    <string name="inventaryTeacherListTitle">Lista de profesores</string>
 
 
 </resources>

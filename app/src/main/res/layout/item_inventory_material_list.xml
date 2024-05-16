@@ -15,10 +15,9 @@
         android:layout_marginStart="80dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="80dp"
-        android:text="@string/TitleListMaterials"
+        android:text="@string/inventaryMaterialListTitle"
         android:textSize="16sp"
-        android:textStyle="bold"
-        tools:text="Inventario de lista de materiales" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tvName"

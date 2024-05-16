@@ -9,10 +9,11 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.iglesiabfr.iglesiabfrnaranjo.R
-import com.iglesiabfr.iglesiabfrnaranjo.schema.Event
+import com.iglesiabfr.iglesiabfrnaranjo.schema.EventCult
 import io.realm.kotlin.Realm
 import io.realm.kotlin.types.RealmInstant
 import java.time.LocalDate
+import java.util.UUID
 
 class CreateCultEvent : AppCompatActivity() {
     private lateinit var realm: Realm
@@ -30,24 +31,36 @@ class CreateCultEvent : AppCompatActivity() {
         val descInput: EditText = findViewById(R.id.descInput)
         val createEventBut: Button = findViewById(R.id.createEventBut)
         val calendarBut: ImageButton = findViewById(R.id.dateBut)
+        val horaCultInput: EditText = findViewById(R.id.horaCultInput)
 
         // Listener para el botón "Crear Evento"
         createEventBut.setOnClickListener {
+            // Generar un ID único para el evento
+            val eventId: String = generateEventId()
+            // Aquí obtienes los valores ingresados por el usuario
             val name: String = nameInput.text.toString()
+            val time: String = horaCultInput.text.toString()
             val desc: String = descInput.text.toString()
 
             // Crear un objeto Event y asignar los valores
-            val event = Event().apply {
+            val event = EventCult().apply {
+                this._id = eventId
                 this.name = name
                 // Convertir la fecha a un RealmInstant
                 this.date = RealmInstant.now()
                 this.desc = desc
+                this.time = time
             }
 
             // Guardar el objeto Event en la base de datos Realm
             realm.writeBlocking {
                 copyToRealm(event)
             }
+
+            // Pasar el eventId a la actividad AdminEvent
+            val intent = Intent(this, AdminCult::class.java)
+            intent.putExtra("eventId", eventId)
+            startActivity(intent)
         }
 
         // Listener para el botón del calendario
@@ -70,7 +83,7 @@ class CreateCultEvent : AppCompatActivity() {
                 date = LocalDate.of(year, month + 1, dayOfMonth) // El mes comienza en 0
                 updateDate()
             },
-            date.year, // Año actual
+            date.year, // Puedes establecer la fecha actual aquí o cualquier otra fecha predeterminada
             date.monthValue - 1, // Mes actual (comienza en 0)
             date.dayOfMonth
         )
@@ -79,6 +92,10 @@ class CreateCultEvent : AppCompatActivity() {
 
     private fun updateDate() {
         val datetext : TextView = findViewById(R.id.fechaInput)
-        datetext.text = date.toString()
+        datetext.text = date.toString() // Formatea la fecha según tus necesidades
+    }
+
+    private fun generateEventId(): String {
+        return UUID.randomUUID().toString()
     }
 }
