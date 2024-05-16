@@ -1,46 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerBook"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/btnAddBook"
-        android:layout_width="373dp"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/BackAdminEventCultButton"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_gravity="bottom"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="24dp"
-        android:background="@drawable/ripple_soft_rectangle_btn"
-        android:backgroundTint="@color/blue"
-        android:text="@string/addNewItem" />
 
-    <Button
-        android:id="@+id/BackAdminEventCultButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="24dp"
-        android:background="@drawable/ripple_soft_rectangle_btn"
-        android:backgroundTint="@color/blue"
-        android:text="@string/backAdminEventCultButton"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="0.677" />
+        <!-- RecyclerView para mostrar los elementos -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerBook"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btnAddBook"
+            android:layout_marginTop="20dp" />
 
-</RelativeLayout>
+        <!-- Botón para volver atrás -->
+        <Button
+            android:id="@+id/BackAdminEventCultButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/ripple_soft_rectangle_btn"
+            android:backgroundTint="@color/blue"
+            android:text="@string/backAdminEventCultButton" />
+
+        <!-- Botón para agregar un nuevo elemento -->
+        <Button
+            android:id="@+id/btnAddBook"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/BackAdminEventCultButton"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/ripple_soft_rectangle_btn"
+            android:backgroundTint="@color/blue"
+            android:text="@string/addNewItem" />
+
+    </RelativeLayout>
+</androidx.core.widget.NestedScrollView>

@@ -73,7 +73,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.jsoup)
     implementation ("com.github.bumptech.glide:glide:4.16.0")
-    implementation ("com.squareup.picasso:picasso:2.5.2")
+    implementation ("com.squareup.picasso:picasso:2.71828")
     implementation(libs.library.sync)
 
 }
