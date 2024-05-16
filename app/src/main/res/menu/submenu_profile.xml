@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_profile"
+        android:title="@string/myProfile" />
+
+    <item
+        android:id="@+id/menu_emotion_registration"
+        android:title="@string/tituloEmociones" />
+
+    <item
+        android:id="@+id/menu_suggestion_box"
+        android:title="@string/tituloSugerencias" />
+
+</menu>

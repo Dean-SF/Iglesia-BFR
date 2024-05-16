@@ -2,6 +2,18 @@
     <string name="app_name">Iglesia BFR, Naranjo</string>
     <string name="TittleDailyVersTxt">Versiculo Diario</string>
     <string name="ErrorCargaMsg">Error al cargar, vuelva a intentar</string>
+    <string name="ErrorCargaMsgRtr">Error al cargar, volviendo a intentar…</string>
+
+    <string name="InitializingApp">Iniciando…</string>
+
+    // Notificaciones
+    <string name="NotifGranted">Recibirás notificaciones sobre nuevos eventos y actividades</string>
+    <string name="NotifNotGranted">No recibirás notificaciones sobre nuevos eventos y actividades</string>
+
+
+    <string name="NotifTitle">Notificación Iglesia</string>
+    <string name="NotifId" translatable="false">IglesiaNotif</string>
+    <string name="NotifName" translatable="false">Actualizaciones</string>
 
     // Starting page
     <string name="registrarlb">REGISTRAR</string>
@@ -14,6 +26,11 @@
     <string name="rememberCheckbox">Recordar sesión</string>
     <string name="incompleteDataWarning">Los datos están incompletos</string>
     <string name="incorrectDataWarning">Las credenciales ingresadas son incorrectas</string>
+    <string name="forgotPass">Restablecer contraseña</string>
+    <string name="resetPasswordEmailSent">El correo ha sido enviado exitosamente</string>
+    <string name="newPass">Nueva contraseña</string>
+    <string name="confirmNewPass">Confirmar nueva contraseña</string>
+    <string name="userNotValid">Este usuario no existe</string>
 
     // Registration
     <string name="hintName">Nombre</string>
@@ -27,8 +44,8 @@
 
     // Mainpage
     <string name="homepageTitle">¡Bienvenido!</string>
-    <string name="upcomingEvent">Proximos Eventos</string>
-    <string name="upcomingActiv">Proximas Actividades</string>
+    <string name="upcomingEvent">Próximos Eventos</string>
+    <string name="upcomingActiv">Próximas Actividades</string>
     <string name="cults">Cultos</string>
 
     // Adminpage
@@ -37,19 +54,118 @@
     <string name="actBut">Actividades</string>
     <string name="cultBut">Cultos</string>
 
+
+    //Admin Cult
+    <string name="adminCultHeaderFecha">Día</string>
+    <string name="adminCultTitle">Cultos</string>
+
+    // Crear Cult
+    <string name="createCultTitle">Crear Culto</string>
+    <string name="createCultWeekday">Día de la semana</string>
+    <string name="createCultSuccess">Culto creado exitosamente</string>
+    <string name="createCultFailed">Error al crear el culto, vuelva a intentarlo</string>
+    <string-array name="createCultWeekdays">
+        <item>Lunes</item>
+        <item>Martes</item>
+        <item>Miércoles</item>
+        <item>Jueves</item>
+        <item>Viernes</item>
+        <item>Sábado</item>
+        <item>Domingo</item>
+    </string-array>
+
+    // Details Cult
+    <string name="cultDetailsTitle">Detalles del culto</string>
+    <string name="cultNotFound">Culto no encontrada, vuelva a intentar</string>
+    <string name="cultDetailModAsk">¿Seguro que quieres modificar este culto?</string>
+    <string name="cultDetailDelAsk">¿Seguro que quieres borrar este culto?</string>
+    <string name="cultDetailModSucc">Culto modificado con éxito</string>
+    <string name="cultDetailModFail">Error al modificar el culto, vuelva a intentarlo</string>
+
+    <string name="cultDetailDelSucc">Culto borrado con éxito</string>
+    <string name="cultDetailDelFail">Error al borrar el culto, vuelva a intentarlo</string>
+
+    <string name="cultDetailWeekday">Día</string>
+
+    <string name="cultDetailResumeSucc">Culto reanuado con éxito</string>
+    <string name="cultDetailResumeFail">Error al reanuar el culto, vuelva a intentarlo</string>
+
+    <string name="cultDetailCancelSucc">Culto cancelado con éxito</string>
+    <string name="cultDetailCancelFail">Error al cancelar el culto, vuelva a intentarlo</string>
+
+    <string name="cultDetailCancelAsk">¿Seguro que quieres cancelar este culto?</string>
+    <string name="cultDetailResumeAsk">¿Seguro que quieres reanudar este culto?</string>
+
+
+    <string name="cultDetailCancelBut">Cancelar esta semana</string>
+    <string name="cultDetailResumeBut">Reanuar esta semana</string>
+
+    //Admin Act
+    <string name="adminActTitle">Actividades</string>
+
+    // Crear Act
+    <string name="createActTitle">Crear Actividad</string>
+    <string name="createActSuccess">Actividad creada exitosamente</string>
+    <string name="createActFailed">Error al crear la actividad, vuelva a intentarlo</string>
+
+    // Detalle Actividades
+    <string name="actDetailsTitle">Detalles de la Actividad</string>
+    <string name="actNotFound">Actividad no encontrada, vuelva a intentar</string>
+    <string name="actDetailModAsk">¿Seguro que quieres modificar esta actividad?</string>
+    <string name="actDetailDelAsk">¿Seguro que quieres borrar esta actividad?</string>
+    <string name="actDetailModSucc">Actividad modificada con éxito</string>
+    <string name="actDetailModFail">Error al modificar la actividad, vuelva a intentarlo</string>
+
+    <string name="actDetailDelSucc">Actividad borrada con éxito</string>
+    <string name="actDetailDelFail">Error al borrar la actividad, vuelva a intentarlo</string>
+
     //AdminEventos
     <string name="adminEventosTitle">Eventos</string>
+    <string name="adminEventosSearch">Busqueda</string>
+    <string name="adminEventosHeaderName">Nombre</string>
+    <string name="adminEventosHeaderFecha">Fecha</string>
+
+    // Crear eventos
     <string name="createEventBut">Crear</string>
     <string name="createEventTitle">Crear Evento</string>
     <string name="createName">Nombre</string>
     <string name="createDesc">Descripción</string>
     <string name="createDate">Fecha</string>
     <string name="createTime">Hora</string>
+    <string name="createDatePicker">Seleccione la fecha</string>
+    <string name="createTimePicker">Seleccione la hora</string>
+    <string name="createTextEmpty">Entrada de texto vacía</string>
+    <string name="createDateEmpty">Entrada de fecha vacía</string>
+    <string name="createTimeEmpty">Entrada de hora vacía</string>
+    <string name="createTimeAlreadyPassed">La hora ya paso</string>
+    <string name="createEventSuccess">Evento creado exitosamente</string>
+    <string name="createEventFailed">Error al crear el evento, vuelva a intentarlo</string>
 
+    // Detalle Eventos
+    <string name="eventDetailsTitle">Detalles del Evento</string>
+    <string name="eventDetailsMod">Modificar</string>
+    <string name="eventDetailsModAccept">Confirmar Modificación</string>
+    <string name="eventDetailsDel">Borrar</string>
+    <string name="eventNotFound">Evento no encontrado, vuelva a intentar</string>
+    <string name="eventDetailModAsk">¿Seguro que quieres modificar este evento?</string>
+    <string name="eventDetailDelAsk">¿Seguro que quieres borrar este evento?</string>
+    <string name="eventDetailModSucc">Evento modificado con éxito</string>
+    <string name="eventDetailModFail">Error al modificar el evento, vuelva a intentarlo</string>
+
+    <string name="eventDetailDelSucc">Evento borrado con éxito</string>
+    <string name="eventDetailDelFail">Error al borrar el evento, vuelva a intentarlo</string>
+
+
+    //Loading dialog
+    <string name="loadingDialogText">Cargando…</string>
+
+    //Confirm dialog
+    <string name="ConfDiagConf">Sí</string>
+    <string name="ConfDiagDeny">No</string>
 
     // NavBar
     <string name="calendarNavTitle">Calendario</string>
-    <string name="conserjeriaNavTitle">Conserjeria</string>
+    <string name="consejeriaNavTitle">Consejeria</string>
     <string name="foroNavTitle">Foro</string>
     <string name="BibliaNavTitle">Biblia</string>
     <string name="grabacionesNavTitle">Grabaciones</string>
@@ -120,5 +236,84 @@
     <string name="inventaryBookListTitle">Inventario de lista de libros</string>
     <string name="inventaryTeacherListTitle">Lista de profesores</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    // Mi perfil
+    <string name="myProfile">Mi Perfil</string>
+    <string name="namelb">Nombre:</string>
+    <string name="emaillb">Correo:</string>
+    <string name="birthdatelb">Fecha de nacimiento:</string>
+    <string name="logOut">cerrar sesión</string>
+    <string name="deletelb">eliminar cuenta</string>
+    <string name="changePass">Cambiar contraseña</string>
+    <string name="editlb">Editar perfil</string>
+    <string name="icondesc">icon</string>
+    <string name="borrarCuenta">¿Seguro que quieres borra esta cuenta?</string>
+    <string name="cerrarSesion">¿Seguro que quieres cerrar sesión?</string>
+    <string name="cambiarContra">¿Seguro que quieres cambiar la contraseña?</string>
+    <string name="givePermission">Permisos de administrador</string>
+    <string name="chooseNewAdmin">Seleccione el usuario para administrar permisos</string>
+    <string name="confirmNewAdmin">¿Seguro que quiere brindarle permiso a este usuario?</string>
+    <string name="deleteAdmin">¿Seguro que quiere quitarle permisos a este usuario?</string>
+    <string name="errorNewAdmin">Hubo un error al asignar permisos</string>
+    <string name="mode1">Quitar permisos</string>
+    <string name="mode2">Dar permisos</string>
+
+    // Editar perfil
+    <string name="botonGuardar">Guardar cambios</string>
+    <string name="confirmarCambios">¿Desea guardar los cambios?</string>
+    <string name="errorName">Hubo un error al actualizar el nombre</string>
+    <string name="errorBirthdate">Hubo un error al actualizar la fecha de nacimiento</string>
+
+    // Enviar sugerencias
+    <string name="tituloSugerencias">Buzón de sugerencias</string>
+    <string name="subtituloSugerencias">Ingrese una sugerencia para el templo o el pastor</string>
+    <string name="hintSugerencia">Ingrese su sugerencia</string>
+    <string name="btnSugerencia">Enviar sugerencia</string>
+    <string name="warningSugerencia">Debe ingresar una sugerencia</string>
+    <string name="errorSugerencia">Hubo un error al intentar enviar la sugerencia</string>
+    <string name="exitoSugerencia">La sugerencia ha sido enviada con éxito</string>
+    <string name="confirmSugerencia">¿Desea enviar esta sugerencia?</string>
+
+    // Registro de emociones
+    <string name="tituloEmociones">Registro de emociones</string>
+    <string name="pregunta">¿Cómo te sientes hoy?</string>
+    <string name="feliz">Feliz</string>
+    <string name="enojado">Enojado(a)</string>
+    <string name="bendecido">Bendecido(a)</string>
+    <string name="triste">Triste</string>
+    <string name="agradecido">Agradecido(a)</string>
+    <string name="conpocafe">Con poca fe</string>
+    <string name="angustiado">Angustiado(a)</string>
+    <string name="middlePart">se sintió:</string>
+    <string name="enviarEmocion">Registrar emoción</string>
+    <string name="confirmEmocion">¿Desea registrar esta emoción?</string>
+    <string name="errorEmocion">Hubo un error al intentar registrar la emoción</string>
+    <string name="exitoEmocion">La emoción ha sido registrada con éxito</string>
+
+    // Sesiones consejeria
+    <string name="counselingTitle">Sesión de Consejería</string>
+    <string name="counselingAdminTitle">Sesiones de Consejería</string>
+    <string name="counselingNormalRecordTitle">Sesiones de Consejería agendadas</string>
+    <string name="counselingSchedule">Agendar Sesión</string>
+    <string name="navigationSchedule">Agendar</string>
+    <string name="navigationRecord">Historial</string>
+    <string name="navigationRequest">Solicitar</string>
+    <string name="descRequest">Solicite una sesión de consejería al pastor. El pastor será notificado y cuando su sesión sea agendada va a ser notificado con la fecha y hora.</string>
+    <string name="counselingErrorRequest">Hubo un error al intentar solicitar la sesión</string>
+    <string name="counselingErrorSchedule">Hubo un error al intentar agendar la sesión</string>
+    <string name="counselingSuccessSchedule">La sesión fue agendada con éxito</string>
+    <string name="counselingSuccessRequest">La sesión fue solicitada con éxito</string>
+    <string name="counselingConfirm">¿Desea agendar esta sesión?</string>
+    <string name="refreshBtn">Refrescar</string>
+
+    // Resetear contraseña
+    <string name="resetPassSuccess">La contraseña ha sido restablecida con éxito</string>
+    <string name="resetPassError">Hubo un error al intentar restablecer contraseña</string>
+    <string name="instructionsReset">Favor copiar el link que se envió por correo electrónico y pegar aquí</string>
+    <string name="linkHint">pegar link aquí</string>
+    <string name="sendEmail">Enviar correo de restablecimiento</string>
+    <string name="invalidLink">El link es inválido</string>
 
 </resources>

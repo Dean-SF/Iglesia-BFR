@@ -7,7 +7,6 @@
     android:orientation="vertical"
     tools:context=".login.RegistrationActivity">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -106,15 +105,15 @@
         android:layout_height="wrap_content">
 
         <ImageButton
-            android:id="@+id/calendar"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="260dp"
-            android:layout_marginTop="15dp"
+            android:id="@+id/datePicker"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="250dp"
+            android:background="@drawable/ripple_calendar"
+            android:backgroundTint="@color/blue"
             android:contentDescription="@string/calendarioDesc"
-            app:tint="@color/white"
-            app:backgroundTint="?attr/iconTint"
-            app:srcCompat="@drawable/calendar" />
+            app:layout_constraintTop_toBottomOf="@+id/nameinput" />
 
         <TextView
             android:id="@+id/inputBirthdate"
@@ -135,24 +134,25 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/registerBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginEnd="40dp"
+            android:background="@drawable/soft_rectangle_btn"
+            android:backgroundTint="@color/blue"
+            android:text="@string/registrarBtn"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
     </FrameLayout>
 
     <Button
-        android:id="@+id/registerBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="40dp"
-        android:background="@drawable/soft_rectangle_btn"
-        android:backgroundTint="@color/blue"
-        android:text="@string/registrarBtn"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
-
-    <Button
         android:id="@+id/BackRegistrationBtn"
-        android:layout_width="match_parent"
+        android:layout_width="328dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="60dp"
