@@ -5,12 +5,12 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".admin.events.AdminEvent"
+    tools:context=".admin.activities.AdminAct"
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="0dp">
 
     <TextView
-        android:id="@+id/createEventTitleCult"
+        android:id="@+id/detailEventTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -24,7 +24,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/nameInputCult"
+        android:id="@+id/nameinput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -35,12 +35,12 @@
         android:hint="@string/createName"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createEventTitleCult" />
+        app:layout_constraintTop_toBottomOf="@+id/detailEventTitle" />
 
     <EditText
-        android:id="@+id/fechaInput"
+        android:id="@+id/fechainput"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -49,13 +49,13 @@
         android:autofillHints="emailAddress"
         android:fontFamily="@font/comfortaa_light"
         android:hint="@string/createDate"
-        android:inputType="datetime|date"
+        android:inputType="none"
         app:layout_constraintEnd_toStartOf="@+id/dateBut"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameInputCult" />
+        app:layout_constraintTop_toBottomOf="@+id/nameinput" />
 
     <EditText
-        android:id="@+id/horaCultInput"
+        android:id="@+id/horainput"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -64,36 +64,36 @@
         android:autofillHints="emailAddress"
         android:fontFamily="@font/comfortaa_light"
         android:hint="@string/createTime"
-        android:inputType="datetime"
-        app:layout_constraintEnd_toStartOf="@+id/timeCultBut"
+        android:inputType="none"
+        app:layout_constraintEnd_toStartOf="@+id/timeBut"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fechaInput" />
+        app:layout_constraintTop_toBottomOf="@+id/fechainput" />
 
     <EditText
-        android:id="@+id/descInput"
+        android:id="@+id/descinput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="20dp"
         android:autofillHints="emailAddress"
         android:fontFamily="@font/comfortaa_light"
         android:hint="@string/createDesc"
         android:inputType="text|textAutoComplete|textAutoCorrect|textMultiLine"
+        android:maxLines="14"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/horaCultInput" />
+        app:layout_constraintTop_toBottomOf="@+id/horainput" />
 
     <Button
         android:id="@+id/createEventBut"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="84dp"
         android:background="@drawable/ripple_soft_rectangle_btn"
         android:backgroundTint="@color/blue"
         android:text="@string/createEventBut"
@@ -101,10 +101,8 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/descInput"
-        app:layout_constraintVertical_bias="0.743" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
         android:id="@+id/dateBut"
@@ -116,19 +114,19 @@
         android:backgroundTint="@color/blue"
         android:contentDescription="TODO"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameInputCult" />
+        app:layout_constraintTop_toBottomOf="@+id/nameinput" />
 
     <ImageButton
-        android:id="@+id/timeCultBut"
+        android:id="@+id/timeBut"
         android:layout_width="50dp"
         android:layout_height="49dp"
         android:layout_marginTop="80dp"
         android:layout_marginEnd="20dp"
-        android:background="@drawable/ripple_calendar"
+        android:background="@drawable/ripple_clock"
         android:backgroundTint="@color/blue"
         android:contentDescription="TODO"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fechaInput" />
+        app:layout_constraintTop_toBottomOf="@+id/fechainput" />
 
     <Button
         android:id="@+id/BackEventBtn"
@@ -144,6 +142,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/createEventBut"
         tools:text="Regresar" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

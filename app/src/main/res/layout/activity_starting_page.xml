@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:contentDescription="@string/churchDesc"
         android:scaleType="centerCrop"
-        android:src="@drawable/iglesia" />
+        android:src="@drawable/iglesiaportada" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

@@ -2,16 +2,18 @@ package com.iglesiabfr.iglesiabfrnaranjo.homepage
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.fragment.app.Fragment
 import com.iglesiabfr.iglesiabfrnaranjo.R
-import com.iglesiabfr.iglesiabfrnaranjo.admin.events.AdminCult
+import com.iglesiabfr.iglesiabfrnaranjo.admin.activities.AdminAct
+import com.iglesiabfr.iglesiabfrnaranjo.admin.cults.AdminCult
 import com.iglesiabfr.iglesiabfrnaranjo.admin.events.AdminEvent
-import com.iglesiabfr.iglesiabfrnaranjo.admin.events.PrincipalAdminLibrary
-import com.iglesiabfr.iglesiabfrnaranjo.admin.events.PrincipalAdminSchoolMaterial
+import com.iglesiabfr.iglesiabfrnaranjo.admin.adminInventoryMaterial.PrincipalAdminInventoryMaterial
+import com.iglesiabfr.iglesiabfrnaranjo.admin.adminLibraryInventory.PrincipalAdminLibrary
+import com.iglesiabfr.iglesiabfrnaranjo.admin.adminSchoolMaterial.PrincipalAdminSchoolMaterial
 import com.iglesiabfr.iglesiabfrnaranjo.admin.events.UploadVideoAdmin
 
 // TODO: Rename parameter arguments, choose names that match
@@ -44,14 +46,20 @@ class Adminpage : Fragment() {
         val view = inflater.inflate(R.layout.fragment_adminpage, container, false)
         val eventBut : Button = view.findViewById(R.id.EventBut)
         val actBut : Button = view.findViewById(R.id.ActBut)
-        val cultBut : Button = view.findViewById(R.id.CultBut)
+        val cultBut : Button  = view.findViewById(R.id.CultBut)
         val loadVideosBut : Button = view.findViewById(R.id.LoadVideo)
         val adminSchoolBut : Button = view.findViewById(R.id.AdminSchoolBut)
         val libraryBut : Button = view.findViewById(R.id.LibraryBut)
         val materialBut : Button = view.findViewById(R.id.MaterialInventBut)
 
+
         eventBut.setOnClickListener {
             val i = Intent(view.context, AdminEvent::class.java)
+            startActivity(i)
+        }
+
+        actBut.setOnClickListener {
+            val i = Intent(view.context, AdminAct::class.java)
             startActivity(i)
         }
 
@@ -76,9 +84,10 @@ class Adminpage : Fragment() {
         }
 
         materialBut.setOnClickListener {
-            val i = Intent(view.context, PrincipalAdminLibrary::class.java)
+            val i = Intent(view.context, PrincipalAdminInventoryMaterial::class.java)
             startActivity(i)
         }
+
 
         return view
     }
