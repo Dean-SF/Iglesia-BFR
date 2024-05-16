@@ -7,11 +7,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.iglesiabfr.iglesiabfrnaranjo.R
-import com.iglesiabfr.iglesiabfrnaranjo.customRecyclers.items.EagItemA
+import com.iglesiabfr.iglesiabfrnaranjo.customRecyclers.items.EagItemB
 
-class EagListA(private val dataList: List<EagItemA>) : Adapter<EagListA.ViewHolderClass>() {
+class EagListB(private val dataList: List<EagItemB>) : Adapter<EagListB.ViewHolderClass>() {
 
-    var onItemClick : ((EagItemA) -> Unit)? = null
+    var onItemClick : ((EagItemB) -> Unit)? = null
 
     class ViewHolderClass(itemView: View) : ViewHolder(itemView) {
         val itemName : TextView = itemView.findViewById(R.id.item_name)
