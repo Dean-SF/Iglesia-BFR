@@ -18,8 +18,8 @@ class SeeEmotions: AppCompatActivity() {
         setContentView(R.layout.activity_admin_see_emotions)
 
         val emotionsRecycler: RecyclerView = findViewById(R.id.emotionsList)
-        emotionsRecycler.layoutManager = LinearLayoutManager(this)
-
+        val layoutManager = LinearLayoutManager(this)
+        emotionsRecycler.layoutManager = layoutManager
         val emotions = DatabaseConnector.db.query<Emotion>().sort("dateRegistered", Sort.DESCENDING).find()
         val adapter = EmotionAdapter(emotions)
         emotionsRecycler.adapter = adapter

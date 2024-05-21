@@ -13,4 +13,5 @@ class UserData : RealmObject {
     var email : String = ""
     var birthdate: RealmInstant = RealmInstant.now()
     var isAdmin : Boolean = false
+    var notifToken : String = ""
 }

@@ -7,42 +7,32 @@
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="96dp"
-        android:layout_marginTop="64dp"
+        android:layout_width="266dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="32dp"
         android:fontFamily="@font/comfortaa_light"
-        android:text="@string/counselingTitle"
+        android:text="@string/counselingNormalRecordTitle"
+        android:textAlignment="center"
         android:textSize="20sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/desc"
-        android:layout_width="391dp"
-        android:layout_height="126dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="141dp"
-        android:fontFamily="@font/comfortaa_light"
-        android:text="@string/descRequest"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textSize="18sp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="718dp"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/requestBtn"
-        android:layout_width="133dp"
-        android:layout_height="51dp"
-        android:layout_marginStart="139dp"
-        android:layout_marginTop="307dp"
-        android:fontFamily="@font/comfortaa_light"
-        android:text="@string/navigationRequest"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/title" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

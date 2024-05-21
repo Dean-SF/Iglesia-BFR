@@ -9,6 +9,7 @@ import org.mongodb.kbson.ObjectId
 class Emotion: RealmObject {
     @PrimaryKey
     var _id: ObjectId = BsonObjectId()
+    var user : UserData? = null
     var emotion : String = ""
     var emotionId : Int = 0
     var dateRegistered: RealmInstant = RealmInstant.now()
