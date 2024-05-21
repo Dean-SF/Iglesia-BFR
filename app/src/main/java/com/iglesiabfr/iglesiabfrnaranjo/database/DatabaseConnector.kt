@@ -126,7 +126,7 @@ object DatabaseConnector {
                         add(realm.query<Emotion>(), "emotion",updateExisting = true)
                         add(realm.query<CounselingSession>(), "counsellingSession",updateExisting = true)
                         add(realm.query<Video>(), "video",updateExisting = true)
-                        add(realm.query<LibraryInventory>(), "book",updateExisting = true)
+                        add(realm.query<LibraryInventory>(), "libraryInventory",updateExisting = true)
                         add(realm.query<SchoolMaterial>(), "schoolMaterial",updateExisting = true)
                         add(realm.query<InventoryMaterial>(), "inventoryMaterial",updateExisting = true)
                     }
