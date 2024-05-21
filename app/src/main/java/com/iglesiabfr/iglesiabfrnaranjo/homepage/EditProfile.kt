@@ -12,11 +12,10 @@ import com.iglesiabfr.iglesiabfrnaranjo.R
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
 import com.iglesiabfr.iglesiabfrnaranjo.dialogs.ConfirmDialog
 import com.iglesiabfr.iglesiabfrnaranjo.dialogs.LoadingDialog
-import com.iglesiabfr.iglesiabfrnaranjo.login.ResetPassword
+import com.iglesiabfr.iglesiabfrnaranjo.login.ResetPasswordSendEmail
 import com.iglesiabfr.iglesiabfrnaranjo.picker.CustomDatePicker
 import com.iglesiabfr.iglesiabfrnaranjo.schema.UserData
 import io.realm.kotlin.ext.query
-import io.realm.kotlin.mongodb.App
 import io.realm.kotlin.mongodb.User
 import io.realm.kotlin.types.RealmInstant
 import kotlinx.coroutines.launch
@@ -26,7 +25,6 @@ import java.time.format.DateTimeFormatter
 
 class EditProfile : AppCompatActivity() {
 
-    private val app : App = App.create("iglesiabfr-pigqi")
     private var user : User? = null
     private lateinit var email: String
     private lateinit var confirmDialog : ConfirmDialog
@@ -71,7 +69,7 @@ class EditProfile : AppCompatActivity() {
     }
 
     private fun callResetPassword() {
-        val intent = Intent(this, ResetPassword::class.java)
+        val intent = Intent(this, ResetPasswordSendEmail::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
     }

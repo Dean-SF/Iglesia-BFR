@@ -9,152 +9,175 @@
         android:id="@+id/titulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="88dp"
-        android:layout_marginTop="72dp"
         android:fontFamily="@font/comfortaa_light"
         android:text="@string/pregunta"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.063" />
 
     <ImageView
         android:id="@+id/emo1"
         android:layout_width="85dp"
         android:layout_height="82dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="176dp"
         android:clickable="true"
         android:contentDescription="@string/feliz"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.119"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.215"
         app:srcCompat="@drawable/feliz" />
 
     <ImageView
         android:id="@+id/emo2"
         android:layout_width="90dp"
         android:layout_height="83dp"
-        android:layout_marginStart="184dp"
-        android:layout_marginTop="176dp"
         android:clickable="true"
         android:contentDescription="@string/enojado"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.216"
         app:srcCompat="@drawable/enojado" />
 
     <ImageView
         android:id="@+id/emo4"
         android:layout_width="90dp"
         android:layout_height="86dp"
-        android:layout_marginStart="92dp"
-        android:layout_marginTop="352dp"
         android:clickable="true"
         android:contentDescription="@string/bendecido"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.224"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.418"
         app:srcCompat="@drawable/bendecido" />
 
     <ImageView
         android:id="@+id/emo3"
         android:layout_width="85dp"
         android:layout_height="81dp"
-        android:layout_marginStart="320dp"
-        android:layout_marginTop="180dp"
         android:clickable="true"
         android:contentDescription="@string/triste"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.865"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.216"
         app:srcCompat="@drawable/triste" />
 
     <ImageView
         android:id="@+id/emo5"
         android:layout_width="83dp"
         android:layout_height="79dp"
-        android:layout_marginStart="272dp"
-        android:layout_marginTop="352dp"
         android:clickable="true"
         android:contentDescription="@string/agradecido"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.795"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.415"
         app:srcCompat="@drawable/agradecido" />
 
     <ImageView
         android:id="@+id/emo6"
         android:layout_width="82dp"
         android:layout_height="79dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="532dp"
         android:clickable="true"
         android:contentDescription="@string/conpocafe"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.218"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.631"
         app:srcCompat="@drawable/pocafe" />
 
     <ImageView
         android:id="@+id/emo7"
         android:layout_width="86dp"
         android:layout_height="83dp"
-        android:layout_marginStart="272dp"
-        android:layout_marginTop="532dp"
         android:clickable="true"
         android:contentDescription="@string/angustiado"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.793"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.629"
         app:srcCompat="@drawable/angustiado" />
 
     <Button
         android:id="@+id/registerBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="136dp"
-        android:layout_marginTop="724dp"
         android:fontFamily="@font/comfortaa_light"
         android:text="@string/enviarEmocion"
         android:textSize="16sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.81" />
 
     <TextView
         android:id="@+id/felizText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="272dp"
         android:fontFamily="@font/comfortaa_light"
         android:text="@string/feliz"
         android:textAlignment="center"
         android:textSize="20sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.145"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.316" />
 
     <TextView
         android:id="@+id/tristeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="332dp"
-        android:layout_marginTop="272dp"
         android:fontFamily="@font/comfortaa_light"
         android:text="@string/triste"
         android:textAlignment="center"
         android:textSize="20sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.842"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.316" />
 
     <TextView
         android:id="@+id/bendecidoText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="452dp"
         android:fontFamily="@font/comfortaa_light"
         android:text="@string/bendecido"
         android:textAlignment="center"
         android:textSize="20sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.192"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -162,41 +185,46 @@
         android:id="@+id/pocafeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="628dp"
         android:fontFamily="@font/comfortaa_light"
         android:text="@string/conpocafe"
         android:textAlignment="center"
         android:textSize="20sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.186"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.694" />
 
     <TextView
         android:id="@+id/angustiadoText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="252dp"
-        android:layout_marginTop="628dp"
         android:fontFamily="@font/comfortaa_light"
         android:text="@string/angustiado"
         android:textAlignment="center"
         android:textSize="20sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.838"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.694" />
 
     <TextView
         android:id="@+id/agradecidoText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="244dp"
-        android:layout_marginTop="452dp"
         android:fontFamily="@font/comfortaa_light"
         android:text="@string/agradecido"
         android:textAlignment="center"
         android:textSize="20sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.834"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -204,14 +232,15 @@
         android:id="@+id/enojadoText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="172dp"
-        android:layout_marginTop="272dp"
         android:fontFamily="@font/comfortaa_light"
         android:text="@string/enojado"
         android:textAlignment="center"
         android:textSize="20sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.316" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

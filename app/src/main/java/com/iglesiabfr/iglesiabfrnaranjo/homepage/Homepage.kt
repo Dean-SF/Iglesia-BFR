@@ -5,12 +5,17 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.navigation.NavigationBarView
 import com.iglesiabfr.iglesiabfrnaranjo.Bible.BibleBooksFragment
+import com.google.firebase.Firebase
+import com.google.firebase.messaging.messaging
 import com.iglesiabfr.iglesiabfrnaranjo.R
+import com.iglesiabfr.iglesiabfrnaranjo.admin.notifHandler.NotifHandler
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
 import com.iglesiabfr.iglesiabfrnaranjo.SharedViewModel
 import com.iglesiabfr.iglesiabfrnaranjo.forums.ForumsFragment
+import kotlinx.coroutines.launch
 
 class Homepage : AppCompatActivity() {
     private val sharedViewModel: SharedViewModel by viewModels()
@@ -22,6 +27,23 @@ class Homepage : AppCompatActivity() {
         }
         setContentView(R.layout.activity_homepage)
         replaceFragment(Mainpage())
+
+        NotifHandler.updateToken = {token ->
+            val user = DatabaseConnector.getUserData()
+            lifecycleScope.launch {
+                DatabaseConnector.db.write {
+                    findLatest(user!!).let {
+                        it?.notifToken = token
+                    }
+                }
+            }
+        }
+        Firebase.messaging.token.addOnSuccessListener {
+            it?.let { NotifHandler.updateToken?.invoke(it) }
+        }
+        if(DatabaseConnector.getIsAdmin()) {
+            Firebase.messaging.subscribeToTopic("admin")
+        }
 
         val navBar : NavigationBarView = findViewById(R.id.homepageNavbar)
 
@@ -38,6 +60,8 @@ class Homepage : AppCompatActivity() {
                 R.id.item_consejeria -> {
                     if (DatabaseConnector.getIsAdmin()) {
                         replaceFragment(AdminCounselingHome())
+                    } else {
+                        replaceFragment(CounselingHome())
                     }
                 true
                 }

@@ -11,10 +11,11 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.google.firebase.messaging.messaging
 import com.iglesiabfr.iglesiabfrnaranjo.R
+import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
 
 class NotifHandler : FirebaseMessagingService() {
-
     companion object {
+        var updateToken : ((String) -> (Unit))? = null
         @JvmStatic
         fun initNotifs(context: Context) {
             val channelId = context.resources.getString(R.string.NotifId)
@@ -32,6 +33,11 @@ class NotifHandler : FirebaseMessagingService() {
 
     override fun onNewToken(token: String) {
         super.onNewToken(token)
+        updateToken?.invoke(token)
+        Firebase.messaging.unsubscribeFromTopic("admin")
+        if(DatabaseConnector.getIsAdmin()) {
+            Firebase.messaging.subscribeToTopic("admin")
+        }
         Firebase.messaging.unsubscribeFromTopic("updates")
         Firebase.messaging.subscribeToTopic("updates")
             .addOnSuccessListener {

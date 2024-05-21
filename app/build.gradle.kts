@@ -84,5 +84,5 @@ dependencies {
     implementation(libs.library.sync)
 
     implementation(libs.calendar.view)
-
+    implementation ("androidx.datastore:datastore-preferences:1.1.1")
 }

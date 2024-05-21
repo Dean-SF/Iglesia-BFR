@@ -1,6 +1,5 @@
 package com.iglesiabfr.iglesiabfrnaranjo.customRecyclers
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,8 +15,13 @@ import java.time.format.DateTimeFormatter
 
 // El admin puede ver las sesiones que han solicitado
 // Los datos son la fecha de solicitud y el nombre del solicitante
-class AdminRequestAdapter(private val requests: RealmResults<CounselingSession>) :
+class AdminRequestAdapter(private val requests: RealmResults<CounselingSession>,
+                          private val listener: OnItemClickListener) :
     RecyclerView.Adapter<AdminRequestAdapter.ViewHolder>() {
+
+    interface OnItemClickListener {
+        fun onItemClick(item: CounselingSession)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.admin_request_list_item, parent, false)
@@ -33,24 +37,33 @@ class AdminRequestAdapter(private val requests: RealmResults<CounselingSession>)
         return requests.size
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         private val textDateTime: TextView = itemView.findViewById(R.id.textDateTime)
         private val textRequest: TextView = itemView.findViewById(R.id.textRequest)
 
+        private lateinit var currentItem: CounselingSession
+        init {
+            itemView.setOnClickListener(this)
+        }
+
         fun bind(newRequest: CounselingSession) {
+            currentItem = newRequest
             val datetimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm")
             val zoneIdCostaRica = ZoneId.of("America/Costa_Rica")
-            val epochSeconds = newRequest.postDatetime.epochSeconds
+            val epochSeconds = newRequest.postDateTime.epochSeconds
             val datetimeCostaRica = LocalDateTime.ofEpochSecond(epochSeconds, 0, ZoneOffset.UTC)
                 .atZone(ZoneOffset.UTC)
                 .withZoneSameInstant(zoneIdCostaRica)
                 .toLocalDateTime()
             textDateTime.text = datetimeCostaRica.format(datetimeFormatter)
 
-            val userName = newRequest.name
+            val userName = newRequest.user?.name
             val fullTextRequest = "$userName solicitó una sesión"
             textRequest.text = fullTextRequest
-            Log.d("AdminRequestAdapter", "$userName - ${textDateTime.text}")
+        }
+
+        override fun onClick(view: View?) {
+            listener.onItemClick(currentItem)
         }
     }
 }

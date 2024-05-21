@@ -85,13 +85,17 @@ class SendEmotion: AppCompatActivity() {
                 ).show()
                 return@launch
             } else {
-                val newRegister = userQuery.name + " " + getString(R.string.middlePart) + " " + emotionName
-                val event = Emotion().apply {
-                    dateRegistered = RealmInstant.now()
-                    emotion = newRegister
-                    emotionId = newEmotionId
-                }
-                DatabaseConnector.db.writeBlocking {
+                val newRegister = " " + getString(R.string.middlePart) + " " + emotionName
+                DatabaseConnector.db.write {
+                    val event = Emotion().apply {
+                        findLatest(userQuery)
+                            ?. let {
+                                user = it
+                            }
+                        dateRegistered = RealmInstant.now()
+                        emotion = newRegister
+                        emotionId = newEmotionId
+                    }
                     copyToRealm(event)
                 }
                 loadingDialog.stopLoading()
