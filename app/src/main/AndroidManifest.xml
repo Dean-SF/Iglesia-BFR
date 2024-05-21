@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
@@ -14,6 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IglesiaBFRNaranjo"
         tools:targetApi="31">
+        <activity
+            android:name=".calendar.CalendarDetail"
+            android:exported="false" />
+        <activity
+            android:name=".calendar.FullCalendar"
+            android:exported="false" />
 
         <service
             android:name=".admin.notifHandler.NotifHandler"
@@ -23,6 +30,7 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
         <activity
             android:name=".admin.cults.DetailCult"
             android:exported="false" />
