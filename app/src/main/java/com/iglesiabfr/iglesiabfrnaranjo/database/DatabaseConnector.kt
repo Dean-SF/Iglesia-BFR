@@ -9,9 +9,12 @@ import com.iglesiabfr.iglesiabfrnaranjo.schema.CounselingSession
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Cult
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Emotion
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Event
-import com.iglesiabfr.iglesiabfrnaranjo.schema.EventCult
+import com.iglesiabfr.iglesiabfrnaranjo.schema.InventoryMaterial
+import com.iglesiabfr.iglesiabfrnaranjo.schema.LibraryInventory
+import com.iglesiabfr.iglesiabfrnaranjo.schema.SchoolMaterial
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Suggestion
 import com.iglesiabfr.iglesiabfrnaranjo.schema.UserData
+import com.iglesiabfr.iglesiabfrnaranjo.schema.Video
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
 import io.realm.kotlin.mongodb.Credentials
@@ -99,7 +102,6 @@ object DatabaseConnector {
                 val config = SyncConfiguration.Builder(
                     it, setOf(
                         Event::class,
-                        EventCult::class,
                         Activity::class,
                         UserData::class,
                         Cult::class,
@@ -107,19 +109,26 @@ object DatabaseConnector {
                         AttendanceCults::class,
                         Suggestion::class,
                         Emotion::class,
-                        CounselingSession::class
+                        CounselingSession::class,
+                        Video::class,
+                        LibraryInventory::class,
+                        SchoolMaterial::class,
+                        InventoryMaterial::class
                     ))
                     .initialSubscriptions(rerunOnOpen = true) {realm->
                         add(realm.query<Event>(), "subEvent",updateExisting = true)
-                        add(realm.query<EventCult>(), "subEventCult",updateExisting = true)
                         add(realm.query<Cult>(), "subCult",updateExisting = true)
                         add(realm.query<Activity>(), "subActivity",updateExisting = true)
                         add(realm.query<UserData>(), "userData",updateExisting = true)
-                        add(realm.query<Attendance>(), "subAttendance",updateExisting = true)
-                        add(realm.query<AttendanceCults>(), "subAttendanceCults",updateExisting = true)
+                        add(realm.query<Attendance>(), "attendance",updateExisting = true)
+                        add(realm.query<AttendanceCults>(), "attendanceCults",updateExisting = true)
                         add(realm.query<Suggestion>(), "suggestion",updateExisting = true)
                         add(realm.query<Emotion>(), "emotion",updateExisting = true)
                         add(realm.query<CounselingSession>(), "counsellingSession",updateExisting = true)
+                        add(realm.query<Video>(), "video",updateExisting = true)
+                        add(realm.query<LibraryInventory>(), "book",updateExisting = true)
+                        add(realm.query<SchoolMaterial>(), "schoolMaterial",updateExisting = true)
+                        add(realm.query<InventoryMaterial>(), "inventoryMaterial",updateExisting = true)
                     }
                     .errorHandler { session: SyncSession, error: SyncException ->
                         Log.d("IglesiaError", error.message.toString())

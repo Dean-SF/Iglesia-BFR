@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.iglesiabfr.iglesiabfrnaranjo.R
+import com.iglesiabfr.iglesiabfrnaranjo.schema.InventoryMaterial
 
 class InventoryMaterialAdapter(
     private val onClickListener: (InventoryMaterial) -> Unit,
@@ -11,6 +12,9 @@ class InventoryMaterialAdapter(
 ): RecyclerView.Adapter<InventoryMaterialViewHolder>() {
 
     private val inventoryMaterialList = mutableListOf<InventoryMaterial>()
+
+    val currentList: List<InventoryMaterial>
+        get() = inventoryMaterialList
 
     fun submitList(newList: List<InventoryMaterial>) {
         inventoryMaterialList.clear()

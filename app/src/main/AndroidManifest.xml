@@ -4,8 +4,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -50,6 +48,12 @@
             android:name=".admin.adminSchoolMaterial.AdminSchoolMaterial"
             android:exported="false" />
         <activity
+            android:name=".admin.adminInventoryMaterial.AdminInventoryMaterial"
+            android:exported="false" />
+        <activity
+            android:name=".admin.video.AdminVideoAdmin"
+            android:exported="false" />
+        <activity
             android:name=".admin.events.MarkAttendance"
             android:exported="false" />
         <activity
@@ -62,7 +66,10 @@
             android:name=".admin.adminSchoolMaterial.PrincipalAdminSchoolMaterial"
             android:exported="false" />
         <activity
-            android:name=".admin.events.UploadVideoAdmin"
+            android:name=".admin.adminInventoryMaterial.PrincipalAdminInventoryMaterial"
+            android:exported="false" />
+        <activity
+            android:name=".admin.video.PrincipalAdminVideos"
             android:exported="false" />
         <activity
             android:name=".admin.activities.DetailAct"

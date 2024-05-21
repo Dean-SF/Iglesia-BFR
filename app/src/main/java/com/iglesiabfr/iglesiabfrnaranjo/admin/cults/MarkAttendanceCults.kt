@@ -45,7 +45,6 @@ class MarkAttendanceCults : AppCompatActivity() {
             memberId = eventData.eventName // Puedes utilizar el nombre como ID de miembro
             timestamp = RealmInstant.now()
             eventPresent = eventData.eventPresent
-            // Aquí puedes agregar más campos según sea necesario
         }
 
         // Aquí debes guardar la instancia de asistencia en tu base de datos Realm
@@ -55,8 +54,8 @@ class MarkAttendanceCults : AppCompatActivity() {
     }
 
     private fun getEventData(): EventData {
-        val eventName = findViewById<TextView>(R.id.nameInput).text.toString()
-        val eventDescription = findViewById<TextView>(R.id.descInput).text.toString()
+        val eventName = findViewById<TextView>(R.id.nameInputcult).text.toString()
+        val eventDescription = findViewById<TextView>(R.id.isPersonPresentcult).text.toString()
 
         return EventData(eventName, eventDescription)
     }

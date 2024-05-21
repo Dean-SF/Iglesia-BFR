@@ -1,6 +1,7 @@
 package com.iglesiabfr.iglesiabfrnaranjo.admin.cults
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.inputmethod.EditorInfo
@@ -10,6 +11,7 @@ import android.widget.ImageButton
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.timepicker.MaterialTimePicker
@@ -18,6 +20,7 @@ import com.iglesiabfr.iglesiabfrnaranjo.R
 import com.iglesiabfr.iglesiabfrnaranjo.admin.cults.spinnerAdapter.WeekdaySpinnerAdapter
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
 import com.iglesiabfr.iglesiabfrnaranjo.dialogs.LoadingDialog
+import com.iglesiabfr.iglesiabfrnaranjo.homepage.Homepage
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Cult
 import io.realm.kotlin.types.RealmInstant
 import kotlinx.coroutines.launch
@@ -30,6 +33,7 @@ import java.time.format.DateTimeFormatter
 class CreateCult : AppCompatActivity() {
     private lateinit var time : LocalTime
     private lateinit var loadingDialog : LoadingDialog
+    private lateinit var launcher : ActivityResultLauncher<Intent>
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +43,8 @@ class CreateCult : AppCompatActivity() {
         loadingDialog = LoadingDialog(this)
 
         val timeBut : ImageButton = findViewById(R.id.timeBut)
-        val createBut : Button = findViewById(R.id.createCultBut)
+        val createBut : Button = findViewById(R.id.CreateCultBut)
+        val backBtn: Button = findViewById(R.id.BackCultBtn)
 
         val timetext : TextView = findViewById(R.id.horainput)
         val nametext : EditText = findViewById(R.id.nameinput)
@@ -104,6 +109,10 @@ class CreateCult : AppCompatActivity() {
             createCult()
         }
 
+        backBtn.setOnClickListener {
+            val i = Intent(this, Homepage::class.java)
+            launcher.launch(i)
+        }
     }
 
     private fun checkIfEmpty() : Boolean {

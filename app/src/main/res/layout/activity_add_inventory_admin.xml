@@ -68,7 +68,7 @@
         android:text="@string/addNewItem" />
 
     <Button
-        android:id="@+id/BackAdminEventCultButton"
+        android:id="@+id/BackAddInventoryButton"
         android:layout_width="wrap_content"
         android:layout_height="51dp"
         android:layout_alignParentStart="true"

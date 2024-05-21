@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.iglesiabfr.iglesiabfrnaranjo.R
+import com.iglesiabfr.iglesiabfrnaranjo.schema.SchoolMaterial
 
 class SchoolMaterialAdapter(
     private val onClickListener: (SchoolMaterial) -> Unit,
@@ -11,6 +12,9 @@ class SchoolMaterialAdapter(
 ): RecyclerView.Adapter<SchoolMaterialViewHolder>() {
 
     private val schoolMaterialList = mutableListOf<SchoolMaterial>()
+
+    val currentList: List<SchoolMaterial>
+        get() = schoolMaterialList
 
     fun submitList(newList: List<SchoolMaterial>) {
         schoolMaterialList.clear()

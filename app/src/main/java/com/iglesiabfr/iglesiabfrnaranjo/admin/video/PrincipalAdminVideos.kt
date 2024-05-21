@@ -1,4 +1,4 @@
-package com.iglesiabfr.iglesiabfrnaranjo.admin.adminSchoolMaterial
+package com.iglesiabfr.iglesiabfrnaranjo.admin.video
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,15 +7,15 @@ import androidx.appcompat.app.AppCompatActivity
 import com.iglesiabfr.iglesiabfrnaranjo.R
 import com.iglesiabfr.iglesiabfrnaranjo.homepage.Homepage
 
-class PrincipalAdminSchoolMaterial : AppCompatActivity() {
+class PrincipalAdminVideos : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_admin_school_material)
+        setContentView(R.layout.activity_admin_videos)
 
-        val createSchoolMaterialBut : Button = findViewById(R.id.createEventBut)
+        val createVideoBut : Button = findViewById(R.id.createEventBut)
 
-        createSchoolMaterialBut.setOnClickListener {
-            val i = Intent(this, AdminSchoolMaterial::class.java)
+        createVideoBut.setOnClickListener {
+            val i = Intent(this, AdminVideoAdmin::class.java)
             startActivity(i)
         }
 
@@ -26,3 +26,9 @@ class PrincipalAdminSchoolMaterial : AppCompatActivity() {
         }
     }
 }
+
+
+
+
+
+

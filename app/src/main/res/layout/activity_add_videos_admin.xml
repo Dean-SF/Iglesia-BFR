@@ -5,67 +5,59 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/etName"
+        android:id="@+id/etUrl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="278dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:autofillHints=""
-        android:hint="@string/Name" />
-
-    <EditText
-        android:id="@+id/etQuantity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/etName"
-        android:layout_marginTop="24dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:autofillHints=""
-        android:hint="@string/Quantity"
-        android:inputType="number" />
-
-    <EditText
-        android:id="@+id/etPrice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/etQuantity"
-        android:layout_marginTop="24dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:autofillHints=""
-        android:hint="@string/TypeProduct" />
-
-    <Button
-        android:id="@+id/btnSaveInventoryMaterial"
-        android:layout_width="wrap_content"
-        android:layout_height="55dp"
-        android:layout_below="@+id/etPrice"
+        android:layout_above="@+id/btnAddVideo"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="24dp"
+        android:autofillHints=""
+        android:hint="@string/UrlVideo" />
+
+    <EditText
+        android:id="@+id/etTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/etUrl"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="400dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="24dp"
+        android:autofillHints=""
+        android:hint="@string/titleVideo" />
+
+    <Button
+        android:id="@+id/btnAddVideo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/BackAddVideosAdminButton"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
         android:layout_gravity="bottom"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="25dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="195dp"
+        android:layout_marginBottom="24dp"
         android:background="@drawable/ripple_soft_rectangle_btn"
         android:backgroundTint="@color/blue"
-        android:text="@string/safeNewItem" />
+        android:text="@string/saveNewItem" />
 
     <Button
-        android:id="@+id/BackAddInventoryAdminButton"
+        android:id="@+id/BackAddVideosAdminButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginBottom="124dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginEnd="19dp"
+        android:layout_marginBottom="41dp"
         android:background="@drawable/ripple_soft_rectangle_btn"
         android:backgroundTint="@color/blue"
         android:text="@string/backAdminEventCultButton"

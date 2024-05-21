@@ -5,12 +5,11 @@ import io.realm.kotlin.types.RealmObject
 import io.realm.kotlin.types.annotations.PrimaryKey
 import org.mongodb.kbson.ObjectId
 
-class EventCult : RealmObject {
+class SchoolMaterial : RealmObject  {
     @PrimaryKey
     var _id: ObjectId = ObjectId()
-    var name : String = ""
-    var date : RealmInstant = RealmInstant.now()
-    var time : String = ""
-    var desc : String = ""
+    var teacherName: String = ""
+    var clase: String = ""
+    var initialMonth: RealmInstant = RealmInstant.now()
+    var finalMonth: RealmInstant = RealmInstant.now()
 }
-

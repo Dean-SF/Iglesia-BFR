@@ -17,6 +17,8 @@ activity = "1.8.0"
 constraintlayout = "2.1.4"
 recyclerview = "1.3.2"
 gmsVer = "4.4.1"
+firebaseDatabaseKtx = "21.0.0"
+composePreviewRenderer = "0.0.1-alpha01"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -42,6 +44,8 @@ material = { group = "com.google.android.material", name = "material", version.r
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
+firebase-database-ktx = { group = "com.google.firebase", name = "firebase-database-ktx", version.ref = "firebaseDatabaseKtx" }
+compose-preview-renderer = { group = "com.android.tools.compose", name = "compose-preview-renderer", version.ref = "composePreviewRenderer" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

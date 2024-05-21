@@ -56,7 +56,7 @@ class MarkAttendance : AppCompatActivity() {
 
     private fun getEventData(): EventData {
         val eventName = findViewById<TextView>(R.id.nameInput).text.toString()
-        val eventDescription = findViewById<TextView>(R.id.descInput).text.toString()
+        val eventDescription = findViewById<TextView>(R.id.isPersonPresent).text.toString()
 
         return EventData(eventName, eventDescription)
     }

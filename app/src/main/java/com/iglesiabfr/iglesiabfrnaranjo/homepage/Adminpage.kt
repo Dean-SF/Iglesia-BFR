@@ -2,19 +2,19 @@ package com.iglesiabfr.iglesiabfrnaranjo.homepage
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.fragment.app.Fragment
 import com.iglesiabfr.iglesiabfrnaranjo.R
 import com.iglesiabfr.iglesiabfrnaranjo.admin.activities.AdminAct
+import com.iglesiabfr.iglesiabfrnaranjo.admin.adminInventoryMaterial.AdminInventoryMaterial
+import com.iglesiabfr.iglesiabfrnaranjo.admin.adminLibraryInventory.AdminLibraryInventory
+import com.iglesiabfr.iglesiabfrnaranjo.admin.adminSchoolMaterial.AdminSchoolMaterial
 import com.iglesiabfr.iglesiabfrnaranjo.admin.cults.AdminCult
 import com.iglesiabfr.iglesiabfrnaranjo.admin.events.AdminEvent
-import com.iglesiabfr.iglesiabfrnaranjo.admin.adminInventoryMaterial.PrincipalAdminInventoryMaterial
-import com.iglesiabfr.iglesiabfrnaranjo.admin.adminLibraryInventory.PrincipalAdminLibrary
-import com.iglesiabfr.iglesiabfrnaranjo.admin.adminSchoolMaterial.PrincipalAdminSchoolMaterial
-import com.iglesiabfr.iglesiabfrnaranjo.admin.events.UploadVideoAdmin
+import com.iglesiabfr.iglesiabfrnaranjo.admin.video.AdminVideoAdmin
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -69,22 +69,22 @@ class Adminpage : Fragment() {
         }
 
         loadVideosBut.setOnClickListener {
-            val i = Intent(view.context, UploadVideoAdmin::class.java)
+            val i = Intent(view.context, AdminVideoAdmin::class.java)
             startActivity(i)
         }
 
         adminSchoolBut.setOnClickListener {
-            val i = Intent(view.context, PrincipalAdminSchoolMaterial::class.java)
+            val i = Intent(view.context, AdminSchoolMaterial::class.java)
             startActivity(i)
         }
 
         libraryBut.setOnClickListener {
-            val i = Intent(view.context, PrincipalAdminLibrary::class.java)
+            val i = Intent(view.context, AdminLibraryInventory::class.java)
             startActivity(i)
         }
 
         materialBut.setOnClickListener {
-            val i = Intent(view.context, PrincipalAdminInventoryMaterial::class.java)
+            val i = Intent(view.context, AdminInventoryMaterial::class.java)
             startActivity(i)
         }
 
