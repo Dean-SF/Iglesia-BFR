@@ -3,6 +3,7 @@ package com.iglesiabfr.iglesiabfrnaranjo.admin.adminInventoryMaterial
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.iglesiabfr.iglesiabfrnaranjo.databinding.ItemInventoryMaterialListBinding
+import com.iglesiabfr.iglesiabfrnaranjo.schema.InventoryMaterial
 
 class InventoryMaterialViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 

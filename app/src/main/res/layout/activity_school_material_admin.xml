@@ -16,23 +16,24 @@
             android:layout_marginTop="20dp" />
 
         <!-- Botón para volver atrás -->
+
+        <!-- Botón para agregar un nuevo elemento -->
         <Button
-            android:id="@+id/BackAdminEventCultButton"
+            android:id="@+id/BackSchoolMaterialButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
             android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
             android:background="@drawable/ripple_soft_rectangle_btn"
             android:backgroundTint="@color/blue"
             android:text="@string/backAdminEventCultButton" />
 
-        <!-- Botón para agregar un nuevo elemento -->
         <Button
             android:id="@+id/btnAddSchoolMaterial"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/BackAdminEventCultButton"
+            android:layout_below="@id/BackSchoolMaterialButton"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginTop="20dp"

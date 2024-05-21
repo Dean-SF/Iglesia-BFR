@@ -315,5 +315,19 @@
     <string name="linkHint">pegar link aquí</string>
     <string name="sendEmail">Enviar correo de restablecimiento</string>
     <string name="invalidLink">El link es inválido</string>
+    <string name="adminVideosTitle">Aministración de videos</string>
+    <string name="addVideoBut">Añadir nuevo video</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="nameMiniatura">Imagen</string>
+    <string name="titleVideo">Nombre del video</string>
+    <string name="UrlVideo">Link del video</string>
+    <string name="registrarAsistencia">Asistencia al evento</string>
+    <string name="Type">"Tipo "</string>
+    <string name="TypeProduct">Tipo de producto</string>
+    <string name="nameTeacher">Nombre del maestro</string>
+    <string name="typeClass">Tipo de clase</string>
+    <string name="createStartDate">Fecha inicial\n</string>
+    <string name="createStartDatea">Fecha inicial</string>
+    <string name="createFinalDate">Fecha final</string>
 
 </resources>

@@ -3,14 +3,15 @@ package com.iglesiabfr.iglesiabfrnaranjo.admin.adminLibraryInventory
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.iglesiabfr.iglesiabfrnaranjo.databinding.ItemBookListBinding
+import com.iglesiabfr.iglesiabfrnaranjo.schema.LibraryInventory
 
-class BookViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+class LibraryInventoryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     private val binding = ItemBookListBinding.bind(view)
 
     fun render(
-        bookModel: Book,
-        onClickListener: (Book) -> Unit,
+        bookModel: LibraryInventory,
+        onClickListener: (LibraryInventory) -> Unit,
         onClickDelete: (Int) -> Unit
     ) {
         binding.tvTitle.text = bookModel.title

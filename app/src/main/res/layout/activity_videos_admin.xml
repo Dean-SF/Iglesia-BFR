@@ -7,18 +7,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
         <!-- RecyclerView para mostrar los elementos -->
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerInventoryMaterial"
+            android:id="@+id/recyclerVideos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/btnAddInventoryMaterial"
+            android:layout_below="@id/btnAddVideos"
             android:layout_marginTop="20dp" />
 
         <!-- Botón para volver atrás -->
         <Button
-            android:id="@+id/BackInventoryMaterialButton"
+            android:id="@+id/BackVideosAdminButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -30,10 +29,10 @@
 
         <!-- Botón para agregar un nuevo elemento -->
         <Button
-            android:id="@+id/btnAddInventoryMaterial"
+            android:id="@+id/btnAddVideos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/BackInventoryMaterialButton"
+            android:layout_below="@id/BackVideosAdminButton"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginTop="20dp"

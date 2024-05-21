@@ -1,21 +1,29 @@
 package com.iglesiabfr.iglesiabfrnaranjo.admin.adminLibraryInventory
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
 import com.iglesiabfr.iglesiabfrnaranjo.databinding.ActivityAddInventoryAdminBinding
 import com.iglesiabfr.iglesiabfrnaranjo.databinding.ActivityInventoryAdminBinding
 import com.iglesiabfr.iglesiabfrnaranjo.homepage.Homepage
+import com.iglesiabfr.iglesiabfrnaranjo.schema.LibraryInventory
+import io.realm.kotlin.Realm
+import io.realm.kotlin.ext.query
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class AdminLibraryInventory : AppCompatActivity() {
-
+    private lateinit var realm : Realm
     private lateinit var binding: ActivityAddInventoryAdminBinding
     private lateinit var binding1: ActivityInventoryAdminBinding
-    private lateinit var adapter: BookAdapter
+    private lateinit var adapter: LibraryInventoryAdapter
     private val llmanager = LinearLayoutManager(this)
-    private val bookMutableList = mutableListOf<Book>() // Lista mutable de librería
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,27 +31,32 @@ class AdminLibraryInventory : AppCompatActivity() {
         binding1 = ActivityInventoryAdminBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        realm = DatabaseConnector.db
+
         binding1.btnAddBook.setOnClickListener {
             // Set content view to binding1 after adding inventory library
             setContentView(binding.root)
         }
 
-        binding1.BackAdminEventCultButton.setOnClickListener {
+        binding1.BackInventoryAdminButton.setOnClickListener {
             val intent = Intent(this, Homepage::class.java)
             startActivity(intent)
         }
 
         binding.btnAddBook.setOnClickListener {
-            createBook()
+            createLibraryInventory()
         }
-        initRecyclerView()
 
-        binding.BackAdminEventCultButton.setOnClickListener {
+        binding.BackAddInventoryButton.setOnClickListener {
             setContentView(binding1.root)
+            loadLibraryInventory() // Asegúrate de cargar los libros al volver
         }
+
+        initRecyclerView()
+        loadLibraryInventory() // Cargar los libros al inicio
     }
 
-    private fun createBook() {
+    private fun createLibraryInventory() {
         val title = binding.etTitle.text.toString()
         val name = binding.etName.text.toString()
         val quantityStr = binding.etQuantity.text.toString()
@@ -53,43 +66,90 @@ class AdminLibraryInventory : AppCompatActivity() {
             val quantity = quantityStr.toInt()
             val price = priceStr.toDouble()
 
-            val book = Book(
-                title = title,
-                name = name,
-                quantity = quantity,
-                price = price
-            )
+            val libraryInventory = LibraryInventory().apply {
+                this.title = title
+                this.name = name
+                this.quantity = quantity
+                this.price = price
+            }
 
-            bookMutableList.add(book) // Agregar el nuevo libro a la lista
-            adapter.submitList(bookMutableList) // Actualizar el RecyclerView con la nueva lista
+            saveLibraryInventoryToDatabase(libraryInventory)
 
             // Limpiar los EditText después de agregar el libro
             binding.etTitle.text.clear()
             binding.etName.text.clear()
             binding.etQuantity.text.clear()
             binding.etPrice.text.clear()
+
         } else {
             Toast.makeText(this, "Por favor complete todos los campos", Toast.LENGTH_SHORT).show()
         }
     }
 
+    private fun saveLibraryInventoryToDatabase(libraryInventory: LibraryInventory) {// Obtenemos una referencia a la base de datos de Firebase
+        lifecycleScope.launch {
+            runCatching {
+                realm.write {
+                    copyToRealm(libraryInventory)
+                }
+            }.onSuccess {
+                loadLibraryInventory() // Recargar videos después de agregar
+                Toast.makeText(this@AdminLibraryInventory, "Libro guardado correctamente", Toast.LENGTH_SHORT).show()
+            }.onFailure {
+                Toast.makeText(this@AdminLibraryInventory, "Error al guardar el Libro", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun deleteVideoFromDatabase(libraryInventoryId: String) {
+        lifecycleScope.launch {
+            runCatching {
+                realm.write {
+                    val libraryInventory = this.query<LibraryInventory>("_id == $0",
+                        org.mongodb.kbson.BsonObjectId(libraryInventoryId)
+                    ).first().find()
+                    libraryInventory?.let {
+                        delete(libraryInventory)
+                    }
+                }
+            }.onSuccess {
+                withContext(Dispatchers.Main) {
+                    loadLibraryInventory() // Recargar videos después de eliminar
+                    Toast.makeText(this@AdminLibraryInventory, "Video eliminado correctamente", Toast.LENGTH_SHORT).show()
+                }
+            }.onFailure {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@AdminLibraryInventory, "Error al eliminar el video", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun loadLibraryInventory() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val libraryInventorys = realm.query<LibraryInventory>().find()
+            withContext(Dispatchers.Main) {
+                adapter.submitList(libraryInventorys)
+            }
+        }
+    }
+
     private fun initRecyclerView(){
-        adapter = BookAdapter(
-            onClickListener = { book -> onItemSelected(book) },
-            onClickDelete = { position -> onDeletedItem(position) }
+        adapter = LibraryInventoryAdapter(
+            onClickListener = { libraryInventory: LibraryInventory -> onItemSelected(libraryInventory) },
+            onClickDelete = { position: Int -> onDeletedItem(position) }
         )
         binding1.recyclerBook.layoutManager = llmanager
         binding1.recyclerBook.adapter = adapter
     }
 
-    private fun onItemSelected(book: Book) {
-        Toast.makeText(this, book.name, Toast.LENGTH_SHORT).show()
+    private fun onItemSelected(libraryInventory: LibraryInventory) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(libraryInventory.name.toString()))
+        startActivity(intent)
     }
 
     private fun onDeletedItem(position: Int) {
-        if (position in 0 until bookMutableList.size) {
-            bookMutableList.removeAt(position)
-            adapter.notifyItemRemoved(position)
-        }
+        val libraryInventory = adapter.currentList[position]
+        deleteVideoFromDatabase(libraryInventory._id.toString())
     }
 }

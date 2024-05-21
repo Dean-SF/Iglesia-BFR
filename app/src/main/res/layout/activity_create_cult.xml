@@ -73,7 +73,7 @@
         app:layout_constraintTop_toBottomOf="@+id/horainput" />
 
     <Button
-        android:id="@+id/createCultBut"
+        android:id="@+id/CreateCultBut"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -90,7 +90,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/BackEventBtn"
+        android:id="@+id/BackCultBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -104,7 +104,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createCultBut"
+        app:layout_constraintTop_toBottomOf="@+id/CreateCultBut"
         app:layout_constraintVertical_bias="0.9"
         tools:text="Regresar" />
 
