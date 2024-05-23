@@ -18,15 +18,20 @@ import com.iglesiabfr.iglesiabfrnaranjo.picker.CustomDatePicker
 import com.iglesiabfr.iglesiabfrnaranjo.schema.SchoolMaterial
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
+import io.realm.kotlin.types.RealmInstant
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.mongodb.kbson.ObjectId
 import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.ZoneOffset
 
 class AdminSchoolMaterial : AppCompatActivity() {
     private lateinit var realm : Realm
     private lateinit var date : LocalDate
+    private lateinit var time : LocalTime
     private lateinit var binding: ActivityAddSchoolMaterialAdminBinding
     private lateinit var binding1: ActivitySchoolMaterialAdminBinding
     private lateinit var adapter: SchoolMaterialAdapter
@@ -36,24 +41,19 @@ class AdminSchoolMaterial : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddSchoolMaterialAdminBinding.inflate(layoutInflater)
         binding1 = ActivitySchoolMaterialAdminBinding.inflate(layoutInflater)
+        setContentView(binding1.root)
+
+        realm = DatabaseConnector.db
 
         val calendarBut : ImageButton = binding.dateBut
         val customDatePicker = CustomDatePicker(true)
         val datetext : TextView = binding.fechaStartMaterialSchoolinput
-        val datetext1 : TextView = binding.fechaFinalMaterialSchoolinput
-
-        realm = DatabaseConnector.db
+        time = LocalTime.now()
 
         customDatePicker.setOnPickListener { pickedDate, dateString ->
             date = pickedDate
             datetext.text = dateString
             datetext.error = null
-        }
-
-        customDatePicker.setOnPickListener { pickedDate, dateString ->
-            date = pickedDate
-            datetext1.text = dateString
-            datetext1.error = null
         }
 
         calendarBut.setOnClickListener {
@@ -71,18 +71,31 @@ class AdminSchoolMaterial : AppCompatActivity() {
             true
         }
 
+        // FinalMoth
+        val calendarFinalBut : ImageButton = binding.dateFinalBut
+        val customDateFinalPicker = CustomDatePicker(true)
+        val datetext1 : TextView = binding.fechaFinalMaterialSchoolinput
+
+        customDateFinalPicker.setOnPickListener { pickedDate, dateString ->
+            date = pickedDate
+            datetext1.text = dateString
+            datetext1.error = null
+        }
+
+        calendarFinalBut.setOnClickListener {
+            customDateFinalPicker.show(supportFragmentManager, "tag")
+        }
+
         datetext1.setOnTouchListener { _, event ->
             val action = event.action
             when(action){
                 MotionEvent.ACTION_DOWN -> {
-                    customDatePicker.show(supportFragmentManager, "tag")
+                    customDateFinalPicker.show(supportFragmentManager, "tag")
                 }
                 else ->{}
             }
             true
         }
-
-        setContentView(binding.root)
 
         binding1.btnAddSchoolMaterial.setOnClickListener {
             // Set content view to binding1 after adding inventory schoolMaterial
@@ -114,11 +127,20 @@ class AdminSchoolMaterial : AppCompatActivity() {
         var finalMonth = binding.fechaFinalMaterialSchoolinput.text.toString()
 
         if (teacherName.isNotEmpty() && clase.isNotEmpty() && initialMonth.isNotEmpty() && finalMonth.isNotEmpty()) {
+            // Ensure date and time are initialized
+            if (!::date.isInitialized) {
+                date = LocalDate.now() // or any default date
+            }
+            if (!::time.isInitialized) {
+                time = LocalTime.now() // or any default time
+            }
+
+            val datetime = LocalDateTime.of(date,time)
             val schoolMaterial = SchoolMaterial().apply {
-                teacherName = teacherName
-                clase = clase
-                initialMonth = initialMonth
-                finalMonth = finalMonth
+                this.teacherName = teacherName
+                this.clase = clase
+                this.initialMonth = RealmInstant.from(datetime.toEpochSecond(ZoneOffset.UTC),0)
+                this.finalMonth = RealmInstant.from(datetime.toEpochSecond(ZoneOffset.UTC),0)
             }
 
             // Luego de crear el objeto Video, lo guardamos en la base de datos
@@ -143,9 +165,9 @@ class AdminSchoolMaterial : AppCompatActivity() {
                 }
             }.onSuccess {
                 loadSchoolMaterial() // Recargar videos después de agregar
-                Toast.makeText(this@AdminSchoolMaterial, "Video guardado correctamente", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@AdminSchoolMaterial, "Profesor guardado correctamente", Toast.LENGTH_SHORT).show()
             }.onFailure {
-                Toast.makeText(this@AdminSchoolMaterial, "Error al guardar el video", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@AdminSchoolMaterial, "Error al guardar el profesor", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -154,17 +176,16 @@ class AdminSchoolMaterial : AppCompatActivity() {
         lifecycleScope.launch {
             runCatching {
                 DatabaseConnector.db.write {
-                    val schoolMaterial = this.query<SchoolMaterial>("_id == $0", ObjectId(schoolMaterialId)
-                    ).first().find()
+                    val schoolMaterial = this.query<SchoolMaterial>("_id == $0", ObjectId(schoolMaterialId)).first().find()
                     if (schoolMaterial != null) {
                         delete(schoolMaterial)
                     }
                 }
             }.onSuccess {
                 loadSchoolMaterial() // Recargar videos después de eliminar
-                Toast.makeText(this@AdminSchoolMaterial, "Video eliminado correctamente", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@AdminSchoolMaterial, "Profesor eliminado correctamente", Toast.LENGTH_SHORT).show()
             }.onFailure {
-                Toast.makeText(this@AdminSchoolMaterial, "Error al eliminar el video", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@AdminSchoolMaterial, "Error al eliminar el profesor", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -195,5 +216,6 @@ class AdminSchoolMaterial : AppCompatActivity() {
     private fun onDeletedItem(position: Int) {
         val schoolMaterial = adapter.currentList[position]
         deleteSchoolMaterialFromDatabase(schoolMaterial._id.toString())
+        adapter.notifyItemRemoved(position)
     }
 }

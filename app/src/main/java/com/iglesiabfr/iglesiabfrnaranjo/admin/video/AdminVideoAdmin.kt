@@ -3,14 +3,18 @@ package com.iglesiabfr.iglesiabfrnaranjo.admin.video
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.iglesiabfr.iglesiabfrnaranjo.R
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
 import com.iglesiabfr.iglesiabfrnaranjo.databinding.ActivityAddVideosAdminBinding
 import com.iglesiabfr.iglesiabfrnaranjo.databinding.ActivityVideosAdminBinding
+import com.iglesiabfr.iglesiabfrnaranjo.databinding.FragmentAdminVideoBinding
 import com.iglesiabfr.iglesiabfrnaranjo.homepage.Homepage
+import com.iglesiabfr.iglesiabfrnaranjo.homepage.VideoPage
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Video
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
@@ -23,6 +27,7 @@ class AdminVideoAdmin : AppCompatActivity() {
     private lateinit var realm : Realm
     private lateinit var binding: ActivityAddVideosAdminBinding
     private lateinit var binding1: ActivityVideosAdminBinding
+    private lateinit var binding2: FragmentAdminVideoBinding
     private lateinit var adapter: VideoAdapter
     private val llmanager = LinearLayoutManager(this)
 
@@ -30,12 +35,13 @@ class AdminVideoAdmin : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddVideosAdminBinding.inflate(layoutInflater)
         binding1 = ActivityVideosAdminBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        binding2 = FragmentAdminVideoBinding.inflate(layoutInflater)
+        setContentView(binding1.root)
 
         realm = DatabaseConnector.db
 
         binding1.btnAddVideos.setOnClickListener {
-            // Set content view to binding after adding inventory schoolMaterial
+            // Set content view to binding after adding video
             setContentView(binding.root)
         }
 
@@ -51,6 +57,11 @@ class AdminVideoAdmin : AppCompatActivity() {
         binding.BackAddVideosAdminButton.setOnClickListener {
             setContentView(binding1.root)
             loadVideos() // Asegúrate de cargar los videos al volver
+        }
+
+        binding2.BackVideosAdminButton.setOnClickListener {
+            val intent = Intent(this, Homepage::class.java)
+            startActivity(intent)
         }
 
         initRecyclerView()
@@ -135,13 +146,23 @@ class AdminVideoAdmin : AppCompatActivity() {
     }
 
     private fun onItemSelected(video: Video) {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(video.url))
-        startActivity(intent)
+        val url = video.url
+        if (url.isNotEmpty()) {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            try {
+                startActivity(intent)
+            } catch (e: Exception) {
+                Toast.makeText(this, "No se pudo abrir el video. URL inválida.", Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            Toast.makeText(this, "URL del video no válida.", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun onDeletedItem(position: Int) {
         val video = adapter.currentList[position]
         deleteVideoFromDatabase(video._id.toString())
+        adapter.notifyItemRemoved(position)
     }
 }
 

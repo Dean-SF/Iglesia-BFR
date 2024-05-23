@@ -1,6 +1,7 @@
 package com.iglesiabfr.iglesiabfrnaranjo.admin.events
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.inputmethod.EditorInfo
@@ -8,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.datepicker.CalendarConstraints
@@ -40,6 +42,8 @@ class DetailEvent : AppCompatActivity() {
     private lateinit var loadingDialog : LoadingDialog
     private lateinit var confirmDialog : ConfirmDialog
 
+    private lateinit var launcher : ActivityResultLauncher<Intent>
+
     private lateinit var date : LocalDate
     private lateinit var time : LocalTime
 
@@ -60,6 +64,8 @@ class DetailEvent : AppCompatActivity() {
         confirmDialog = ConfirmDialog(this)
         loadingDialog.startLoading()
         initUiVars()
+
+        val markAttendanceButt: Button = findViewById(R.id.markEventAttendanceBut)
 
         val objectId = ObjectId(intent.getStringExtra("object_id")!!)
 
@@ -105,6 +111,10 @@ class DetailEvent : AppCompatActivity() {
                 }
         }
 
+        markAttendanceButt.setOnClickListener {
+            val i = Intent(this, MarkAttendance::class.java)
+            launcher.launch(i)
+        }
 
         loadingDialog.stopLoading()
     }

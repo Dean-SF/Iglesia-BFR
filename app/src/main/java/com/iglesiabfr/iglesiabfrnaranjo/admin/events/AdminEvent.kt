@@ -43,7 +43,6 @@ class AdminEvent : AppCompatActivity() {
         val searchInput : EditText = findViewById(R.id.searchinput)
 
         val createButt : Button = findViewById(R.id.createEventBut)
-        val markAttendanceButt: Button = findViewById(R.id.MarkEventAttendanceBut)
         val backBtn: Button = findViewById(R.id.backAdminEventButton)
         recyclerView = findViewById(R.id.eventlist)
 
@@ -85,16 +84,10 @@ class AdminEvent : AppCompatActivity() {
             clearList()
         }
 
-
         loadEvents()
 
         createButt.setOnClickListener {
             val i = Intent(this, CreateEvent::class.java)
-            launcher.launch(i)
-        }
-
-        markAttendanceButt.setOnClickListener {
-            val i = Intent(this, MarkAttendance::class.java)
             launcher.launch(i)
         }
 

@@ -8,7 +8,8 @@ import com.iglesiabfr.iglesiabfrnaranjo.schema.Video
 
 class VideoAdapter(
     private val onClickListener: (Video) -> Unit,
-    private val onClickDelete:(Int) -> Unit
+    private val onClickDelete: ((Int) -> Unit)? = null,
+    private val showDeleteButton: Boolean = true
 ) : RecyclerView.Adapter<VideoViewHolder>() {
 
     val videoList = mutableListOf<Video>()
@@ -24,12 +25,17 @@ class VideoAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        return VideoViewHolder(layoutInflater.inflate(R.layout.item_rv_videos_list, parent, false))
+        val layoutInflater2 = LayoutInflater.from(parent.context)
+        val view = layoutInflater.inflate(R.layout.item_rv_videos_list, parent, false)
+        val view2 = layoutInflater2.inflate(R.layout.item_fragment_videos_list, parent, false)
+        return VideoViewHolder(view, showDeleteButton)
     }
 
     override fun onBindViewHolder(holder: VideoViewHolder, position: Int) {
         val item = videoList[position]
-        holder.render(item, onClickListener, onClickDelete)
+        if (onClickDelete != null) {
+            holder.render(item, onClickListener, onClickDelete)
+        }
     }
 
     override fun getItemCount(): Int = videoList.size

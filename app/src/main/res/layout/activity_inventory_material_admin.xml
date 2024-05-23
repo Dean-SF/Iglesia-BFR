@@ -9,24 +9,43 @@
 
 
         <!-- RecyclerView para mostrar los elementos -->
+
+        <!-- Botón para volver atrás -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerInventoryMaterial"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/btnAddInventoryMaterial"
+            android:layout_below="@+id/tvTitleList"
             android:layout_marginTop="20dp" />
 
-        <!-- Botón para volver atrás -->
+        <TextView
+            android:id="@+id/tvTitleList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnAddInventoryMaterial"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            android:text="@string/inventaryMaterialListTitle"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
         <Button
             android:id="@+id/BackInventoryMaterialButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
             android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
             android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
             android:background="@drawable/ripple_soft_rectangle_btn"
             android:backgroundTint="@color/blue"
-            android:text="@string/backAdminEventCultButton" />
+            android:text="@string/backInventoryMaterialButton" />
 
         <!-- Botón para agregar un nuevo elemento -->
         <Button
@@ -34,9 +53,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/BackInventoryMaterialButton"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
             android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
             android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
             android:background="@drawable/ripple_soft_rectangle_btn"
             android:backgroundTint="@color/blue"
             android:text="@string/addNewItem" />

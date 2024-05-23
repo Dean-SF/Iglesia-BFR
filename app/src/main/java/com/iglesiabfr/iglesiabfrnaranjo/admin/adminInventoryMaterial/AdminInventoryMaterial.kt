@@ -29,7 +29,7 @@ class AdminInventoryMaterial : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddInventoryMaterialAdminBinding.inflate(layoutInflater)
         binding1 = ActivityInventoryMaterialAdminBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(binding1.root)
 
         realm = DatabaseConnector.db
 
@@ -144,7 +144,7 @@ class AdminInventoryMaterial : AppCompatActivity() {
     private fun onDeletedItem(position: Int) {
         val inventoryMaterial = adapter.currentList[position]
         deleteInventoryMaterialFromDatabase(inventoryMaterial._id.toString())
+        adapter.notifyItemRemoved(position)
     }
-
 }
 

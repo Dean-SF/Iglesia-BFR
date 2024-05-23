@@ -44,6 +44,10 @@ class Homepage : AppCompatActivity() {
                     replaceFragment(Mainpage())
                     true
                 }
+                R.id.item_grabaciones -> {
+                    replaceFragment(VideoPage())
+                    true
+                }
                 R.id.item_admin -> {
                     replaceFragment(Adminpage())
                     true

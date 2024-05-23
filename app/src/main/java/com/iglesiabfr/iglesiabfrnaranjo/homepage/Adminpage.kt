@@ -52,7 +52,6 @@ class Adminpage : Fragment() {
         val libraryBut : Button = view.findViewById(R.id.LibraryBut)
         val materialBut : Button = view.findViewById(R.id.MaterialInventBut)
 
-
         eventBut.setOnClickListener {
             val i = Intent(view.context, AdminEvent::class.java)
             startActivity(i)
@@ -87,7 +86,6 @@ class Adminpage : Fragment() {
             val i = Intent(view.context, AdminInventoryMaterial::class.java)
             startActivity(i)
         }
-
 
         return view
     }
