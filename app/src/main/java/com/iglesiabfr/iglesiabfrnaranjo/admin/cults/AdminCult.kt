@@ -38,19 +38,22 @@ class AdminCult : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_cult)
 
+        // Initialize loading dialog
         loadingDialog = LoadingDialog(this)
 
         val searchInput : EditText = findViewById(R.id.searchinput)
 
+        // Initialize views
         val createButt: Button = findViewById(R.id.createAdminCultBut)
-        val markAttendanceButt: Button = findViewById(R.id.MarkEventAttendanceCultBut)
         val backBtn: Button = findViewById(R.id.BackAdminCultButton)
         recyclerView = findViewById(R.id.cultlist)
 
+        // Setup RecyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(false)
         recyclerView.adapter = createCultList()
 
+        // Add scroll listener to load more items when reaching the end
         recyclerView.addOnScrollListener(
             object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -85,16 +88,11 @@ class AdminCult : AppCompatActivity() {
             clearList()
         }
 
-
+        // Load initial cults
         loadCults()
 
         createButt.setOnClickListener {
             val i = Intent(this,CreateCult::class.java)
-            launcher.launch(i)
-        }
-
-        markAttendanceButt.setOnClickListener {
-            val i = Intent(this, MarkAttendanceCults::class.java)
             launcher.launch(i)
         }
 

@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.iglesiabfr.iglesiabfrnaranjo.R
+import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
 import com.iglesiabfr.iglesiabfrnaranjo.schema.AttendanceCults
 import com.iglesiabfr.iglesiabfrnaranjo.schema.EventData
 import io.realm.kotlin.Realm
@@ -18,6 +19,8 @@ class MarkAttendanceCults : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_attendance_cults)
+
+        realm = DatabaseConnector.db
 
         // Obtener el id del evento seleccionado
         eventId = intent.getStringExtra("eventId") ?: ""

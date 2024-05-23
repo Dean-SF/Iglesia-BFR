@@ -229,11 +229,10 @@
     <string name="saveNewItem">"Guardar "</string>
     <string name="TitleListMaterials" />
     <string name="titleListTeachers" />
-    <string name="titleListInventBook" />
+    <string name="titleListInventaryLibrary" />
     <string name="RegresarLogin">Regresar</string>
     <string name="inventaryListTitle">Inventario de lista de profesores</string>
     <string name="inventaryMaterialListTitle">Inventario de lista de materiales</string>
-    <string name="inventaryBookListTitle">Inventario de lista de libros</string>
     <string name="inventaryTeacherListTitle">Lista de profesores</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -329,5 +328,31 @@
     <string name="createStartDate">Fecha inicial\n</string>
     <string name="createStartDatea">Fecha inicial</string>
     <string name="createFinalDate">Fecha final</string>
+    <string name="backSchoolMaterialButton">Regresar</string>
+    <string name="backVideosAdminButton">Agregar</string>
+    <string name="backVideosButton">Regresar</string>
+    <string name="backAddSchoolMaterialButton">Regresar</string>
+    <string name="backInventoryMaterialButton">Regresar</string>
+    <string name="backInventoryButton">Regresar</string>
+    <string name="backInventoryMaButton">Regresar</string>
+    <string name="backInventoryAdminButton">Regresar</string>
+    <string name="backAddVideosButton">Regresar</string>
+    <string name="iinventaryLibraryListTitle">Inventario de la lista de libros</string>
+    <string name="inventaryLibraryListTitle">Inventario de la lista de libros</string>
+    <string name="backWatchVideosButton">Lista de videos</string>
+    <string name="initialMonth">Inicio de mes</string>
+    <string name="finalMonth">Final de mes</string>
+    <string name="teacherTitle">Profesor</string>
+    <string name="titlePrice">Precio:</string>
+    <string name="titleQuantity">Cantidad</string>
+    <string name="bookTitle">Libro</string>
+    <string name="inventaryBookListTitle">Lista de libros</string>
+    <string name="teacherTitleList">Lista de profesores</string>
+    <string name="videosTitleList">Lista de videos</string>
+    <string name="eventBackDetail">Regresar</string>
+    <string name="listInventoryMaterialButton">Lista de materiales</string>
+    <string name="listSchoolMaterialButton">Lista de profesores</string>
+    <string name="videoPageTitle">Videos</string>
+    <string name="loadVideoPage">"Ver videos "</string>
 
 </resources>

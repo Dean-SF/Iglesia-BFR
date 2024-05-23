@@ -4,31 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
+    android:background="#F1E9E9"
     android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/tvTitleList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="80dp"
-        android:text="@string/inventaryMaterialListTitle"
-        android:textSize="16sp"
-        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tvName"
         android:layout_width="151dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvTitleList"
         android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="119dp"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="25dp"
-        android:layout_marginEnd="119dp"
+        android:layout_marginEnd="40dp"
+        android:textAlignment="center"
         android:textSize="20sp"
         android:textStyle="bold"
         tools:text="dadawdawdwd" />
@@ -40,11 +29,12 @@
         android:layout_below="@+id/tvName"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="119dp"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="25dp"
-        android:layout_marginEnd="119dp"
+        android:layout_marginEnd="40dp"
         android:inputType="number"
         android:textSize="15sp"
+        android:textAlignment="center"
         tools:text="wdawd" />
 
     <TextView
@@ -54,11 +44,12 @@
         android:layout_below="@+id/tvQuantity"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="119dp"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="25dp"
-        android:layout_marginEnd="119dp"
+        android:layout_marginEnd="40dp"
         android:textSize="15sp"
         android:textStyle="italic"
+        android:textAlignment="center"
         tools:text="ds" />
 
     <Button
@@ -70,6 +61,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginStart="135dp"
         android:layout_marginTop="25dp"
+        android:layout_marginBottom="25dp"
         android:layout_marginEnd="135dp"
         android:backgroundTint="@color/red"
         android:text="Eliminar"

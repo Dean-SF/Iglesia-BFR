@@ -29,11 +29,11 @@ class AdminLibraryInventory : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddInventoryAdminBinding.inflate(layoutInflater)
         binding1 = ActivityInventoryAdminBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(binding1.root)
 
         realm = DatabaseConnector.db
 
-        binding1.btnAddBook.setOnClickListener {
+        binding1.btnAddinventaryLibrary.setOnClickListener {
             // Set content view to binding1 after adding inventory library
             setContentView(binding.root)
         }
@@ -43,7 +43,7 @@ class AdminLibraryInventory : AppCompatActivity() {
             startActivity(intent)
         }
 
-        binding.btnAddBook.setOnClickListener {
+        binding.btnAddInventaryLibrary.setOnClickListener {
             createLibraryInventory()
         }
 
@@ -139,8 +139,8 @@ class AdminLibraryInventory : AppCompatActivity() {
             onClickListener = { libraryInventory: LibraryInventory -> onItemSelected(libraryInventory) },
             onClickDelete = { position: Int -> onDeletedItem(position) }
         )
-        binding1.recyclerBook.layoutManager = llmanager
-        binding1.recyclerBook.adapter = adapter
+        binding1.recyclerinventaryLibrary.layoutManager = llmanager
+        binding1.recyclerinventaryLibrary.adapter = adapter
     }
 
     private fun onItemSelected(libraryInventory: LibraryInventory) {
@@ -151,5 +151,6 @@ class AdminLibraryInventory : AppCompatActivity() {
     private fun onDeletedItem(position: Int) {
         val libraryInventory = adapter.currentList[position]
         deleteVideoFromDatabase(libraryInventory._id.toString())
+        adapter.notifyItemRemoved(position)
     }
 }

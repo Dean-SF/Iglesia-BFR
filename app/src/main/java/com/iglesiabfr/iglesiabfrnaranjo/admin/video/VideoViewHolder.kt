@@ -7,14 +7,14 @@ import com.bumptech.glide.Glide
 import com.iglesiabfr.iglesiabfrnaranjo.databinding.ItemRvVideosListBinding
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Video
 
-class VideoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+class VideoViewHolder(view: View, private val showDeleteButton: Boolean) : RecyclerView.ViewHolder(view) {
 
     private val binding = ItemRvVideosListBinding.bind(view)
 
     fun render(
         videoModel: Video,
         onClickListener: (Video) -> Unit,
-        onClickDelete: (Int) -> Unit
+        onClickDelete: (Int) -> Unit = {}
     ) {
         binding.tvTitulo.text = videoModel.title
         binding.tvUrl.text = videoModel.url
@@ -30,7 +30,13 @@ class VideoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             .into(binding.ivVideo)
 
         itemView.setOnClickListener { onClickListener(videoModel) }
-        binding.btnDelete.setOnClickListener { onClickDelete(absoluteAdapterPosition) }
+
+        if (showDeleteButton) {
+            binding.btnDelete.visibility = View.VISIBLE
+            binding.btnDelete.setOnClickListener { onClickDelete?.invoke(absoluteAdapterPosition) }
+        } else {
+            binding.btnDelete.visibility = View.GONE
+        }
     }
 
     private fun getYouTubeVideoId(url: String): String {

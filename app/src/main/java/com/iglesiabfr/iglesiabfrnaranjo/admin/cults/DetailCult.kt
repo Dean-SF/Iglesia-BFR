@@ -1,6 +1,7 @@
 package com.iglesiabfr.iglesiabfrnaranjo.admin.cults
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
@@ -10,6 +11,7 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.timepicker.MaterialTimePicker
@@ -37,6 +39,7 @@ class DetailCult : AppCompatActivity() {
     private lateinit var loadingDialog : LoadingDialog
     private lateinit var confirmDialog : ConfirmDialog
 
+    private lateinit var launcher : ActivityResultLauncher<Intent>
     private lateinit var time : LocalTime
 
     private lateinit var  nametext : EditText
@@ -50,6 +53,7 @@ class DetailCult : AppCompatActivity() {
     private lateinit var cancelBut : Button
     private lateinit var modBut : Button
     private lateinit var delBut : Button
+    private lateinit var backBut : Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_cult)
@@ -57,6 +61,8 @@ class DetailCult : AppCompatActivity() {
         confirmDialog = ConfirmDialog(this)
         loadingDialog.startLoading()
         initUiVars()
+
+        val markAttendanceButt: Button = findViewById(R.id.markEventAttendanceCultBut)
 
         val objectId = ObjectId(intent.getStringExtra("object_id")!!)
 
@@ -119,6 +125,16 @@ class DetailCult : AppCompatActivity() {
                     }
             }
 
+        }
+
+        markAttendanceButt.setOnClickListener {
+            val i = Intent(this, MarkAttendanceCults::class.java)
+            launcher.launch(i)
+        }
+
+        backBut.setOnClickListener {
+            val i = Intent(this, AdminCult::class.java)
+            launcher.launch(i)
         }
 
         loadingDialog.stopLoading()
