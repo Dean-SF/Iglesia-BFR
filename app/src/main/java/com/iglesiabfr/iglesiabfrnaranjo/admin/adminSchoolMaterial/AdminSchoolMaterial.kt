@@ -102,11 +102,6 @@ class AdminSchoolMaterial : AppCompatActivity() {
             setContentView(binding.root)
         }
 
-        binding1.BackSchoolMaterialButton.setOnClickListener {
-            val intent = Intent(this, Homepage::class.java)
-            startActivity(intent)
-        }
-
         binding.btnAddSchoolMaterial.setOnClickListener {
             createSchoolMaterial()
         }

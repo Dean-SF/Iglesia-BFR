@@ -43,11 +43,6 @@ class AdminVideoAdmin : AppCompatActivity() {
             setContentView(binding.root)
         }
 
-        binding1.BackVideosAdminButton.setOnClickListener {
-            val intent = Intent(this, Homepage::class.java)
-            startActivity(intent)
-        }
-
         binding.btnAddVideo.setOnClickListener {
             createVideo()
         }

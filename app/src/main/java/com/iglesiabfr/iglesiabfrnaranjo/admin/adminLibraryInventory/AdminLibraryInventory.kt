@@ -38,11 +38,6 @@ class AdminLibraryInventory : AppCompatActivity() {
             setContentView(binding.root)
         }
 
-        binding1.BackInventoryAdminButton.setOnClickListener {
-            val intent = Intent(this, Homepage::class.java)
-            startActivity(intent)
-        }
-
         binding.btnAddInventaryLibrary.setOnClickListener {
             createLibraryInventory()
         }
