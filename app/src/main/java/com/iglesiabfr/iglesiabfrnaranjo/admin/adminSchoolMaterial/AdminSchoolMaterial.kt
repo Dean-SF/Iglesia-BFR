@@ -160,7 +160,7 @@ class AdminSchoolMaterial : AppCompatActivity() {
     private fun saveSchoolMaterialToDatabase(schoolMaterial: SchoolMaterial) {
         lifecycleScope.launch {
             runCatching {
-                DatabaseConnector.db.write {
+                realm.write {
                     copyToRealm(schoolMaterial)
                 }
             }.onSuccess {
@@ -172,13 +172,12 @@ class AdminSchoolMaterial : AppCompatActivity() {
         }
     }
 
-    private fun deleteSchoolMaterialFromDatabase(schoolMaterialId: String) {
+    private fun deleteSchoolMaterialFromDatabase(schoolMaterialId: SchoolMaterial) {
         lifecycleScope.launch {
             runCatching {
-                DatabaseConnector.db.write {
-                    val schoolMaterial = this.query<SchoolMaterial>("_id == $0", ObjectId(schoolMaterialId)).first().find()
-                    if (schoolMaterial != null) {
-                        delete(schoolMaterial)
+                realm.write {
+                    findLatest(schoolMaterialId).also {
+                        delete(it!!)
                     }
                 }
             }.onSuccess {
@@ -215,7 +214,7 @@ class AdminSchoolMaterial : AppCompatActivity() {
 
     private fun onDeletedItem(position: Int) {
         val schoolMaterial = adapter.currentList[position]
-        deleteSchoolMaterialFromDatabase(schoolMaterial._id.toString())
+        deleteSchoolMaterialFromDatabase(schoolMaterial)
         adapter.notifyItemRemoved(position)
     }
 }

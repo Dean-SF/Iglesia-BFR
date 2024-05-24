@@ -97,13 +97,12 @@ class AdminInventoryMaterial : AppCompatActivity() {
         }
     }
 
-    private fun deleteInventoryMaterialFromDatabase(inventoryMaterialId: String) {
+    private fun deleteInventoryMaterialFromDatabase(inventoryMaterial: InventoryMaterial) {
         lifecycleScope.launch {
             runCatching {
                 realm.write {
-                    val inventoryMaterials = this.query<InventoryMaterial>("_id == $0", ObjectId(inventoryMaterialId)).first().find()
-                    inventoryMaterials?.let {
-                        delete(inventoryMaterials)
+                    findLatest(inventoryMaterial).also {
+                        delete(it!!)
                     }
                 }
             }.onSuccess {
@@ -143,7 +142,7 @@ class AdminInventoryMaterial : AppCompatActivity() {
 
     private fun onDeletedItem(position: Int) {
         val inventoryMaterial = adapter.currentList[position]
-        deleteInventoryMaterialFromDatabase(inventoryMaterial._id.toString())
+        deleteInventoryMaterialFromDatabase(inventoryMaterial)
         adapter.notifyItemRemoved(position)
     }
 }
