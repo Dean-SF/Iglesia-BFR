@@ -27,7 +27,6 @@ class AdminVideoAdmin : AppCompatActivity() {
     private lateinit var realm : Realm
     private lateinit var binding: ActivityAddVideosAdminBinding
     private lateinit var binding1: ActivityVideosAdminBinding
-    private lateinit var binding2: FragmentAdminVideoBinding
     private lateinit var adapter: VideoAdapter
     private val llmanager = LinearLayoutManager(this)
 
@@ -35,7 +34,6 @@ class AdminVideoAdmin : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddVideosAdminBinding.inflate(layoutInflater)
         binding1 = ActivityVideosAdminBinding.inflate(layoutInflater)
-        binding2 = FragmentAdminVideoBinding.inflate(layoutInflater)
         setContentView(binding1.root)
 
         realm = DatabaseConnector.db
@@ -59,11 +57,6 @@ class AdminVideoAdmin : AppCompatActivity() {
             loadVideos() // Asegúrate de cargar los videos al volver
         }
 
-        binding2.BackVideosAdminButton.setOnClickListener {
-            val intent = Intent(this, Homepage::class.java)
-            startActivity(intent)
-        }
-
         initRecyclerView()
         loadVideos() // Cargar los videos al inicio
     }
@@ -78,50 +71,55 @@ class AdminVideoAdmin : AppCompatActivity() {
                 this.url = url
             }
 
-            // Luego de crear el objeto Video, lo guardamos en la base de datos
-            saveVideoToDatabase(video)
+            lifecycleScope.launch {
+                // Luego de crear el objeto Video, lo guardamos en la base de datos
+                saveVideoToDatabase(video)
 
-            // Limpiar los EditText después de agregar el libro
-            binding.etTitle.text.clear()
-            binding.etUrl.text.clear()
-
+                // Limpiar los EditText después de agregar el libro
+                binding.etTitle.text.clear()
+                binding.etUrl.text.clear()
+            }
         } else {
             Toast.makeText(this, "Por favor complete todos los campos", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun saveVideoToDatabase(video: Video) {
-        lifecycleScope.launch {
-            runCatching {
+    private suspend fun saveVideoToDatabase(video: Video) {
+        withContext(Dispatchers.IO) {
+            try {
                 realm.write {
                     copyToRealm(video)
                 }
-            }.onSuccess {
-                loadVideos() // Recargar videos después de agregar
-                Toast.makeText(this@AdminVideoAdmin, "Video guardado correctamente", Toast.LENGTH_SHORT).show()
-            }.onFailure {
-                Toast.makeText(this@AdminVideoAdmin, "Error al guardar el video", Toast.LENGTH_SHORT).show()
+                withContext(Dispatchers.Main) {
+                    loadVideos()
+                    Toast.makeText(this@AdminVideoAdmin, "Video guardado correctamente", Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@AdminVideoAdmin, "Error al guardar el video", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
 
     private fun deleteVideoFromDatabase(videoId: String) {
         lifecycleScope.launch {
-            runCatching {
-                realm.write {
-                    val video = this.query<Video>("_id == $0", ObjectId(videoId)).first().find()
-                    video?.let {
-                        delete(video)
+            withContext(Dispatchers.IO) {
+                try {
+                    realm.write {
+                        val video = this.query<Video>("_id == $0", ObjectId(videoId)).first().find()
+                        video?.let {
+                            delete(video)
+                        }
                     }
-                }
-            }.onSuccess {
-                withContext(Dispatchers.Main) {
-                    loadVideos() // Recargar videos después de eliminar
-                    Toast.makeText(this@AdminVideoAdmin, "Video eliminado correctamente", Toast.LENGTH_SHORT).show()
-                }
-            }.onFailure {
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(this@AdminVideoAdmin, "Error al eliminar el video", Toast.LENGTH_SHORT).show()
+                    withContext(Dispatchers.Main) {
+                        loadVideos()
+                        Toast.makeText(this@AdminVideoAdmin, "Video eliminado correctamente", Toast.LENGTH_SHORT).show()
+                    }
+                } catch (e: Exception) {
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(this@AdminVideoAdmin, "Error al eliminar el video", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }
