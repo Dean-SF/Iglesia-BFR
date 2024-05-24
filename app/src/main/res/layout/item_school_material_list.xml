@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
+    android:layout_margin="20dp"
     android:background="#F1E9E9"
     android:orientation="vertical">
 
@@ -106,9 +106,10 @@
         android:layout_below="@+id/etFinalMonth"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="135dp"
+        android:layout_marginStart="100dp"
         android:layout_marginTop="25dp"
-        android:layout_marginEnd="135dp"
+        android:layout_marginBottom="25dp"
+        android:layout_marginEnd="100dp"
         android:backgroundTint="@color/red"
         android:text="Eliminar"
         tools:text="Eliminar" />
