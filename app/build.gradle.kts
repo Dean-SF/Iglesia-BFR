@@ -74,6 +74,8 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.jsoup)
+    implementation(libs.okhttp)
+    implementation (libs.androidx.fragment.ktx)
 
     implementation(platform(libs.firebase.bom))
 
@@ -82,5 +84,5 @@ dependencies {
     implementation(libs.library.sync)
 
     implementation(libs.calendar.view)
-
+    implementation ("androidx.datastore:datastore-preferences:1.1.1")
 }
