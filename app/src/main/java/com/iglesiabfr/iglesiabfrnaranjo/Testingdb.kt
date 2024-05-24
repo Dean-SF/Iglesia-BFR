@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
+import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Activity
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
@@ -23,9 +24,6 @@ import io.realm.kotlin.types.RealmInstant
 import kotlinx.coroutines.launch
 
 class Testingdb : AppCompatActivity() {
-
-    private val app : App = App.create("iglesiabfr-pigqi")
-    private lateinit var realm : Realm
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,29 +41,7 @@ class Testingdb : AppCompatActivity() {
             buttonAction(button)
         }
 
-        lifecycleScope.launch {
-            runCatching {
-                login()
-            }.onSuccess {
-                Log.d("Info","Pase1")
-                val config = SyncConfiguration.Builder(it, setOf(Activity::class,Activity::class))
-                    .initialSubscriptions(rerunOnOpen = true) {realm->
-                        add(realm.query<Activity>(), updateExisting = true)
-                        add(realm.query<Activity>(), updateExisting = true)
-                    }
-                    .errorHandler { session: SyncSession, error: SyncException ->
-                        Log.d("Debuggeador",error.message.toString())
-                    }
-                    .waitForInitialRemoteData()
-                    .build()
-                realm = Realm.open(config)
-                realm.subscriptions.waitForSynchronization()
-                button.isEnabled = true
-                Log.d("Info","Pase2")
-            }.onFailure {
-                Log.d("Err",it.message.toString())
-            }
-        }
+
 
     }
 
@@ -75,14 +51,8 @@ class Testingdb : AppCompatActivity() {
             date = RealmInstant.now()
             desc = "el mero evento mi pana"
         }
-        realm.writeBlocking {
+        DatabaseConnector.db.writeBlocking {
             copyToRealm(evento)
         }
     }
-
-    private suspend fun login(): User {
-        return app.login(Credentials.emailPassword("deanyt0417@gmail.com","12345678"))
-    }
-
-
 }

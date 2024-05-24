@@ -92,7 +92,10 @@
             android:name=".homepage.Homepage"
             android:exported="false" />
         <activity
-            android:name=".DailyVers"
+            android:name=".Bible.BibleBooks"
+            android:exported="false" />
+        <activity
+            android:name=".verses.DailyVers"
             android:exported="false" />
         <activity
             android:name=".Testingdb"
