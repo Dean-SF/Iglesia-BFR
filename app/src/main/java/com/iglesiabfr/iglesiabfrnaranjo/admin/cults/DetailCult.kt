@@ -1,7 +1,7 @@
 package com.iglesiabfr.iglesiabfrnaranjo.admin.cults
 
 import android.annotation.SuppressLint
-import android.content.Intent
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
@@ -11,9 +11,12 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Spinner
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointForward
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import com.iglesiabfr.iglesiabfrnaranjo.R
@@ -21,25 +24,30 @@ import com.iglesiabfr.iglesiabfrnaranjo.admin.cults.spinnerAdapter.WeekdaySpinne
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
 import com.iglesiabfr.iglesiabfrnaranjo.dialogs.ConfirmDialog
 import com.iglesiabfr.iglesiabfrnaranjo.dialogs.LoadingDialog
+import com.iglesiabfr.iglesiabfrnaranjo.schema.Activity
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Cult
 import io.realm.kotlin.ext.query
 import io.realm.kotlin.types.RealmInstant
 import kotlinx.coroutines.launch
 import org.mongodb.kbson.ObjectId
+import java.text.SimpleDateFormat
+import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
+import java.time.temporal.TemporalAdjusters
 import java.time.temporal.WeekFields
 import java.util.Locale
+import java.util.TimeZone
 
 class DetailCult : AppCompatActivity() {
 
     private lateinit var loadingDialog : LoadingDialog
     private lateinit var confirmDialog : ConfirmDialog
 
-    private lateinit var launcher : ActivityResultLauncher<Intent>
     private lateinit var time : LocalTime
 
     private lateinit var  nametext : EditText
@@ -53,7 +61,6 @@ class DetailCult : AppCompatActivity() {
     private lateinit var cancelBut : Button
     private lateinit var modBut : Button
     private lateinit var delBut : Button
-    private lateinit var backBut : Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_cult)
@@ -61,8 +68,6 @@ class DetailCult : AppCompatActivity() {
         confirmDialog = ConfirmDialog(this)
         loadingDialog.startLoading()
         initUiVars()
-
-        val markAttendanceButt: Button = findViewById(R.id.markEventAttendanceCultBut)
 
         val objectId = ObjectId(intent.getStringExtra("object_id")!!)
 
@@ -125,16 +130,6 @@ class DetailCult : AppCompatActivity() {
                     }
             }
 
-        }
-
-        markAttendanceButt.setOnClickListener {
-            val i = Intent(this, MarkAttendanceCults::class.java)
-            launcher.launch(i)
-        }
-
-        backBut.setOnClickListener {
-            val i = Intent(this, AdminCult::class.java)
-            launcher.launch(i)
         }
 
         loadingDialog.stopLoading()
@@ -294,9 +289,10 @@ class DetailCult : AppCompatActivity() {
     }
 
     private fun areDatesInSameWeek(date1: LocalDate, date2: LocalDate): Boolean {
-        val weekFields = WeekFields.of(Locale.getDefault())
+        val monday1 = date1.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY))
+        val monday2 = date2.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY))
         if (date1.year != date2.year) return false
-        return date1.get(weekFields.weekOfWeekBasedYear()) == date2.get(weekFields.weekOfWeekBasedYear())
+        return ChronoUnit.WEEKS.between(monday1, monday2) == 0L
     }
 
     private fun cancelCult(cult : Cult, cancel : Boolean) {
@@ -331,4 +327,3 @@ class DetailCult : AppCompatActivity() {
         }
     }
 }
-

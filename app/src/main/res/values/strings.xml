@@ -48,6 +48,16 @@
     <string name="upcomingActiv">Próximas Actividades</string>
     <string name="cults">Cultos</string>
 
+    // Calendario
+    <string name="fullCalendarBut">Calendario completo</string>
+    <string-array name="calendarType">
+        <item>Evento</item>
+        <item>Culto</item>
+        <item>Actividad</item>
+    </string-array>
+    <string name="detailsCalendarTittle">Detalles</string>
+
+
     // Adminpage
     <string name="adminpageTitle">Administración</string>
     <string name="eventBut">Eventos</string>
