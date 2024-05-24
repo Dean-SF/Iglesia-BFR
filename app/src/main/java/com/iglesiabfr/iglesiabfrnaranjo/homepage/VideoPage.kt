@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.iglesiabfr.iglesiabfrnaranjo.admin.video.VideoAdapter
+import com.iglesiabfr.iglesiabfrnaranjo.admin.video.VideoFragmentAdapter
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
 import com.iglesiabfr.iglesiabfrnaranjo.databinding.FragmentAdminVideoBinding
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Video
@@ -23,7 +23,7 @@ import kotlinx.coroutines.withContext
 class VideoPage : Fragment() {
     private lateinit var realm: Realm
     private lateinit var binding: FragmentAdminVideoBinding
-    private lateinit var adapter: VideoAdapter
+    private lateinit var adapter: VideoFragmentAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,9 +42,8 @@ class VideoPage : Fragment() {
     }
 
     private fun initRecyclerView() {
-        adapter = VideoAdapter(
-            onClickListener = { video: Video -> onItemSelected(video) },
-            showDeleteButton = false // No mostrar el botón de eliminar
+        adapter = VideoFragmentAdapter(
+            onClickListener = { video: Video -> onItemSelected(video) }
         )
         binding.recyclerListVideos.layoutManager = LinearLayoutManager(context)
         binding.recyclerListVideos.adapter = adapter

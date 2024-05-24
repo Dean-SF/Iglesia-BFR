@@ -6,11 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.iglesiabfr.iglesiabfrnaranjo.R
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Video
 
-class VideoAdapter (
-    private val onClickListener: (Video) -> Unit,
-    private val onClickDelete: ((Int) -> Unit)? = null,
-    private val showDeleteButton: Boolean = true
-) : RecyclerView.Adapter<VideoViewHolder>() {
+class VideoFragmentAdapter(
+    private val onClickListener: (Video) -> Unit
+) : RecyclerView.Adapter<VideoFragmentViewHolder>() {
 
     val videoList = mutableListOf<Video>()
 
@@ -23,19 +21,16 @@ class VideoAdapter (
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoFragmentViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val view = layoutInflater.inflate(R.layout.item_rv_videos_list, parent, false)
-        return VideoViewHolder(view, showDeleteButton)
+        val view = layoutInflater.inflate(R.layout.item_fragment_videos_list, parent, false)
+        return VideoFragmentViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: VideoViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: VideoFragmentViewHolder, position: Int) {
         val item = videoList[position]
-        if (onClickDelete != null) {
-            holder.render(item, onClickListener, onClickDelete)
-        }
+        holder.render(item, onClickListener)
     }
 
     override fun getItemCount(): Int = videoList.size
 }
-
