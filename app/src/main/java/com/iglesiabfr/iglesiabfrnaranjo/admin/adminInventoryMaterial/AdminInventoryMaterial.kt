@@ -38,18 +38,8 @@ class AdminInventoryMaterial : AppCompatActivity() {
             setContentView(binding.root)
         }
 
-        binding1.BackInventoryMaterialButton.setOnClickListener {
-            val intent = Intent(this, Homepage::class.java)
-            startActivity(intent)
-        }
-
         binding.btnSaveInventoryMaterial.setOnClickListener {
             createInventoryMaterial()
-        }
-
-        binding.BackAddInventoryAdminButton.setOnClickListener {
-            setContentView(binding1.root)
-            loadInventoryMaterial() // Asegúrate de cargar los materiales al volver
         }
 
         initRecyclerView()

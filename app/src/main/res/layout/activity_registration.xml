@@ -150,16 +150,4 @@
 
     </FrameLayout>
 
-    <Button
-        android:id="@+id/BackRegistrationBtn"
-        android:layout_width="334dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="40dp"
-        android:background="@drawable/soft_rectangle_btn"
-        android:backgroundTint="@color/blue"
-        android:text="Regresar"
-        tools:text="Regresar" />
-
 </LinearLayout>

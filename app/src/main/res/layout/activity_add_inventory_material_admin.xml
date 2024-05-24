@@ -59,25 +59,4 @@
         android:backgroundTint="@color/blue"
         android:text="@string/safeNewItem" />
 
-    <Button
-        android:id="@+id/BackAddInventoryAdminButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnSaveInventoryMaterial"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="100dp"
-        android:background="@drawable/ripple_soft_rectangle_btn"
-        android:backgroundTint="@color/blue"
-        android:text="@string/backInventoryAdminButton"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="0.677" />
-
 </RelativeLayout>
