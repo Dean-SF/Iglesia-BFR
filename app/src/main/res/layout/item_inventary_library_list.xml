@@ -74,10 +74,10 @@
         android:layout_below="@+id/etQuantity"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="131dp"
+        android:layout_marginStart="70dp"
         android:layout_marginTop="26dp"
         android:layout_marginBottom="25dp"
-        android:layout_marginEnd="131dp"
+        android:layout_marginEnd="70dp"
         android:backgroundTint="@color/red"
         android:text="Eliminar"
         tools:text="Eliminar" />
