@@ -101,25 +101,22 @@ class AdminLibraryInventory : AppCompatActivity() {
         }
     }
 
-    private fun deleteVideoFromDatabase(libraryInventoryId: String) {
+    private fun deleteVideoFromDatabase(libraryInventory: LibraryInventory) {
         lifecycleScope.launch {
             runCatching {
                 realm.write {
-                    val libraryInventory = this.query<LibraryInventory>("_id == $0",
-                        org.mongodb.kbson.BsonObjectId(libraryInventoryId)
-                    ).first().find()
-                    libraryInventory?.let {
-                        delete(libraryInventory)
+                    findLatest(libraryInventory).also {
+                        delete(it!!)
                     }
                 }
             }.onSuccess {
                 withContext(Dispatchers.Main) {
                     loadLibraryInventory() // Recargar videos después de eliminar
-                    Toast.makeText(this@AdminLibraryInventory, "Video eliminado correctamente", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@AdminLibraryInventory, "Libro eliminado correctamente", Toast.LENGTH_SHORT).show()
                 }
             }.onFailure {
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(this@AdminLibraryInventory, "Error al eliminar el video", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@AdminLibraryInventory, "Error al eliminar el libro", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -150,7 +147,7 @@ class AdminLibraryInventory : AppCompatActivity() {
 
     private fun onDeletedItem(position: Int) {
         val libraryInventory = adapter.currentList[position]
-        deleteVideoFromDatabase(libraryInventory._id.toString())
+        deleteVideoFromDatabase(libraryInventory)
         adapter.notifyItemRemoved(position)
     }
 }

@@ -102,14 +102,13 @@ class AdminVideoAdmin : AppCompatActivity() {
         }
     }
 
-    private fun deleteVideoFromDatabase(videoId: String) {
+    private fun deleteVideoFromDatabase(video: Video) {
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
                 try {
                     realm.write {
-                        val video = this.query<Video>("_id == $0", ObjectId(videoId)).first().find()
-                        video?.let {
-                            delete(video)
+                        findLatest(video).also {
+                            delete(it!!)
                         }
                     }
                     withContext(Dispatchers.Main) {
@@ -159,7 +158,7 @@ class AdminVideoAdmin : AppCompatActivity() {
 
     private fun onDeletedItem(position: Int) {
         val video = adapter.currentList[position]
-        deleteVideoFromDatabase(video._id.toString())
+        deleteVideoFromDatabase(video)
         adapter.notifyItemRemoved(position)
     }
 }
