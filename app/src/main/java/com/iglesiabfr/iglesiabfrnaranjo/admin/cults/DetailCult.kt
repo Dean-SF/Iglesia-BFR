@@ -1,6 +1,7 @@
 package com.iglesiabfr.iglesiabfrnaranjo.admin.cults
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +12,7 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
@@ -48,6 +50,7 @@ class DetailCult : AppCompatActivity() {
     private lateinit var loadingDialog : LoadingDialog
     private lateinit var confirmDialog : ConfirmDialog
 
+    private lateinit var launcher : ActivityResultLauncher<Intent>
     private lateinit var time : LocalTime
 
     private lateinit var  nametext : EditText
@@ -68,6 +71,8 @@ class DetailCult : AppCompatActivity() {
         confirmDialog = ConfirmDialog(this)
         loadingDialog.startLoading()
         initUiVars()
+
+        val markAttendanceButt: Button = findViewById(R.id.markEventAttendanceCultBut)
 
         val objectId = ObjectId(intent.getStringExtra("object_id")!!)
 
@@ -130,6 +135,11 @@ class DetailCult : AppCompatActivity() {
                     }
             }
 
+        }
+
+        markAttendanceButt.setOnClickListener {
+            val i = Intent(this, MarkAttendanceCults::class.java)
+            launcher.launch(i)
         }
 
         loadingDialog.stopLoading()

@@ -49,8 +49,10 @@ class MarkAttendance : AppCompatActivity() {
         }
 
         // Aquí debes guardar la instancia de asistencia en tu base de datos Realm
-        realm.writeBlocking  {
-            copyToRealm(attendance)
+        if (!::realm.isInitialized) {
+            realm.writeBlocking {
+                copyToRealm(attendance)
+            }
         }
     }
 
