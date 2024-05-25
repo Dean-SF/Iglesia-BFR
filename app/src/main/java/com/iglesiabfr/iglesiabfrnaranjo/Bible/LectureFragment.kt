@@ -54,7 +54,9 @@ class LectureFragment : Fragment() {
         }
         chapterSpinner.adapter = CustomSpinnerAdapter(requireContext(), android.R.layout.simple_spinner_item, chapterOptions)
 
-
+        // Posicionar el spinner en la posición de actualChapter
+        chapterSpinner.setSelection(actualChapter - 1)
+        
         chapterSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 actualChapter = position + 1
