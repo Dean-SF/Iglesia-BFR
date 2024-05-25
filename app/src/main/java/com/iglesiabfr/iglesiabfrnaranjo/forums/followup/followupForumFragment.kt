@@ -279,10 +279,14 @@ class followupForumFragment : Fragment() {
     }
 
     private fun reloadFragment() {
-        val fragment = followupForumFragment()
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.framelayout, fragment)
-            .commit()
+        if (parentFragmentManager.backStackEntryCount > 0) {
+            parentFragmentManager.popBackStack()
+        } else {
+            val fragment = followupForumFragment()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.framelayout, fragment)
+                .commit()
+        }
     }
 
     private fun answerPublication(publication :Followup) {
