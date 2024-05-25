@@ -83,6 +83,9 @@ dependencies {
 
     implementation(libs.library.sync)
 
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
+    implementation ("com.squareup.picasso:picasso:2.5.2")
+
     implementation(libs.calendar.view)
     implementation ("androidx.datastore:datastore-preferences:1.1.1")
 }

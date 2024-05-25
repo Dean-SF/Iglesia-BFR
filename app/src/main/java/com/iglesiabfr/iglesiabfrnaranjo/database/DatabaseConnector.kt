@@ -9,8 +9,12 @@ import com.iglesiabfr.iglesiabfrnaranjo.schema.CounselingSession
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Cult
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Emotion
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Event
+import com.iglesiabfr.iglesiabfrnaranjo.schema.FavVerse
+import com.iglesiabfr.iglesiabfrnaranjo.schema.Followup
 import com.iglesiabfr.iglesiabfrnaranjo.schema.InventoryMaterial
 import com.iglesiabfr.iglesiabfrnaranjo.schema.LibraryInventory
+import com.iglesiabfr.iglesiabfrnaranjo.schema.Petition
+import com.iglesiabfr.iglesiabfrnaranjo.schema.PublicacionForoPastor
 import com.iglesiabfr.iglesiabfrnaranjo.schema.SchoolMaterial
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Suggestion
 import com.iglesiabfr.iglesiabfrnaranjo.schema.UserData
@@ -110,6 +114,10 @@ object DatabaseConnector {
                         Suggestion::class,
                         Emotion::class,
                         CounselingSession::class,
+                        FavVerse::class,
+                        Followup::class,
+                        Petition::class,
+                        PublicacionForoPastor::class,
                         Video::class,
                         LibraryInventory::class,
                         SchoolMaterial::class,
@@ -125,6 +133,9 @@ object DatabaseConnector {
                         add(realm.query<Suggestion>(), "suggestion",updateExisting = true)
                         add(realm.query<Emotion>(), "emotion",updateExisting = true)
                         add(realm.query<CounselingSession>(), "counsellingSession",updateExisting = true)
+                        add(realm.query<FavVerse>(), "FavVerse",updateExisting = true)
+                        add(realm.query<Followup>(), "Followup",updateExisting = true)
+                        add(realm.query<Petition>(), "Petition",updateExisting = true)
                         add(realm.query<Video>(), "video",updateExisting = true)
                         add(realm.query<LibraryInventory>(), "libraryInventory",updateExisting = true)
                         add(realm.query<SchoolMaterial>(), "schoolMaterial",updateExisting = true)
