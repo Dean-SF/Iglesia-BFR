@@ -20,11 +20,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/nameInputcult"
+        android:id="@+id/nameInputCult"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="112dp"
+        android:layout_marginTop="216dp"
         android:layout_marginEnd="20dp"
         android:autofillHints="text"
         android:fontFamily="@font/comfortaa_light"
@@ -36,7 +36,7 @@
         app:layout_constraintTop_toBottomOf="@+id/createEventTitlecult" />
 
     <Button
-        android:id="@+id/backAttendancecultBtn"
+        android:id="@+id/backAttendanceCultBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -44,14 +44,14 @@
         android:layout_marginBottom="80dp"
         android:background="@drawable/ripple_soft_rectangle_btn"
         android:backgroundTint="@color/blue"
-        android:text="@string/Regresarcult"
+        android:text="@string/listPresentPersonsCult"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/createAttendancecultBut"
+        android:id="@+id/createAttendanceCultBut"
         android:layout_width="329dp"
         android:layout_height="48dp"
         android:layout_marginStart="40dp"
@@ -60,28 +60,9 @@
         android:background="@drawable/ripple_soft_rectangle_btn"
         android:backgroundTint="@color/blue"
         android:text="@string/createAttendancecultButt"
-        app:layout_constraintBottom_toTopOf="@+id/backAttendancecultBtn"
+        app:layout_constraintBottom_toTopOf="@+id/backAttendanceCultBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="Guardar asistencia" />
-
-    <EditText
-        android:id="@+id/isPersonPresentcult"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="72dp"
-        android:layout_marginEnd="20dp"
-        android:autofillHints="text"
-        android:ems="10"
-        android:fontFamily="@font/comfortaa_light"
-        android:hint="@string/isPersonPresentcult"
-        android:inputType="text"
-        app:layout_constraintBottom_toTopOf="@+id/createAttendancecultBut"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameInputcult"
-        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 package com.iglesiabfr.iglesiabfrnaranjo.admin.events
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.MotionEvent
@@ -10,6 +11,7 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.datepicker.CalendarConstraints
@@ -34,7 +36,6 @@ import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import java.util.Locale
-import java.util.Objects
 import java.util.TimeZone
 
 class DetailEvent : AppCompatActivity() {
@@ -63,6 +64,14 @@ class DetailEvent : AppCompatActivity() {
         loadingDialog = LoadingDialog(this)
         confirmDialog = ConfirmDialog(this)
         loadingDialog.startLoading()
+
+        // Registro del ActivityResultLauncher
+        launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                // Maneja el resultado de la actividad aquí si es necesario
+            }
+        }
+
         initUiVars()
 
         val markAttendanceButt: Button = findViewById(R.id.markEventAttendanceBut)
@@ -112,8 +121,11 @@ class DetailEvent : AppCompatActivity() {
         }
 
         markAttendanceButt.setOnClickListener {
-            val i = Intent(this, MarkAttendance::class.java)
-            launcher.launch(i)
+            confirmDialog.confirmation(getString(R.string.cultAttendanceCultBut))
+                .setOnConfirmationListener {
+                    val i = Intent(this, MarkAttendance::class.java)
+                    launcher.launch(i)
+                }
         }
 
         loadingDialog.stopLoading()

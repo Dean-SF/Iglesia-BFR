@@ -380,5 +380,10 @@
     <string name="listSchoolMaterialButton">Lista de profesores</string>
     <string name="videoPageTitle">Videos</string>
     <string name="loadVideoPage">"Ver videos "</string>
+    <string name="namePerson">Nombre de la persona</string>
+    <string name="backWatchPersonsPresentsButton">Lista de personas presentes</string>
+    <string name="presentPersonsTitleList">Personas presentes</string>
+    <string name="listPresentPersonsCult">Lista de personas</string>
+    <string name="cultAttendanceCultBut">¿Seguro que quieres añadir personas presentes a este culto?</string>
 
 </resources>
