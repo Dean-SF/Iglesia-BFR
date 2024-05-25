@@ -136,6 +136,7 @@ object DatabaseConnector {
                         add(realm.query<FavVerse>(), "FavVerse",updateExisting = true)
                         add(realm.query<Followup>(), "Followup",updateExisting = true)
                         add(realm.query<Petition>(), "Petition",updateExisting = true)
+                        add(realm.query<PublicacionForoPastor>(), "PublicacionForoPastor",updateExisting = true)
                         add(realm.query<Video>(), "video",updateExisting = true)
                         add(realm.query<LibraryInventory>(), "libraryInventory",updateExisting = true)
                         add(realm.query<SchoolMaterial>(), "schoolMaterial",updateExisting = true)
