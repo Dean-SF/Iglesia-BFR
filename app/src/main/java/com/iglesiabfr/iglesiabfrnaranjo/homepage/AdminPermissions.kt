@@ -56,7 +56,7 @@ class AdminPermissions : AppCompatActivity() {
             if (isChecked) {    // Para quitar permisos muestra los que son admin
                 modeGivePermissions = false
                 permissionMode.text = getString(R.string.mode1)
-                allUsers = DatabaseConnector.db.query<UserData>("isAdmin == $0", true).find()
+                allUsers = DatabaseConnector.getUserData()?.let { DatabaseConnector.db.query<UserData>("isAdmin == $0 AND _id != $1", true, it._id).find() }!!
                 adapter = UserAdapter(allUsers, object : UserAdapter.OnItemClickListener {
                     override fun onItemClick(user: UserData) {
                         confirmDialog.confirmation(getString(R.string.deleteAdmin))
