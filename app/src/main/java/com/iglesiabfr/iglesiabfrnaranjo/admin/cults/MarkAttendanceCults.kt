@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.iglesiabfr.iglesiabfrnaranjo.R
+import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
 import com.iglesiabfr.iglesiabfrnaranjo.databinding.ActivityAttendanceCultsBinding
 import com.iglesiabfr.iglesiabfrnaranjo.databinding.ActivityEventCultBinding
 import com.iglesiabfr.iglesiabfrnaranjo.schema.AttendanceCults
@@ -30,6 +31,8 @@ class MarkAttendanceCults : AppCompatActivity() {
         binding = ActivityAttendanceCultsBinding.inflate(layoutInflater)
         binding1 = ActivityEventCultBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_attendance)
+
+        realm = DatabaseConnector.db
 
         // Guardar el registro de la asistencia
         binding.createAttendanceCultBut.setOnClickListener {
