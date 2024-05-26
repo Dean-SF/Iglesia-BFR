@@ -47,7 +47,7 @@ class AdminCult : AppCompatActivity() {
 
         // Initialize views
         val createButt: Button = findViewById(R.id.createAdminCultBut)
-        val backBtn: Button = findViewById(R.id.BackAdminCultButton)
+
         recyclerView = findViewById(R.id.cultlist)
 
         // Setup RecyclerView
@@ -95,11 +95,6 @@ class AdminCult : AppCompatActivity() {
 
         createButt.setOnClickListener {
             val i = Intent(this,CreateCult::class.java)
-            launcher.launch(i)
-        }
-
-        backBtn.setOnClickListener {
-            val i = Intent(this, Homepage::class.java)
             launcher.launch(i)
         }
     }

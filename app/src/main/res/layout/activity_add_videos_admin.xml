@@ -1,67 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/add_video"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/comfortaa_light"
+        android:text="@string/addNewVideo"
+        android:textAlignment="center"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/etUrl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btnAddVideo"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
         android:layout_marginStart="24dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
         android:autofillHints=""
-        android:hint="@string/UrlVideo" />
+        android:hint="@string/UrlVideo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etTitle" />
 
     <Button
         android:id="@+id/btnAddVideo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/BackAddVideosAdminButton"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
         android:layout_gravity="bottom"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
         android:background="@drawable/ripple_soft_rectangle_btn"
         android:backgroundTint="@color/blue"
-        android:text="@string/saveNewItem" />
-
-    <Button
-        android:id="@+id/BackAddVideosAdminButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="200dp"
-        android:background="@drawable/ripple_soft_rectangle_btn"
-        android:backgroundTint="@color/blue"
-        android:text="@string/backWatchVideosButton"
+        android:text="@string/saveNewItem"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="0.677" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/etTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/etUrl"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
         android:layout_marginStart="24dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
         android:autofillHints=""
-        android:hint="@string/titleVideo" />
+        android:hint="@string/titleVideo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_video" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

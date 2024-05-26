@@ -386,4 +386,7 @@
     <string name="listPresentPersonsCult">Lista de personas</string>
     <string name="cultAttendanceCultBut">¿Seguro que quieres añadir personas presentes a este culto?</string>
 
+    // Videos
+    <string name="addNewVideo">Añadir Video</string>
+
 </resources>

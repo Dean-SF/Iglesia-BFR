@@ -25,9 +25,11 @@
 
     <EditText
         android:id="@+id/fechainput"
-        android:layout_width="266dp"
+        android:layout_width="0dp"
         android:layout_height="48dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="80dp"
+        android:layout_marginEnd="15dp"
         android:autofillHints="emailAddress"
         android:fontFamily="@font/comfortaa_light"
         android:hint="@string/createDate"
@@ -39,15 +41,15 @@
 
     <EditText
         android:id="@+id/horainput"
-        android:layout_width="266dp"
+        android:layout_width="0dp"
         android:layout_height="48dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="15dp"
         android:autofillHints="emailAddress"
         android:fontFamily="@font/comfortaa_light"
         android:hint="@string/createTime"
         android:inputType="none"
-        app:layout_constraintBottom_toTopOf="@+id/scheduleBtn"
         app:layout_constraintEnd_toStartOf="@+id/timeBut"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fechainput" />
@@ -58,6 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
+        android:layout_marginBottom="30dp"
         android:background="@drawable/ripple_soft_rectangle_btn"
         android:backgroundTint="@color/blue"
         android:text="@string/navigationSchedule"
@@ -65,37 +68,31 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
         android:id="@+id/dateBut"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginTop="80dp"
+        android:layout_marginEnd="15dp"
         android:background="@drawable/ripple_calendar"
         android:backgroundTint="@color/blue"
         android:contentDescription="@string/createDate"
-        app:layout_constraintBottom_toTopOf="@+id/timeBut"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.819"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.573" />
+        app:layout_constraintTop_toBottomOf="@+id/scheduleTitle" />
 
     <ImageButton
         android:id="@+id/timeBut"
         android:layout_width="50dp"
         android:layout_height="49dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="15dp"
         android:background="@drawable/ripple_clock"
         android:backgroundTint="@color/blue"
         android:contentDescription="@string/createTime"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.817"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.324" />
+        app:layout_constraintTop_toBottomOf="@+id/dateBut" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.iglesiabfr.iglesiabfrnaranjo.R
@@ -63,6 +64,7 @@ class BibleBooks : AppCompatActivity() {
     }
 
     private fun createBookLayout(name: Any, abrev:String, chapters:Int){
+        val typeFace = ResourcesCompat.getFont(this,R.font.comfortaa_light)
         runOnUiThread {
             val parent = findViewById<LinearLayout>(R.id.LibrosLayout)
             val linearLayout = LinearLayout(this)
@@ -79,6 +81,7 @@ class BibleBooks : AppCompatActivity() {
             button.background = ContextCompat.getDrawable(this, R.drawable.play_btn)
 
             val textView1 = TextView(this)
+            textView1.typeface = typeFace
             textView1.layoutParams =
                 LinearLayout.LayoutParams(500, 100)
             textView1.text = "  $name"
@@ -86,6 +89,7 @@ class BibleBooks : AppCompatActivity() {
             textView1.textSize = 22f
 
             val textView2 = TextView(this)
+            textView2.typeface = typeFace
             textView2.layoutParams =
                 LinearLayout.LayoutParams(5,100, 1f)
             textView2.text = abrev
@@ -93,6 +97,7 @@ class BibleBooks : AppCompatActivity() {
             textView2.textSize = 20f
 
             val textView3 = TextView(this)
+            textView3.typeface = typeFace
             textView3.layoutParams =
                 LinearLayout.LayoutParams(5, 100, 1f)
             textView3.text = chapters.toString()
