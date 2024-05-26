@@ -13,8 +13,12 @@
 
         <TextView
             android:id="@+id/DailyVersText"
-            android:layout_width="345dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:fontFamily="@font/comfortaa_light"
+            android:text="@string/loadingDialogText"
             android:textSize="25sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -27,21 +31,23 @@
             android:id="@+id/TittleDailyVers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="40dp"
+            android:fontFamily="@font/comfortaa_light"
             android:text="@string/TittleDailyVersTxt"
             android:textSize="40sp"
             android:textStyle="bold|italic"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.119"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.051" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/DailyVerseVers"
-            android:layout_width="295dp"
+            android:layout_width="0dp"
             android:layout_height="27dp"
+            android:layout_marginStart="22dp"
             android:layout_marginTop="24dp"
+            android:layout_marginEnd="15dp"
+            android:fontFamily="@font/comfortaa_light"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -55,13 +61,12 @@
             android:id="@+id/DailyVerseImg"
             android:layout_width="347dp"
             android:layout_height="194dp"
+            android:layout_marginBottom="40dp"
             android:background="#FFFFFF"
             android:contentDescription="@string/TittleDailyVersTxt"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/DailyVerseVers"
-            app:layout_constraintVertical_bias="0.212"
             app:srcCompat="@drawable/vers"
             tools:srcCompat="@drawable/vers" />
 

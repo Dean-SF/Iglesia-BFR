@@ -43,7 +43,6 @@ class AdminEvent : AppCompatActivity() {
         val searchInput : EditText = findViewById(R.id.searchinput)
 
         val createButt : Button = findViewById(R.id.createEventBut)
-        val backBtn: Button = findViewById(R.id.backAdminEventButton)
         recyclerView = findViewById(R.id.eventlist)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -88,11 +87,6 @@ class AdminEvent : AppCompatActivity() {
 
         createButt.setOnClickListener {
             val i = Intent(this, CreateEvent::class.java)
-            launcher.launch(i)
-        }
-
-        backBtn.setOnClickListener {
-            val i = Intent(this, Homepage::class.java)
             launcher.launch(i)
         }
     }

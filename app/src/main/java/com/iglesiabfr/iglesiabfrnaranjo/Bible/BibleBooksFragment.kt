@@ -1,15 +1,21 @@
 package com.iglesiabfr.iglesiabfrnaranjo.Bible
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.widget.PopupMenu
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -17,6 +23,13 @@ import androidx.lifecycle.ViewModel
 import com.iglesiabfr.iglesiabfrnaranjo.R
 import com.iglesiabfr.iglesiabfrnaranjo.SharedViewModel
 import com.iglesiabfr.iglesiabfrnaranjo.Verses.VersFragment
+import com.iglesiabfr.iglesiabfrnaranjo.admin.emotions.SeeEmotions
+import com.iglesiabfr.iglesiabfrnaranjo.admin.suggestions.SuggestionsMailbox
+import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
+import com.iglesiabfr.iglesiabfrnaranjo.dialogs.LoadingDialog
+import com.iglesiabfr.iglesiabfrnaranjo.emotions.SendEmotion
+import com.iglesiabfr.iglesiabfrnaranjo.homepage.MyProfile
+import com.iglesiabfr.iglesiabfrnaranjo.suggestions.SendSuggestion
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -28,16 +41,21 @@ import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 
-class BibleBooksFragment : Fragment() {
+class BibleBooksFragment(val fragManager: FragmentManager) : Fragment() {
 
     private lateinit var viewModel: BibleBooksViewModel
     private val sharedViewModel: SharedViewModel by activityViewModels()
     private var email = ""
+    private var popupMenu: PopupMenu? = null
+    private var isSubMenuShowing: Boolean = false
+    private lateinit var loadingDialog : LoadingDialog
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_bible_books, container, false)
+        val view = inflater.inflate(R.layout.fragment_bible_books, container, false)
+        loadingDialog = LoadingDialog(view.context)
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -47,10 +65,18 @@ class BibleBooksFragment : Fragment() {
         viewModel = BibleBooksViewModel()
         email = sharedViewModel.getEmail().toString()
 
+        val profBut = view.findViewById<ImageView>(R.id.profBut)
+        profBut.setOnClickListener {
+            if (popupMenu == null || !isSubMenuShowing) {
+                showSubMenu(profBut)
+            }
+        }
+        loadingDialog.startLoading()
         viewModel.getBooks().observe(viewLifecycleOwner) { books ->
             for (book in books) {
                 createBookLayout(view, book.name, book.abbreviation, book.chapters)
             }
+            loadingDialog.stopLoading()
         }
         dailyVersBtn.setOnClickListener(){
             seeDaily()
@@ -62,25 +88,61 @@ class BibleBooksFragment : Fragment() {
 
     private fun seeDaily() {
         val fragment = VersFragment()
-        fragmentManager?.beginTransaction()
-            ?.replace(R.id.framelayout, fragment)
-            ?.addToBackStack(null)
-            ?.commit()
+        fragManager.beginTransaction()
+            .replace(R.id.framelayout, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    private fun showSubMenu(view: View) {
+        popupMenu = PopupMenu(requireContext(), view)
+        popupMenu!!.menuInflater.inflate(R.menu.submenu_profile, popupMenu!!.menu)
+        popupMenu!!.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.menu_profile -> {
+                    startActivity(Intent(activity, MyProfile::class.java))
+                    true
+                }
+                R.id.menu_emotion_registration -> {
+                    if (DatabaseConnector.getIsAdmin()) {
+                        startActivity(Intent(activity, SeeEmotions::class.java))
+                    } else {
+                        startActivity(Intent(activity, SendEmotion::class.java))
+                    }
+                    true
+                }
+                R.id.menu_suggestion_box -> {
+                    if (DatabaseConnector.getIsAdmin()) {
+                        startActivity(Intent(activity, SuggestionsMailbox::class.java))
+                    } else {
+                        startActivity(Intent(activity, SendSuggestion::class.java))
+                    }
+                    true
+                }
+                else -> false
+            }
+        }
+        popupMenu!!.setOnDismissListener {
+            isSubMenuShowing = false
+        }
+        popupMenu!!.show()
+        isSubMenuShowing = true
     }
 
     private fun openFav() {
         val fragment = FavBooksFragment()
 
-        fragmentManager?.beginTransaction()
-            ?.replace(R.id.framelayout, fragment)
-            ?.addToBackStack(null)
-            ?.commit()
+        fragManager.beginTransaction()
+            .replace(R.id.framelayout, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 
     @SuppressLint("RtlHardcoded")
     private fun createBookLayout(view: View, name: Any, abrev: String, chapters: Int) {
         val parent = view.findViewById<LinearLayout>(R.id.LibrosLayout)
         val linearLayout = LinearLayout(requireContext())
+        val typeFace = ResourcesCompat.getFont(this.requireContext(),R.font.comfortaa_light)
         linearLayout.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
@@ -91,22 +153,27 @@ class BibleBooksFragment : Fragment() {
         }
 
         val textView1 = TextView(requireContext())
+        textView1.typeface = typeFace
+        textView1.ellipsize = TextUtils.TruncateAt.END
+        textView1.maxLines = 1
         textView1.layoutParams = LinearLayout.LayoutParams(500, 100)
         textView1.text = "  $name"
         textView1.gravity = Gravity.LEFT
-        textView1.textSize = 22f
+        textView1.textSize = 19f
 
         val textView2 = TextView(requireContext())
+        textView2.typeface = typeFace
         textView2.layoutParams = LinearLayout.LayoutParams(5, 100, 1f)
         textView2.text = abrev
         textView2.gravity = Gravity.CENTER
-        textView2.textSize = 20f
+        textView2.textSize = 17f
 
         val textView3 = TextView(requireContext())
+        textView3.typeface = typeFace
         textView3.layoutParams = LinearLayout.LayoutParams(5, 100, 1f)
         textView3.text = chapters.toString()
         textView3.gravity = Gravity.CENTER
-        textView3.textSize = 20f
+        textView3.textSize = 17f
 
         linearLayout.addView(textView1)
         linearLayout.addView(textView2)
@@ -121,10 +188,10 @@ class BibleBooksFragment : Fragment() {
         val fragment = LectureFragment()
         fragment.arguments = bundle
 
-        fragmentManager?.beginTransaction()
-            ?.replace(R.id.framelayout, fragment)
-            ?.addToBackStack(null)
-            ?.commit()
+        fragManager.beginTransaction()
+            .replace(R.id.framelayout, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 
 }

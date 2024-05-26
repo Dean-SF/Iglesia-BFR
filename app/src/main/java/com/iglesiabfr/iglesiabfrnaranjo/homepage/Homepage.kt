@@ -70,7 +70,7 @@ class Homepage : AppCompatActivity() {
                 true
                 }
                 R.id.item_biblia -> {
-                    replaceFragment(BibleBooksFragment())
+                    replaceFragment(BibleBooksFragment(supportFragmentManager))
                     true
                 }
                 R.id.item_foro -> {
