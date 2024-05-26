@@ -3,116 +3,132 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="20dp"
-    android:background="#F1E9E9"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-
-    <TextView
-        android:id="@+id/tvTitlePrice"
-        android:layout_width="135dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvName"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="38dp"
-        android:layout_marginTop="13dp"
-        android:layout_marginEnd="219dp"
-        android:text="@string/titlePrice"
-        android:textAlignment="center"
-        android:textSize="16sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/tvTitleQuantity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvName"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="213dp"
-        android:layout_marginTop="13dp"
-        android:layout_marginEnd="38dp"
-        android:text="@string/titleQuantity"
-        android:textAlignment="center"
-        android:textSize="16sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/tvTitle"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvVideo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="38dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="38dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        tools:text="dadawdawdwd" />
+        android:layout_margin="0dp"
+        android:padding="8dp"
+        app:cardCornerRadius="8dp"
+        app:cardMaxElevation="8dp"
+        app:cardUseCompatPadding="true"
+        tools:ignore="MissingConstraints">
 
-    <TextView
-        android:id="@+id/tvName"
-        android:layout_width="134dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvTitle"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="38dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="38dp"
-        android:textSize="15sp"
-        android:textAlignment="center"
-        tools:text="wdawd" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btnDelete"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/etQuantity"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="70dp"
-        android:layout_marginTop="26dp"
-        android:layout_marginBottom="25dp"
-        android:layout_marginEnd="70dp"
-        android:backgroundTint="@color/red"
-        android:text="Eliminar"
-        tools:text="Eliminar" />
+            <TextView
+                android:id="@+id/tvTitlePrice"
+                android:layout_width="135dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvName"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="38dp"
+                android:layout_marginTop="13dp"
+                android:layout_marginEnd="219dp"
+                android:text="@string/titlePrice"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/etQuantity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvName"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="214dp"
-        android:layout_marginTop="41dp"
-        android:layout_marginEnd="38dp"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        android:textAlignment="center"
-        android:textSize="15sp"
-        tools:text="ds" />
+            <TextView
+                android:id="@+id/tvTitleQuantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvName"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="213dp"
+                android:layout_marginTop="13dp"
+                android:layout_marginEnd="38dp"
+                android:text="@string/titleQuantity"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/etPrice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvName"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="38dp"
-        android:layout_marginTop="41dp"
-        android:layout_marginEnd="218dp"
-        android:ems="10"
-        android:inputType="number"
-        android:textSize="15sp"
-        android:textStyle="italic"
-        android:textAlignment="center"
-        tools:text="ds" />
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="38dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="38dp"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:text="dadawdawdwd" />
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="134dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvTitle"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="38dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="38dp"
+                android:textAlignment="center"
+                android:textSize="15sp"
+                tools:text="wdawd" />
+
+            <Button
+                android:id="@+id/btnDelete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/etQuantity"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="70dp"
+                android:layout_marginTop="26dp"
+                android:layout_marginEnd="70dp"
+                android:layout_marginBottom="25dp"
+                android:backgroundTint="@color/red"
+                android:text="Eliminar"
+                tools:text="Eliminar" />
+
+            <TextView
+                android:id="@+id/etQuantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvName"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="214dp"
+                android:layout_marginTop="41dp"
+                android:layout_marginEnd="38dp"
+                android:ems="10"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                android:textSize="15sp"
+                tools:text="ds" />
+
+            <TextView
+                android:id="@+id/etPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvName"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="38dp"
+                android:layout_marginTop="41dp"
+                android:layout_marginEnd="218dp"
+                android:ems="10"
+                android:inputType="number"
+                android:textAlignment="center"
+                android:textSize="15sp"
+                android:textStyle="italic"
+                tools:text="ds" />
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>
