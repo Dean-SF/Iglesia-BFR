@@ -389,4 +389,7 @@
     // Videos
     <string name="addNewVideo">Añadir Video</string>
 
+    // libreria
+    <string name="addNewBook">Añadir Libro</string>
+
 </resources>
