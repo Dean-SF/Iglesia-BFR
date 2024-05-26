@@ -11,14 +11,14 @@ class InventoryMaterialViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     fun render(
         inventoryMaterialModel: InventoryMaterial,
-        onClickListener: (InventoryMaterial) -> Unit,
+        onClickListener: ((InventoryMaterial) -> Unit)?,
         onClickDelete: (Int) -> Unit
     ) {
         binding.tvName.text = inventoryMaterialModel.name
         binding.tvQuantity.text = inventoryMaterialModel.quantity.toString()
         binding.etType.text = inventoryMaterialModel.type
 
-        itemView.setOnClickListener { onClickListener(inventoryMaterialModel) }
+        itemView.setOnClickListener { onClickListener?.invoke(inventoryMaterialModel) }
         binding.btnDelete.setOnClickListener { onClickDelete(absoluteAdapterPosition) }
     }
 }

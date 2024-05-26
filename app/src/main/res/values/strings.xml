@@ -395,4 +395,7 @@
     // escuela
     <string name="addNewSchool">Añadir Profesor</string>
 
+    // materiales
+    <string name="addNewMaterial">Añadir Material</string>
+
 </resources>

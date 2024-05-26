@@ -7,7 +7,7 @@ import com.iglesiabfr.iglesiabfrnaranjo.R
 import com.iglesiabfr.iglesiabfrnaranjo.schema.InventoryMaterial
 
 class InventoryMaterialAdapter(
-    private val onClickListener: (InventoryMaterial) -> Unit,
+    private val onClickListener: ((InventoryMaterial) -> Unit)?,
     private val onClickDelete:(Int) -> Unit
 ): RecyclerView.Adapter<InventoryMaterialViewHolder>() {
 
