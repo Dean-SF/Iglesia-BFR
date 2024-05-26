@@ -38,7 +38,7 @@ class AdminCult : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_cult)
 
-        DatabaseConnector.initialize(this)
+        //DatabaseConnector.initialize(this)
 
         // Initialize loading dialog
         loadingDialog = LoadingDialog(this)
