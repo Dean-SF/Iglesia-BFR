@@ -11,7 +11,7 @@ class LibraryInventoryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     fun render(
         libraryInventaryModel: LibraryInventory,
-        onClickListener: (LibraryInventory) -> Unit,
+        onClickListener: ((LibraryInventory) -> Unit)?,
         onClickDelete: (Int) -> Unit
     ) {
         binding.tvTitle.text = libraryInventaryModel.title
@@ -19,7 +19,7 @@ class LibraryInventoryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         binding.etPrice.text = libraryInventaryModel.price.toString()
         binding.etQuantity.text = libraryInventaryModel.quantity.toString()
 
-        itemView.setOnClickListener { onClickListener(libraryInventaryModel) }
+        itemView.setOnClickListener { onClickListener?.invoke(libraryInventaryModel) }
         binding.btnDelete.setOnClickListener { onClickDelete(absoluteAdapterPosition) }
     }
 }

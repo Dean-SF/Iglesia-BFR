@@ -13,6 +13,8 @@
         android:layout_marginBottom="104dp"
         android:fontFamily="@font/comfortaa_light"
         android:text="@string/btnSugerencia"
+        android:background="@drawable/ripple_soft_rectangle_btn"
+        android:backgroundTint="@color/blue"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

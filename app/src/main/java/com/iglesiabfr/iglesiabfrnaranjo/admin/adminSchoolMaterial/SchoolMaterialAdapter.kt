@@ -7,7 +7,7 @@ import com.iglesiabfr.iglesiabfrnaranjo.R
 import com.iglesiabfr.iglesiabfrnaranjo.schema.SchoolMaterial
 
 class SchoolMaterialAdapter(
-    private val onClickListener: (SchoolMaterial) -> Unit,
+    private val onClickListener: ((SchoolMaterial) -> Unit)?,
     private val onClickDelete:(Int) -> Unit
 ): RecyclerView.Adapter<SchoolMaterialViewHolder>() {
 

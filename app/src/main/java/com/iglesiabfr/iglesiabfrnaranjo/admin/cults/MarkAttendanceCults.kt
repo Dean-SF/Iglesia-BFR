@@ -58,6 +58,8 @@ class MarkAttendanceCults : AppCompatActivity() {
             setContentView(binding.root)
         }
 
+        realm = DatabaseConnector.db
+
         // Guardar el registro de la asistencia
         binding.createAttendanceCultBut.setOnClickListener {
             markAttendanceCult(cult)

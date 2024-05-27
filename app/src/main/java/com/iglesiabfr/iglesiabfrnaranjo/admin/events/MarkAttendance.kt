@@ -56,6 +56,8 @@ class MarkAttendance : AppCompatActivity() {
             setContentView(binding.root)
         }
 
+        realm = DatabaseConnector.db
+
         // Guardar el registro de la asistencia
         binding.createAttendanceBut.setOnClickListener {
             markAttendance(event)

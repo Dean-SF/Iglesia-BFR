@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.iglesiabfr.iglesiabfrnaranjo.R
@@ -63,6 +64,7 @@ class FavBooksFragment : Fragment() {
     private fun createFavBookLayout(view: View, name: String, actualChapter: Int, chapters: Int) {
         val parent = view.findViewById<LinearLayout>(R.id.LibrosLayout)
         val linearLayout = LinearLayout(requireContext())
+        val typeFace = ResourcesCompat.getFont(this.requireContext(),R.font.comfortaa_light)
         linearLayout.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
@@ -88,13 +90,15 @@ class FavBooksFragment : Fragment() {
         }
 
         val textView1 = TextView(requireContext())
-        textView1.layoutParams = LinearLayout.LayoutParams(500, 100)
+        textView1.typeface = typeFace
+        textView1.layoutParams = LinearLayout.LayoutParams(700, 100)
         textView1.text = "  $name"
         textView1.gravity = Gravity.CENTER
         textView1.textSize = 22f
 
 
         val textView3 = TextView(requireContext())
+        textView3.typeface = typeFace
         textView3.layoutParams = LinearLayout.LayoutParams(5, 100, 1f)
         textView3.text = actualChapter.toString()
         textView3.gravity = Gravity.CENTER

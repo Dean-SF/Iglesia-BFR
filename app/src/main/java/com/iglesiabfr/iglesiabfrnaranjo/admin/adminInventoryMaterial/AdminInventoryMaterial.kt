@@ -24,18 +24,21 @@ class AdminInventoryMaterial : AppCompatActivity() {
     private lateinit var binding1: ActivityInventoryMaterialAdminBinding
     private lateinit var adapter: InventoryMaterialAdapter
     private val llmanager = LinearLayoutManager(this)
+    private var currentBinding = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddInventoryMaterialAdminBinding.inflate(layoutInflater)
         binding1 = ActivityInventoryMaterialAdminBinding.inflate(layoutInflater)
         setContentView(binding1.root)
+        currentBinding = 0
 
         realm = DatabaseConnector.db
 
         binding1.btnAddInventoryMaterial.setOnClickListener {
             // Cambiar a la vista que muestra los productos agregados
             setContentView(binding.root)
+            currentBinding = 1
         }
 
         binding.btnSaveInventoryMaterial.setOnClickListener {
@@ -44,6 +47,19 @@ class AdminInventoryMaterial : AppCompatActivity() {
 
         initRecyclerView()
         loadInventoryMaterial() // Cargar los materiales al inicio
+    }
+
+    @Deprecated("Deprecated in Java",
+        ReplaceWith("super.onBackPressed()", "androidx.appcompat.app.AppCompatActivity")
+    )
+    override fun onBackPressed() {
+        if(currentBinding == 1) {
+            currentBinding = 0
+            setContentView(binding1.root)
+            loadInventoryMaterial()
+            return
+        }
+        super.onBackPressed()
     }
 
     private fun createInventoryMaterial() {
@@ -119,15 +135,11 @@ class AdminInventoryMaterial : AppCompatActivity() {
 
     private fun initRecyclerView(){
         adapter = InventoryMaterialAdapter(
-            onClickListener = { inventoryMaterial: InventoryMaterial -> onItemSelected(inventoryMaterial) },
+            onClickListener = null,
             onClickDelete = { position: Int -> onDeletedItem(position) }
         )
         binding1.recyclerInventoryMaterial.layoutManager = llmanager
         binding1.recyclerInventoryMaterial.adapter = adapter
-    }
-
-    private fun onItemSelected(inventoryMaterial: InventoryMaterial) {
-        Toast.makeText(this, inventoryMaterial.name, Toast.LENGTH_SHORT).show()
     }
 
     private fun onDeletedItem(position: Int) {

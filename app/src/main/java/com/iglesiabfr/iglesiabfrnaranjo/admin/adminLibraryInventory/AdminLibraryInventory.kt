@@ -20,6 +20,7 @@ class AdminLibraryInventory : AppCompatActivity() {
     private lateinit var binding: ActivityAddInventoryAdminBinding
     private lateinit var binding1: ActivityInventoryAdminBinding
     private lateinit var adapter: LibraryInventoryAdapter
+    private var currentBinding = 0
     private val llmanager = LinearLayoutManager(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,25 +28,35 @@ class AdminLibraryInventory : AppCompatActivity() {
         binding = ActivityAddInventoryAdminBinding.inflate(layoutInflater)
         binding1 = ActivityInventoryAdminBinding.inflate(layoutInflater)
         setContentView(binding1.root)
+        currentBinding = 0
 
         realm = DatabaseConnector.db
 
         binding1.btnAddinventaryLibrary.setOnClickListener {
             // Set content view to binding1 after adding inventory library
             setContentView(binding.root)
+            currentBinding = 1
         }
 
         binding.btnAddInventaryLibrary.setOnClickListener {
             createLibraryInventory()
         }
 
-        binding.BackAddInventoryButton.setOnClickListener {
-            setContentView(binding1.root)
-            loadLibraryInventory() // Asegúrate de cargar los libros al volver
-        }
-
         initRecyclerView()
         loadLibraryInventory() // Cargar los libros al inicio
+    }
+
+    @Deprecated("Deprecated in Java",
+        ReplaceWith("super.onBackPressed()", "androidx.appcompat.app.AppCompatActivity")
+    )
+    override fun onBackPressed() {
+        if(currentBinding == 1) {
+            currentBinding = 0
+            setContentView(binding1.root)
+            loadLibraryInventory()
+            return
+        }
+        super.onBackPressed()
     }
 
     private fun createLibraryInventory() {
@@ -125,7 +136,7 @@ class AdminLibraryInventory : AppCompatActivity() {
 
     private fun initRecyclerView(){
         adapter = LibraryInventoryAdapter(
-            onClickListener = { libraryInventory: LibraryInventory -> onItemSelected(libraryInventory) },
+            onClickListener = null,
             onClickDelete = { position: Int -> onDeletedItem(position) }
         )
         binding1.recyclerinventaryLibrary.layoutManager = llmanager

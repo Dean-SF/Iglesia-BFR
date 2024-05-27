@@ -3,6 +3,14 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.realm)
     alias(libs.plugins.googleServicesPlug)
+    id("org.sonarqube") version "5.0.0.4638"
+}
+sonar {
+    properties {
+        property("sonar.projectKey", "igleasiaBFR")
+        property("sonar.organization", "myOrganization")
+        property("sonar.host.url", "http://localhost:9000")
+    }
 }
 
 android {

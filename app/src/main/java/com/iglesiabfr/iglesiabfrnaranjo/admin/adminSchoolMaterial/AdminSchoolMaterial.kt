@@ -32,13 +32,16 @@ class AdminSchoolMaterial : AppCompatActivity() {
     private lateinit var binding: ActivityAddSchoolMaterialAdminBinding
     private lateinit var binding1: ActivitySchoolMaterialAdminBinding
     private lateinit var adapter: SchoolMaterialAdapter
+    private var currentBinding = 0
     private val llmanager = LinearLayoutManager(this)
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddSchoolMaterialAdminBinding.inflate(layoutInflater)
         binding1 = ActivitySchoolMaterialAdminBinding.inflate(layoutInflater)
         setContentView(binding1.root)
+        currentBinding = 0
 
         realm = DatabaseConnector.db
 
@@ -97,19 +100,28 @@ class AdminSchoolMaterial : AppCompatActivity() {
         binding1.btnAddSchoolMaterial.setOnClickListener {
             // Set content view to binding1 after adding inventory schoolMaterial
             setContentView(binding.root)
+            currentBinding = 1
         }
 
         binding.btnAddSchoolMaterial.setOnClickListener {
             createSchoolMaterial()
         }
 
-        binding.BackAddSchoolMaterialButton.setOnClickListener {
-            setContentView(binding1.root)
-            loadSchoolMaterial() // Asegúrate de cargar los profesores al volver
-        }
-
         initRecyclerView()
         loadSchoolMaterial() // Cargar los videos al inicio
+    }
+
+    @Deprecated("Deprecated in Java",
+        ReplaceWith("super.onBackPressed()", "androidx.appcompat.app.AppCompatActivity")
+    )
+    override fun onBackPressed() {
+        if(currentBinding == 1) {
+            currentBinding = 0
+            setContentView(binding1.root)
+            loadSchoolMaterial()
+            return
+        }
+        super.onBackPressed()
     }
 
     private fun createSchoolMaterial() {
@@ -193,7 +205,7 @@ class AdminSchoolMaterial : AppCompatActivity() {
 
     private fun initRecyclerView(){
         adapter = SchoolMaterialAdapter(
-            onClickListener = { schoolMaterial: SchoolMaterial -> onItemSelected(schoolMaterial) },
+            onClickListener = null,
             onClickDelete = { position: Int -> onDeletedItem(position) }
         )
         binding1.recyclerSchoolMaterial.layoutManager = llmanager

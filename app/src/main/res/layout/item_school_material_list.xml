@@ -1,117 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="20dp"
-    android:background="#F1E9E9"
+    android:layout_margin="0dp"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tvTeacher"
-        android:layout_width="193dp"
-        android:layout_height="25dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="20dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        tools:text="dadawdawdwd" />
-
-    <TextView
-        android:id="@+id/tvClase"
-        android:layout_width="133dp"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvVideo"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvTeacher"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="20dp"
-        android:textSize="15sp"
-        android:textAlignment="center"
-        tools:text="wdawd" />
+        android:layout_margin="0dp"
+        android:padding="8dp"
+        app:cardCornerRadius="8dp"
+        app:cardMaxElevation="8dp"
+        app:cardUseCompatPadding="true"
+        tools:ignore="MissingConstraints">
 
-    <TextView
-        android:id="@+id/tvTitleInitialMonth"
-        android:layout_width="147dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvClase"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="225dp"
-        android:text="@string/initialMonth"
-        android:textAlignment="center"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tvTitleFinalMonth"
-        android:layout_width="169dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvClase"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="200dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="20dp"
-        android:text="@string/finalMonth"
-        android:textAlignment="center"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvTeacher"
+                android:layout_width="193dp"
+                android:layout_height="25dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="20dp"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:text="dadawdawdwd" />
 
-    <TextView
-        android:id="@+id/etInitialMonth"
-        android:layout_width="153dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvTitleInitialMonth"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="220dp"
-        android:ems="10"
-        android:inputType="date"
-        android:textAlignment="center"
-        android:textSize="15sp"
-        android:textStyle="italic"
-        tools:text="ds" />
+            <TextView
+                android:id="@+id/tvClase"
+                android:layout_width="133dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvTeacher"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="20dp"
+                android:textAlignment="center"
+                android:textSize="15sp"
+                tools:text="wdawd" />
 
-    <TextView
-        android:id="@+id/etFinalMonth"
-        android:layout_width="136dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvTitleFinalMonth"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="201dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="21dp"
-        android:ems="10"
-        android:inputType="date"
-        android:textAlignment="center"
-        android:textSize="15sp"
-        tools:text="ds" />
+            <TextView
+                android:id="@+id/tvTitleInitialMonth"
+                android:layout_width="147dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvClase"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="225dp"
+                android:text="@string/initialMonth"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/btnDelete"
-        android:layout_width="124dp"
-        android:layout_height="41dp"
-        android:layout_below="@+id/etFinalMonth"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginBottom="25dp"
-        android:layout_marginEnd="100dp"
-        android:backgroundTint="@color/red"
-        android:text="Eliminar"
-        tools:text="Eliminar" />
+            <TextView
+                android:id="@+id/tvTitleFinalMonth"
+                android:layout_width="169dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvClase"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="200dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="20dp"
+                android:text="@string/finalMonth"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/etInitialMonth"
+                android:layout_width="153dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvTitleInitialMonth"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="220dp"
+                android:ems="10"
+                android:inputType="date"
+                android:textAlignment="center"
+                android:textSize="15sp"
+                tools:text="ds" />
+
+            <TextView
+                android:id="@+id/etFinalMonth"
+                android:layout_width="136dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvTitleFinalMonth"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="201dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="21dp"
+                android:ems="10"
+                android:inputType="date"
+                android:textAlignment="center"
+                android:textSize="15sp"
+                tools:text="ds" />
+
+            <Button
+                android:id="@+id/btnDelete"
+                android:layout_width="124dp"
+                android:layout_height="41dp"
+                android:layout_below="@+id/etFinalMonth"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="100dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="100dp"
+                android:layout_marginBottom="25dp"
+                android:backgroundTint="@color/red"
+                android:text="Eliminar"
+                tools:text="Eliminar" />
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>
