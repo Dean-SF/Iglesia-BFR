@@ -1,6 +1,7 @@
 package com.iglesiabfr.iglesiabfrnaranjo.admin.events
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -26,14 +27,15 @@ class MarkAttendance : AppCompatActivity() {
     private lateinit var binding1: ActivityEventBinding
     private lateinit var adapter: EventAdapter
     private val llmanager = LinearLayoutManager(this)
-
+    private var currentBinding = 0
     private lateinit var eventId: ObjectId
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAttendanceBinding.inflate(layoutInflater)
         binding1 = ActivityEventBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(binding1.root)
+        currentBinding = 0
 
         // Initialize Realm
         val config = RealmConfiguration.Builder(schema = setOf(Attendance::class))
@@ -42,7 +44,7 @@ class MarkAttendance : AppCompatActivity() {
         realm = Realm.open(config)
 
         val objectId = ObjectId(intent.getStringExtra("object_id")!!)
-
+        eventId = objectId
         val eventQuery = DatabaseConnector.db.query<Event>("_id == $0",objectId).find()
         if(eventQuery.isEmpty()) {
             Toast.makeText(this,getString(R.string.eventNotFound),Toast.LENGTH_SHORT).show()
@@ -54,6 +56,7 @@ class MarkAttendance : AppCompatActivity() {
         binding1.btnAddPersonsPresent.setOnClickListener {
             // Set content view to binding1 after adding new person
             setContentView(binding.root)
+            currentBinding = 1
         }
 
         realm = DatabaseConnector.db
@@ -61,11 +64,6 @@ class MarkAttendance : AppCompatActivity() {
         // Guardar el registro de la asistencia
         binding.createAttendanceBut.setOnClickListener {
             markAttendance(event)
-        }
-
-        binding.BackPresentEventsButton.setOnClickListener {
-            setContentView(binding1.root)
-            loadAttendances() // Asegúrate de cargar los videos al volver
         }
 
         initRecyclerView()
@@ -93,6 +91,20 @@ class MarkAttendance : AppCompatActivity() {
             }
         }
     }
+
+    @Deprecated("Deprecated in Java",
+        ReplaceWith("super.onBackPressed()", "androidx.appcompat.app.AppCompatActivity")
+    )
+    override fun onBackPressed() {
+        if(currentBinding == 1) {
+            currentBinding = 0
+            setContentView(binding1.root)
+            loadAttendances()
+            return
+        }
+        super.onBackPressed()
+    }
+
 
     private suspend fun saveMarkAttendanceToDatabase(attendance: Attendance) {
         withContext(Dispatchers.IO) {
@@ -143,15 +155,11 @@ class MarkAttendance : AppCompatActivity() {
 
     private fun initRecyclerView(){
         adapter = EventAdapter(
-            onClickListener = { attendance: Attendance -> onItemSelected(attendance) },
+            onClickListener = null,
             onClickDelete = { position: Int -> onDeletedItem(position) }
         )
         binding1.recyclerEvents.layoutManager = llmanager
         binding1.recyclerEvents.adapter = adapter
-    }
-
-    private fun onItemSelected(attendance: Attendance) {
-        Toast.makeText(this, attendance.namePerson, Toast.LENGTH_SHORT).show()
     }
 
     private fun onDeletedItem(position: Int) {

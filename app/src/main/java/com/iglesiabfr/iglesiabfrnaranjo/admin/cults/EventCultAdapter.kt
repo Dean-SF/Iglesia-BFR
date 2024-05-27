@@ -8,7 +8,7 @@ import com.iglesiabfr.iglesiabfrnaranjo.admin.adminInventoryMaterial.EventCultVi
 import com.iglesiabfr.iglesiabfrnaranjo.schema.AttendanceCults
 
 class EventCultAdapter (
-    private val onClickListener: (AttendanceCults) -> Unit,
+    private val onClickListener: ((AttendanceCults) -> Unit)?,
     private val onClickDelete: ((Int) -> Unit)? = null
 ) : RecyclerView.Adapter<EventCultViewHolder>() {
 

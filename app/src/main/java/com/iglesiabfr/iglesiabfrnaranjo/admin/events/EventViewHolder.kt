@@ -11,12 +11,12 @@ class EventViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     fun render(
         eventModel: Attendance,
-        onClickListener: (Attendance) -> Unit,
+        onClickListener: ((Attendance) -> Unit)?,
         onClickDelete: (Int) -> Unit
     ) {
         binding.tvName.text = eventModel.namePerson
 
-        itemView.setOnClickListener { onClickListener(eventModel) }
+        itemView.setOnClickListener { onClickListener?.invoke(eventModel) }
         binding.btnDelete.setOnClickListener { onClickDelete(absoluteAdapterPosition) }
     }
 }
