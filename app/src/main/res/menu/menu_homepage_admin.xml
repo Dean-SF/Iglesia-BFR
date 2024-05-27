@@ -25,4 +25,9 @@
         android:enabled="true"
         android:icon="@drawable/video"
         android:title="@string/grabacionesNavTitle"/>
+    <item
+        android:id="@+id/item_admin"
+        android:enabled="true"
+        android:icon="@drawable/admin"
+        android:title="@string/adminNavTitle"/>
 </menu>

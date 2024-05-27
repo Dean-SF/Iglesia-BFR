@@ -10,6 +10,7 @@ import com.google.android.material.navigation.NavigationBarView
 import com.iglesiabfr.iglesiabfrnaranjo.Bible.BibleBooksFragment
 import com.google.firebase.Firebase
 import com.google.firebase.messaging.messaging
+import com.iglesiabfr.iglesiabfrnaranjo.CustomBottNavBar
 import com.iglesiabfr.iglesiabfrnaranjo.R
 import com.iglesiabfr.iglesiabfrnaranjo.admin.notifHandler.NotifHandler
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
@@ -46,6 +47,12 @@ class Homepage : AppCompatActivity() {
         }
 
         val navBar : NavigationBarView = findViewById(R.id.homepageNavbar)
+        navBar.menu.clear()
+        if(DatabaseConnector.getIsAdmin()) {
+            navBar.inflateMenu(R.menu.menu_homepage_admin)
+        } else {
+            navBar.inflateMenu(R.menu.menu_homepage)
+        }
 
         navBar.setOnItemSelectedListener { item ->
             when(item.itemId) {

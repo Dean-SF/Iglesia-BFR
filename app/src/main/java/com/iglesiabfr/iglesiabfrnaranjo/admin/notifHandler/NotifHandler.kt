@@ -60,7 +60,7 @@ class NotifHandler : FirebaseMessagingService() {
         val channelId = getString(R.string.NotifId)
         val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
-            .setSmallIcon(R.mipmap.ic_launcher)
+            .setSmallIcon(R.drawable.icon_church)
             .setContentTitle(title)
             .setContentText(messageBody)
             .setAutoCancel(true)
