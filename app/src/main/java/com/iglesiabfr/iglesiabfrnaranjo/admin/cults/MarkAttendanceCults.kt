@@ -83,11 +83,6 @@ class MarkAttendanceCults : AppCompatActivity() {
         super.onBackPressed()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        realm.close()
-    }
-
     // Método para registrar asistencia a los eventos
     private fun markAttendanceCult(cult: Cult) {
         val name = binding.nameInputCult.text.toString()
