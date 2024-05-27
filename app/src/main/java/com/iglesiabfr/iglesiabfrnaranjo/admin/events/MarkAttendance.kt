@@ -1,22 +1,24 @@
 package com.iglesiabfr.iglesiabfrnaranjo.admin.events
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.iglesiabfr.iglesiabfrnaranjo.R
+import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
 import com.iglesiabfr.iglesiabfrnaranjo.databinding.ActivityAttendanceBinding
 import com.iglesiabfr.iglesiabfrnaranjo.databinding.ActivityEventBinding
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Attendance
+import com.iglesiabfr.iglesiabfrnaranjo.schema.Event
 import io.realm.kotlin.Realm
+import io.realm.kotlin.RealmConfiguration
 import io.realm.kotlin.ext.query
 import io.realm.kotlin.types.RealmInstant
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.mongodb.kbson.ObjectId
 
 class MarkAttendance : AppCompatActivity() {
     private lateinit var realm : Realm
@@ -25,15 +27,38 @@ class MarkAttendance : AppCompatActivity() {
     private lateinit var adapter: EventAdapter
     private val llmanager = LinearLayoutManager(this)
 
+    private lateinit var eventId: ObjectId
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAttendanceBinding.inflate(layoutInflater)
         binding1 = ActivityEventBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_attendance)
+        setContentView(binding.root)
+
+        // Initialize Realm
+        val config = RealmConfiguration.Builder(schema = setOf(Attendance::class))
+            .name("attendance.realm")
+            .build()
+        realm = Realm.open(config)
+
+        val objectId = ObjectId(intent.getStringExtra("object_id")!!)
+
+        val eventQuery = DatabaseConnector.db.query<Event>("_id == $0",objectId).find()
+        if(eventQuery.isEmpty()) {
+            Toast.makeText(this,getString(R.string.eventNotFound),Toast.LENGTH_SHORT).show()
+            finish()
+        }
+
+        val event = eventQuery[0]
+
+        binding1.btnAddPersonsPresent.setOnClickListener {
+            // Set content view to binding1 after adding new person
+            setContentView(binding.root)
+        }
 
         // Guardar el registro de la asistencia
         binding.createAttendanceBut.setOnClickListener {
-            markAttendance()
+            markAttendance(event)
         }
 
         binding.BackPresentEventsButton.setOnClickListener {
@@ -46,7 +71,7 @@ class MarkAttendance : AppCompatActivity() {
     }
 
     // Método para registrar asistencia a los eventos
-    private fun markAttendance() {
+    private fun markAttendance(event : Event) {
         val name = binding.nameInput.text.toString()
 
         // Aquí registras la asistencia en la base de datos Realm
@@ -54,10 +79,11 @@ class MarkAttendance : AppCompatActivity() {
             val attendance = Attendance().apply {
                 namePerson = name
                 timestamp = RealmInstant.now()
+                eventId = event._id // Associate the attendance with the event
             }
 
             lifecycleScope.launch {
-                // Luego de crear el objeto Video, lo guardamos en la base de datos
+                // Luego de crear el objeto de presentes, lo guardamos en la base de datos
                 saveMarkAttendanceToDatabase(attendance)
 
                 // Limpiar los EditText después de agregar la asistencia
@@ -89,9 +115,7 @@ class MarkAttendance : AppCompatActivity() {
             withContext(Dispatchers.IO) {
                 try {
                     realm.write {
-                        findLatest(attendance).also {
-                            delete(it!!)
-                        }
+                        findLatest(attendance)?.let { delete(it) }
                     }
                     withContext(Dispatchers.Main) {
                         loadAttendances()
@@ -108,7 +132,7 @@ class MarkAttendance : AppCompatActivity() {
 
     private fun loadAttendances() {
         lifecycleScope.launch(Dispatchers.IO) {
-            val attendances = realm.query<Attendance>().find()
+            val attendances = realm.query<Attendance>("eventId == $0", eventId).find() // Query attendances for the specific event
             withContext(Dispatchers.Main) {
                 adapter.submitList(attendances)
             }
@@ -125,17 +149,7 @@ class MarkAttendance : AppCompatActivity() {
     }
 
     private fun onItemSelected(attendance: Attendance) {
-        val url = attendance.namePerson
-        if (url.isNotEmpty()) {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-            try {
-                startActivity(intent)
-            } catch (e: Exception) {
-                Toast.makeText(this, "No se pudo abrir el video. URL inválida.", Toast.LENGTH_SHORT).show()
-            }
-        } else {
-            Toast.makeText(this, "URL del video no válida.", Toast.LENGTH_SHORT).show()
-        }
+        Toast.makeText(this, attendance.namePerson, Toast.LENGTH_SHORT).show()
     }
 
     private fun onDeletedItem(position: Int) {

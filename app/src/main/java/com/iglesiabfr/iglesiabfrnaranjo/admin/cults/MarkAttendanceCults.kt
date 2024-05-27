@@ -8,15 +8,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.iglesiabfr.iglesiabfrnaranjo.R
+import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
 import com.iglesiabfr.iglesiabfrnaranjo.databinding.ActivityAttendanceCultsBinding
 import com.iglesiabfr.iglesiabfrnaranjo.databinding.ActivityEventCultBinding
 import com.iglesiabfr.iglesiabfrnaranjo.schema.AttendanceCults
+import com.iglesiabfr.iglesiabfrnaranjo.schema.Cult
 import io.realm.kotlin.Realm
+import io.realm.kotlin.RealmConfiguration
 import io.realm.kotlin.ext.query
 import io.realm.kotlin.types.RealmInstant
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.mongodb.kbson.ObjectId
 
 class MarkAttendanceCults : AppCompatActivity() {
     private lateinit var realm : Realm
@@ -25,15 +29,38 @@ class MarkAttendanceCults : AppCompatActivity() {
     private lateinit var adapter: EventCultAdapter
     private val llmanager = LinearLayoutManager(this)
 
+    private lateinit var eventId: ObjectId
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAttendanceCultsBinding.inflate(layoutInflater)
         binding1 = ActivityEventCultBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_attendance)
+        setContentView(binding.root)
+
+        // Initialize Realm
+        val config = RealmConfiguration.Builder(schema = setOf(AttendanceCults::class))
+            .name("attendanceCults.realm")
+            .build()
+        realm = Realm.open(config)
+
+        val objectId = ObjectId(intent.getStringExtra("object_id")!!)
+
+        val cultQuery = DatabaseConnector.db.query<Cult>("_id == $0",objectId).find()
+        if(cultQuery.isEmpty()) {
+            Toast.makeText(this,getString(R.string.eventCultNotFound),Toast.LENGTH_SHORT).show()
+            finish()
+        }
+
+        val cult = cultQuery[0]
+
+        binding1.btnAddPersonsPresentCult.setOnClickListener {
+            // Set content view to binding1 after adding new person
+            setContentView(binding.root)
+        }
 
         // Guardar el registro de la asistencia
         binding.createAttendanceCultBut.setOnClickListener {
-            markAttendanceCult()
+            markAttendanceCult(cult)
         }
 
         binding.backAttendanceCultBtn.setOnClickListener {
@@ -45,8 +72,13 @@ class MarkAttendanceCults : AppCompatActivity() {
         loadAttendancesCults() // Cargar a las personas presentes al inicio
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        realm.close()
+    }
+
     // Método para registrar asistencia a los eventos
-    private fun markAttendanceCult() {
+    private fun markAttendanceCult(cult: Cult) {
         val name = binding.nameInputCult.text.toString()
 
         // Aquí registras la asistencia en la base de datos Realm
@@ -54,6 +86,7 @@ class MarkAttendanceCults : AppCompatActivity() {
             val attendanceCults = AttendanceCults().apply {
                 namePerson = name
                 timestamp = RealmInstant.now()
+                eventId = cult._id // Associate the attendance with the cult
             }
 
             lifecycleScope.launch {

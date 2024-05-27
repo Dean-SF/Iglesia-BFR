@@ -16,8 +16,9 @@ import com.iglesiabfr.iglesiabfrnaranjo.customRecyclers.EagListA
 import com.iglesiabfr.iglesiabfrnaranjo.customRecyclers.items.EagItemA
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
 import com.iglesiabfr.iglesiabfrnaranjo.dialogs.LoadingDialog
-import com.iglesiabfr.iglesiabfrnaranjo.homepage.Homepage
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Event
+import io.realm.kotlin.Realm
+import io.realm.kotlin.RealmConfiguration
 import io.realm.kotlin.ext.query
 import org.mongodb.kbson.ObjectId
 import java.time.LocalDateTime
@@ -29,6 +30,7 @@ import java.util.LinkedList
 class AdminEvent : AppCompatActivity() {
 
     private val events = LinkedList<EagItemA>()
+    private lateinit var realm : Realm
     private lateinit var launcher : ActivityResultLauncher<Intent>
     private lateinit var recyclerView : RecyclerView
     private lateinit var loadingDialog: LoadingDialog
@@ -38,12 +40,17 @@ class AdminEvent : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_eventos)
 
+        // Initialize Realm
+        val config = RealmConfiguration.Builder(schema = setOf(Event::class))
+            .name("event.realm")
+            .build()
+        realm = Realm.open(config)
+
         loadingDialog = LoadingDialog(this)
 
         val searchInput : EditText = findViewById(R.id.searchinput)
 
         val createButt : Button = findViewById(R.id.createEventBut)
-        val backBtn: Button = findViewById(R.id.backAdminEventButton)
         recyclerView = findViewById(R.id.eventlist)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -88,11 +95,6 @@ class AdminEvent : AppCompatActivity() {
 
         createButt.setOnClickListener {
             val i = Intent(this, CreateEvent::class.java)
-            launcher.launch(i)
-        }
-
-        backBtn.setOnClickListener {
-            val i = Intent(this, Homepage::class.java)
             launcher.launch(i)
         }
     }

@@ -1,7 +1,5 @@
 package com.iglesiabfr.iglesiabfrnaranjo.admin.adminSchoolMaterial
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.MotionEvent
 import android.widget.ImageButton
@@ -13,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
 import com.iglesiabfr.iglesiabfrnaranjo.databinding.ActivityAddSchoolMaterialAdminBinding
 import com.iglesiabfr.iglesiabfrnaranjo.databinding.ActivitySchoolMaterialAdminBinding
-import com.iglesiabfr.iglesiabfrnaranjo.homepage.Homepage
 import com.iglesiabfr.iglesiabfrnaranjo.picker.CustomDatePicker
 import com.iglesiabfr.iglesiabfrnaranjo.schema.SchoolMaterial
 import io.realm.kotlin.Realm
@@ -22,11 +19,11 @@ import io.realm.kotlin.types.RealmInstant
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.mongodb.kbson.ObjectId
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
 
 class AdminSchoolMaterial : AppCompatActivity() {
     private lateinit var realm : Realm
@@ -116,39 +113,40 @@ class AdminSchoolMaterial : AppCompatActivity() {
     }
 
     private fun createSchoolMaterial() {
-        var teacherName = binding.etTeacherName.text.toString()
-        var clase = binding.etClase.text.toString()
-        var initialMonth = binding.fechaStartMaterialSchoolinput.text.toString()
-        var finalMonth = binding.fechaFinalMaterialSchoolinput.text.toString()
+        val teacherName = binding.etTeacherName.text.toString()
+        val clase = binding.etClase.text.toString()
+        val initialMonthStr = binding.fechaStartMaterialSchoolinput.text.toString()
+        val finalMonthStr = binding.fechaFinalMaterialSchoolinput.text.toString()
 
-        if (teacherName.isNotEmpty() && clase.isNotEmpty() && initialMonth.isNotEmpty() && finalMonth.isNotEmpty()) {
-            // Ensure date and time are initialized
-            if (!::date.isInitialized) {
-                date = LocalDate.now() // or any default date
+        val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+
+
+        try {
+            val initialMonth = LocalDate.parse(initialMonthStr, formatter).atStartOfDay()
+            val finalMonth = LocalDate.parse(finalMonthStr, formatter).atStartOfDay()
+
+            if (teacherName.isNotEmpty() && clase.isNotEmpty() && initialMonthStr.isNotEmpty() && finalMonthStr.isNotEmpty()) {
+                val schoolMaterial = SchoolMaterial().apply {
+                    this.teacherName = teacherName
+                    this.clase = clase
+                    this.initialMonth = RealmInstant.from(initialMonth.toEpochSecond(ZoneOffset.UTC), 0)
+                    this.finalMonth = RealmInstant.from(finalMonth.toEpochSecond(ZoneOffset.UTC), 0)
+                }
+
+                // Luego de crear el objeto Video, lo guardamos en la base de datos
+                saveSchoolMaterialToDatabase(schoolMaterial)
+
+                // Limpiar los EditText después de agregar el libro
+                binding.etTeacherName.text.clear()
+                binding.etClase.text.clear()
+                binding.fechaStartMaterialSchoolinput.text.clear()
+                binding.fechaFinalMaterialSchoolinput.text.clear()
+
+            } else {
+                Toast.makeText(this, "Por favor complete todos los campos", Toast.LENGTH_SHORT).show()
             }
-            if (!::time.isInitialized) {
-                time = LocalTime.now() // or any default time
-            }
-
-            val datetime = LocalDateTime.of(date,time)
-            val schoolMaterial = SchoolMaterial().apply {
-                this.teacherName = teacherName
-                this.clase = clase
-                this.initialMonth = RealmInstant.from(datetime.toEpochSecond(ZoneOffset.UTC),0)
-                this.finalMonth = RealmInstant.from(datetime.toEpochSecond(ZoneOffset.UTC),0)
-            }
-
-            // Luego de crear el objeto Video, lo guardamos en la base de datos
-            saveSchoolMaterialToDatabase(schoolMaterial)
-
-            // Limpiar los EditText después de agregar el libro
-            binding.etTeacherName.text.clear()
-            binding.etClase.text.clear()
-            binding.fechaStartMaterialSchoolinput.text.clear()
-            binding.fechaFinalMaterialSchoolinput.text.clear()
-
-        } else {
-            Toast.makeText(this, "Por favor complete todos los campos", Toast.LENGTH_SHORT).show()
+        } catch (event: DateTimeParseException) {
+            Toast.makeText(this, "Formato de fecha inválida", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -203,8 +201,7 @@ class AdminSchoolMaterial : AppCompatActivity() {
     }
 
     private fun onItemSelected(schoolMaterial: SchoolMaterial) {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(schoolMaterial.teacherName))
-        startActivity(intent)
+        Toast.makeText(this, schoolMaterial.teacherName, Toast.LENGTH_SHORT).show()
     }
 
     private fun onDeletedItem(position: Int) {

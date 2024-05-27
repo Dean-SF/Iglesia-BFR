@@ -121,9 +121,10 @@ class DetailEvent : AppCompatActivity() {
         }
 
         markAttendanceButt.setOnClickListener {
-            confirmDialog.confirmation(getString(R.string.cultAttendanceCultBut))
+            confirmDialog.confirmation(getString(R.string.cultAttendanceBut))
                 .setOnConfirmationListener {
                     val i = Intent(this, MarkAttendance::class.java)
+                    i.putExtra("object_id", event._id.toString())
                     launcher.launch(i)
                 }
         }

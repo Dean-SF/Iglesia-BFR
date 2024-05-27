@@ -68,18 +68,6 @@
             android:name=".admin.cults.MarkAttendanceCults"
             android:exported="false" />
         <activity
-            android:name=".admin.adminLibraryInventory.PrincipalAdminLibrary"
-            android:exported="false" />
-        <activity
-            android:name=".admin.adminSchoolMaterial.PrincipalAdminSchoolMaterial"
-            android:exported="false" />
-        <activity
-            android:name=".admin.adminInventoryMaterial.PrincipalAdminInventoryMaterial"
-            android:exported="false" />
-        <activity
-            android:name=".admin.video.PrincipalAdminVideos"
-            android:exported="false" />
-        <activity
             android:name=".admin.activities.DetailAct"
             android:exported="false" />
         <activity
@@ -95,7 +83,7 @@
             android:name=".Bible.BibleBooks"
             android:exported="false" />
         <activity
-            android:name=".verses.DailyVers"
+            android:name=".Verses.DailyVers"
             android:exported="false" />
         <activity
             android:name=".Testingdb"
