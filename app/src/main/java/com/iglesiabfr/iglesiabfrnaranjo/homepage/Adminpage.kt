@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
+import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import com.iglesiabfr.iglesiabfrnaranjo.R
 import com.iglesiabfr.iglesiabfrnaranjo.admin.activities.AdminAct
@@ -13,8 +15,13 @@ import com.iglesiabfr.iglesiabfrnaranjo.admin.adminInventoryMaterial.AdminInvent
 import com.iglesiabfr.iglesiabfrnaranjo.admin.adminLibraryInventory.AdminLibraryInventory
 import com.iglesiabfr.iglesiabfrnaranjo.admin.adminSchoolMaterial.AdminSchoolMaterial
 import com.iglesiabfr.iglesiabfrnaranjo.admin.cults.AdminCult
+import com.iglesiabfr.iglesiabfrnaranjo.admin.emotions.SeeEmotions
 import com.iglesiabfr.iglesiabfrnaranjo.admin.events.AdminEvent
+import com.iglesiabfr.iglesiabfrnaranjo.admin.suggestions.SuggestionsMailbox
 import com.iglesiabfr.iglesiabfrnaranjo.admin.video.AdminVideoAdmin
+import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
+import com.iglesiabfr.iglesiabfrnaranjo.emotions.SendEmotion
+import com.iglesiabfr.iglesiabfrnaranjo.suggestions.SendSuggestion
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,6 +37,8 @@ class Adminpage : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private var popupMenu: PopupMenu? = null
+    private var isSubMenuShowing: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +60,13 @@ class Adminpage : Fragment() {
         val adminSchoolBut : Button = view.findViewById(R.id.AdminSchoolBut)
         val libraryBut : Button = view.findViewById(R.id.LibraryBut)
         val materialBut : Button = view.findViewById(R.id.MaterialInventBut)
+
+        val profBut = view.findViewById<ImageView>(R.id.profBut)
+        profBut.setOnClickListener {
+            if (popupMenu == null || !isSubMenuShowing) {
+                showSubMenu(profBut)
+            }
+        }
 
         eventBut.setOnClickListener {
             val i = Intent(view.context, AdminEvent::class.java)
@@ -88,6 +104,41 @@ class Adminpage : Fragment() {
         }
 
         return view
+    }
+
+    private fun showSubMenu(view: View) {
+        popupMenu = PopupMenu(requireContext(), view)
+        popupMenu!!.menuInflater.inflate(R.menu.submenu_profile, popupMenu!!.menu)
+        popupMenu!!.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.menu_profile -> {
+                    startActivity(Intent(activity, MyProfile::class.java))
+                    true
+                }
+                R.id.menu_emotion_registration -> {
+                    if (DatabaseConnector.getIsAdmin()) {
+                        startActivity(Intent(activity, SeeEmotions::class.java))
+                    } else {
+                        startActivity(Intent(activity, SendEmotion::class.java))
+                    }
+                    true
+                }
+                R.id.menu_suggestion_box -> {
+                    if (DatabaseConnector.getIsAdmin()) {
+                        startActivity(Intent(activity, SuggestionsMailbox::class.java))
+                    } else {
+                        startActivity(Intent(activity, SendSuggestion::class.java))
+                    }
+                    true
+                }
+                else -> false
+            }
+        }
+        popupMenu!!.setOnDismissListener {
+            isSubMenuShowing = false
+        }
+        popupMenu!!.show()
+        isSubMenuShowing = true
     }
 
     companion object {

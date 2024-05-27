@@ -28,14 +28,14 @@ class MarkAttendanceCults : AppCompatActivity() {
     private lateinit var binding1: ActivityEventCultBinding
     private lateinit var adapter: EventCultAdapter
     private val llmanager = LinearLayoutManager(this)
-
-    private lateinit var eventId: ObjectId
+    private var currentBinding = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAttendanceCultsBinding.inflate(layoutInflater)
         binding1 = ActivityEventCultBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(binding1.root)
+        currentBinding = 0
 
         // Initialize Realm
         val config = RealmConfiguration.Builder(schema = setOf(AttendanceCults::class))
@@ -56,6 +56,7 @@ class MarkAttendanceCults : AppCompatActivity() {
         binding1.btnAddPersonsPresentCult.setOnClickListener {
             // Set content view to binding1 after adding new person
             setContentView(binding.root)
+            currentBinding = 1
         }
 
         realm = DatabaseConnector.db
@@ -65,18 +66,21 @@ class MarkAttendanceCults : AppCompatActivity() {
             markAttendanceCult(cult)
         }
 
-        binding.backAttendanceCultBtn.setOnClickListener {
-            setContentView(binding1.root)
-            loadAttendancesCults() // Asegúrate de cargar a las personas presentes al volver
-        }
-
         initRecyclerView()
         loadAttendancesCults() // Cargar a las personas presentes al inicio
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        realm.close()
+    @Deprecated("Deprecated in Java",
+        ReplaceWith("super.onBackPressed()", "androidx.appcompat.app.AppCompatActivity")
+    )
+    override fun onBackPressed() {
+        if(currentBinding == 1) {
+            currentBinding = 0
+            setContentView(binding1.root)
+            loadAttendancesCults()
+            return
+        }
+        super.onBackPressed()
     }
 
     // Método para registrar asistencia a los eventos
@@ -152,25 +156,11 @@ class MarkAttendanceCults : AppCompatActivity() {
 
     private fun initRecyclerView(){
         adapter = EventCultAdapter(
-            onClickListener = { attendanceCults: AttendanceCults -> onItemSelected(attendanceCults) },
+            onClickListener = null,
             onClickDelete = { position: Int -> onDeletedItem(position) }
         )
         binding1.recyclerEventsCults.layoutManager = llmanager
         binding1.recyclerEventsCults.adapter = adapter
-    }
-
-    private fun onItemSelected(attendanceCults: AttendanceCults) {
-        val url = attendanceCults.namePerson
-        if (url.isNotEmpty()) {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-            try {
-                startActivity(intent)
-            } catch (e: Exception) {
-                Toast.makeText(this, "No se pudo abrir el video. URL inválida.", Toast.LENGTH_SHORT).show()
-            }
-        } else {
-            Toast.makeText(this, "URL del video no válida.", Toast.LENGTH_SHORT).show()
-        }
     }
 
     private fun onDeletedItem(position: Int) {

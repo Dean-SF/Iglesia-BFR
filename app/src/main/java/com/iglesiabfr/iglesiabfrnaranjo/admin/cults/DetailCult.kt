@@ -141,7 +141,7 @@ class DetailCult : AppCompatActivity() {
             confirmDialog.confirmation(getString(R.string.cultAttendanceCultBut))
                 .setOnConfirmationListener {
                     val i = Intent(this, MarkAttendanceCults::class.java)
-                    i.putExtra("object_id", cult._id.toString())
+                    i.putExtra("object_id", cult._id.toHexString())
                     launcher.launch(i)
                 }
         }
