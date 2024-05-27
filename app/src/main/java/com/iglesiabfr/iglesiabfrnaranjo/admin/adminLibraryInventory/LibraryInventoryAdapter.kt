@@ -8,6 +8,7 @@ import com.iglesiabfr.iglesiabfrnaranjo.schema.LibraryInventory
 
 class LibraryInventoryAdapter(
     private val onClickListener: ((LibraryInventory) -> Unit)?,
+    private val onClickUpdate: (LibraryInventory) -> Unit,
     private val onClickDelete:(Int) -> Unit
 ): RecyclerView.Adapter<LibraryInventoryViewHolder>() {
 
@@ -30,7 +31,7 @@ class LibraryInventoryAdapter(
 
     override fun onBindViewHolder(holder: LibraryInventoryViewHolder, position: Int) {
         val item = inventaryLibraryList[position]
-        holder.render(item, onClickListener, onClickDelete)
+        holder.render(item, onClickListener, onClickUpdate, onClickDelete)
     }
 
     override fun getItemCount(): Int = inventaryLibraryList.size

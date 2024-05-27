@@ -46,6 +46,7 @@ class AdminEvent : AppCompatActivity() {
             .build()
         realm = Realm.open(config)
 
+        // Initialize loading dialog
         loadingDialog = LoadingDialog(this)
 
         val searchInput : EditText = findViewById(R.id.searchinput)
@@ -108,7 +109,7 @@ class AdminEvent : AppCompatActivity() {
     private fun loadEvents() {
         val startIndex = events.size
         val searchInput : TextView = findViewById(R.id.searchinput)
-        val eventsFound  = if (key == null && searchInput.text.isEmpty()) {
+        val eventsFound = if (key == null && searchInput.text.isEmpty()) {
             DatabaseConnector.db.query<Event>().sort("_id").limit(14).find()
         } else if (key == null){
             DatabaseConnector.db.query<Event>("name CONTAINS[c] $0",searchInput.text.toString()).sort("_id").limit(14).find()

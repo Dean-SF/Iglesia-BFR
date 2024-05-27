@@ -14,6 +14,7 @@ class VideoViewHolder(view: View, private val showDeleteButton: Boolean) : Recyc
     fun render(
         videoModel: Video,
         onClickListener: (Video) -> Unit,
+        onClickUpdate: (Video) -> Unit,
         onClickDelete: (Int) -> Unit = {}
     ) {
         binding.tvTitulo.text = videoModel.title
@@ -31,11 +32,16 @@ class VideoViewHolder(view: View, private val showDeleteButton: Boolean) : Recyc
 
         itemView.setOnClickListener { onClickListener(videoModel) }
 
-        if (showDeleteButton) {
-            binding.btnDelete.visibility = View.VISIBLE
-            binding.btnDelete.setOnClickListener { onClickDelete?.invoke(absoluteAdapterPosition) }
-        } else {
-            binding.btnDelete.visibility = View.GONE
+        binding.btnUpdate.setOnClickListener {
+            onClickUpdate(videoModel)
+        }
+
+        binding.btnDelete.setOnClickListener {
+            onClickDelete(absoluteAdapterPosition)
+        }
+
+        binding.root.setOnClickListener {
+            onClickListener?.invoke(videoModel)
         }
     }
 

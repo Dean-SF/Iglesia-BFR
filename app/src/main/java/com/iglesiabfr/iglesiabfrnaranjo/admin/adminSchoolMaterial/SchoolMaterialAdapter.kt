@@ -8,6 +8,7 @@ import com.iglesiabfr.iglesiabfrnaranjo.schema.SchoolMaterial
 
 class SchoolMaterialAdapter(
     private val onClickListener: ((SchoolMaterial) -> Unit)?,
+    private val onClickUpdate: (SchoolMaterial) -> Unit,
     private val onClickDelete:(Int) -> Unit
 ): RecyclerView.Adapter<SchoolMaterialViewHolder>() {
 
@@ -29,7 +30,7 @@ class SchoolMaterialAdapter(
 
     override fun onBindViewHolder(holder: SchoolMaterialViewHolder, position: Int) {
         val item = schoolMaterialList[position]
-        holder.render(item, onClickListener, onClickDelete)
+        holder.render(item, onClickListener, onClickUpdate, onClickDelete)
     }
 
     override fun getItemCount(): Int = schoolMaterialList.size

@@ -400,5 +400,9 @@
 
     // materiales
     <string name="addNewMaterial">Añadir Material</string>
+    <string name="Actualizar">Actualizar</string>
+    <string name="Eliminar">Eliminar</string>
+    <string name="Eliminate">Eliminar</string>
+    <string name="eliminate">Eliminar</string>
 
 </resources>

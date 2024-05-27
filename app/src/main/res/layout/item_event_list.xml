@@ -28,7 +28,7 @@
                 android:layout_below="@+id/tvTitleNamePerson"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginStart="19dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="21dp"
                 android:textAlignment="center"
@@ -44,26 +44,40 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="25dp"
-                android:layout_marginEnd="173dp"
+                android:layout_marginEnd="20dp"
                 android:text="@string/namePerson"
                 android:textAlignment="center"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/btnDelete"
-                android:layout_width="124dp"
-                android:layout_height="41dp"
+                android:id="@+id/btnUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/tvName"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginStart="100dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="100dp"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="80dp"
+                android:layout_marginBottom="25dp"
+                android:backgroundTint="@color/blue"
+                android:text="@string/Actualizar" />
+
+            <Button
+                android:id="@+id/btnDelete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvName"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="90dp"
+                android:layout_marginEnd="80dp"
                 android:layout_marginBottom="25dp"
                 android:backgroundTint="@color/red"
-                android:text="Eliminar"
-                tools:text="Eliminar" />
+                android:text="@string/eliminate" />
+
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>

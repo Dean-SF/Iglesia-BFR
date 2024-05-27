@@ -8,6 +8,7 @@ import com.iglesiabfr.iglesiabfrnaranjo.schema.InventoryMaterial
 
 class InventoryMaterialAdapter(
     private val onClickListener: ((InventoryMaterial) -> Unit)?,
+    private val onClickUpdate: (InventoryMaterial) -> Unit,
     private val onClickDelete:(Int) -> Unit
 ): RecyclerView.Adapter<InventoryMaterialViewHolder>() {
 
@@ -29,11 +30,8 @@ class InventoryMaterialAdapter(
 
     override fun onBindViewHolder(holder: InventoryMaterialViewHolder, position: Int) {
         val item = inventoryMaterialList[position]
-        holder.render(item, onClickListener, onClickDelete)
+        holder.render(item, onClickListener, onClickUpdate, onClickDelete)
     }
 
     override fun getItemCount(): Int = inventoryMaterialList.size
 }
-
-
-

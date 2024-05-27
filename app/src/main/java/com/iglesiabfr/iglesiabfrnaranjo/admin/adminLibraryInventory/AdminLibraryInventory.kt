@@ -20,8 +20,10 @@ class AdminLibraryInventory : AppCompatActivity() {
     private lateinit var binding: ActivityAddInventoryAdminBinding
     private lateinit var binding1: ActivityInventoryAdminBinding
     private lateinit var adapter: LibraryInventoryAdapter
-    private var currentBinding = 0
     private val llmanager = LinearLayoutManager(this)
+    private var currentBinding = 0
+    private lateinit var currentLibraryInventory: LibraryInventory
+    private var isUpdating = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +41,7 @@ class AdminLibraryInventory : AppCompatActivity() {
         }
 
         binding.btnAddInventaryLibrary.setOnClickListener {
-            createLibraryInventory()
+            createOrUpdateLibraryInventory()
         }
 
         initRecyclerView()
@@ -59,7 +61,7 @@ class AdminLibraryInventory : AppCompatActivity() {
         super.onBackPressed()
     }
 
-    private fun createLibraryInventory() {
+    private fun createOrUpdateLibraryInventory() {
         val title = binding.etTitle.text.toString()
         val name = binding.etName.text.toString()
         val quantityStr = binding.etQuantity.text.toString()
@@ -69,14 +71,19 @@ class AdminLibraryInventory : AppCompatActivity() {
             val quantity = quantityStr.toInt()
             val price = priceStr.toDouble()
 
-            val libraryInventory = LibraryInventory().apply {
-                this.title = title
-                this.name = name
-                this.quantity = quantity
-                this.price = price
-            }
+            if (isUpdating) {
+                // Actualizar material existente
+                updateLibraryInventoryFromDatabase(currentLibraryInventory, title, name, quantity, price)
+            } else {
+                val newLibraryInventory = LibraryInventory().apply {
+                    this.title = title
+                    this.name = name
+                    this.quantity = quantity
+                    this.price = price
+                }
 
-            saveLibraryInventoryToDatabase(libraryInventory)
+                saveLibraryInventoryToDatabase(newLibraryInventory)
+            }
 
             // Limpiar los EditText después de agregar el libro
             binding.etTitle.text.clear()
@@ -84,6 +91,11 @@ class AdminLibraryInventory : AppCompatActivity() {
             binding.etQuantity.text.clear()
             binding.etPrice.text.clear()
 
+            // Cambiar a la vista principal
+            setContentView(binding1.root)
+            currentBinding = 0
+            binding.btnAddInventaryLibrary.setText("Guardar") // Reset the button text
+            isUpdating = false // Resetear el estado de actualización
         } else {
             Toast.makeText(this, "Por favor complete todos los campos", Toast.LENGTH_SHORT).show()
         }
@@ -98,8 +110,34 @@ class AdminLibraryInventory : AppCompatActivity() {
             }.onSuccess {
                 loadLibraryInventory() // Recargar videos después de agregar
                 Toast.makeText(this@AdminLibraryInventory, "Libro guardado correctamente", Toast.LENGTH_SHORT).show()
+                setContentView(binding1.root) // Cambiar a la vista principal
+                currentBinding = 0
             }.onFailure {
                 Toast.makeText(this@AdminLibraryInventory, "Error al guardar el Libro", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun updateLibraryInventoryFromDatabase(libraryInventory: LibraryInventory, title: String, name: String, quantity: Int, price: Double) {
+        lifecycleScope.launch {
+            runCatching {
+                realm.write {
+                    findLatest(libraryInventory)?.apply {
+                        this.title = title
+                        this.name = name
+                        this.quantity = quantity
+                        this.price = price
+                    }
+                }
+            }.onSuccess {
+                withContext(Dispatchers.Main) {
+                    loadLibraryInventory() // Recargar materiales después de actualizar
+                    Toast.makeText(this@AdminLibraryInventory, "Libro actualizado correctamente", Toast.LENGTH_SHORT).show()
+                }
+            }.onFailure {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@AdminLibraryInventory, "Error al actualizar el libro", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
@@ -134,18 +172,40 @@ class AdminLibraryInventory : AppCompatActivity() {
         }
     }
 
+    private fun onItemSelected(libraryInventory: LibraryInventory) {
+        currentLibraryInventory = libraryInventory
+        binding.etTitle.setText(libraryInventory.title)
+        binding.etName.setText(libraryInventory.title)
+        binding.etQuantity.setText(libraryInventory.quantity.toString())
+        binding.etPrice.setText(libraryInventory.price.toString())
+
+        setContentView(binding.root)
+        currentBinding = 1
+    }
+
     private fun initRecyclerView(){
         adapter = LibraryInventoryAdapter(
             onClickListener = null,
+            /*onClickListener = { libraryInventory: LibraryInventory ->
+                onItemSelected(libraryInventory) },*/
+            onClickUpdate = { libraryInventory ->
+                // Switch to the update view and populate fields
+                setContentView(binding.root)
+                currentBinding = 1
+                binding.etTitle.setText(libraryInventory.title)
+                binding.etName.setText(libraryInventory.title)
+                binding.etQuantity.setText(libraryInventory.quantity.toString())
+                binding.etPrice.setText(libraryInventory.price.toString())
+                binding.btnAddInventaryLibrary.setText("Actualizar")
+                isUpdating = true
+                currentLibraryInventory = libraryInventory
+            },
             onClickDelete = { position: Int -> onDeletedItem(position) }
         )
         binding1.recyclerinventaryLibrary.layoutManager = llmanager
         binding1.recyclerinventaryLibrary.adapter = adapter
     }
 
-    private fun onItemSelected(libraryInventory: LibraryInventory) {
-        Toast.makeText(this, libraryInventory.name, Toast.LENGTH_SHORT).show()
-    }
 
     private fun onDeletedItem(position: Int) {
         val libraryInventory = adapter.currentList[position]

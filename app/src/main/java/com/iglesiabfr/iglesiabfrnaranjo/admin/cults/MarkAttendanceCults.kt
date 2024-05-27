@@ -1,7 +1,5 @@
 package com.iglesiabfr.iglesiabfrnaranjo.admin.cults
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -29,6 +27,7 @@ class MarkAttendanceCults : AppCompatActivity() {
     private lateinit var adapter: EventCultAdapter
     private val llmanager = LinearLayoutManager(this)
     private var currentBinding = 0
+    private lateinit var cultId: ObjectId
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +43,7 @@ class MarkAttendanceCults : AppCompatActivity() {
         realm = Realm.open(config)
 
         val objectId = ObjectId(intent.getStringExtra("object_id")!!)
-
+        cultId = objectId
         val cultQuery = DatabaseConnector.db.query<Cult>("_id == $0",objectId).find()
         if(cultQuery.isEmpty()) {
             Toast.makeText(this,getString(R.string.eventCultNotFound),Toast.LENGTH_SHORT).show()
@@ -147,7 +146,7 @@ class MarkAttendanceCults : AppCompatActivity() {
 
     private fun loadAttendancesCults() {
         lifecycleScope.launch(Dispatchers.IO) {
-            val attendancesCults = realm.query<AttendanceCults>().find()
+            val attendancesCults = realm.query<AttendanceCults>("eventId == $0", cultId).find()
             withContext(Dispatchers.Main) {
                 adapter.submitList(attendancesCults)
             }

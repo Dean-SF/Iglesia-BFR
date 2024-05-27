@@ -52,7 +52,7 @@ class AdminCult : AppCompatActivity() {
         val searchInput : EditText = findViewById(R.id.searchinput)
 
         // Initialize views
-        val createButt: Button = findViewById(R.id.createAdminCultBut)
+        val createButt : Button = findViewById(R.id.createAdminCultBut)
         recyclerView = findViewById(R.id.cultlist)
 
         // Setup RecyclerView
@@ -122,6 +122,7 @@ class AdminCult : AppCompatActivity() {
         } else  {
             DatabaseConnector.db.query<Cult>("_id > $0",key).sort("_id").limit(14).find()
         }
+
         if (cultsFound.isNotEmpty()) key = cultsFound[cultsFound.size-1]._id
         else {
             return

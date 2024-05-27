@@ -16,6 +16,7 @@ class SchoolMaterialViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     fun render(
         schoolMaterialModel: SchoolMaterial,
         onClickListener: ((SchoolMaterial) -> Unit)?,
+        onClickUpdate: (SchoolMaterial) -> Unit,
         onClickDelete: (Int) -> Unit
     ) {
         val initial = LocalDateTime.ofEpochSecond(schoolMaterialModel.initialMonth.epochSeconds, 0, ZoneOffset.UTC)
@@ -25,7 +26,16 @@ class SchoolMaterialViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         binding.etInitialMonth.text = initial.format(formatter)
         binding.etFinalMonth.text = final.format(formatter)
 
-        itemView.setOnClickListener { onClickListener?.invoke(schoolMaterialModel) }
-        binding.btnDelete.setOnClickListener { onClickDelete(absoluteAdapterPosition) }
+        binding.btnUpdate.setOnClickListener {
+            onClickUpdate(schoolMaterialModel)
+        }
+
+        binding.btnDelete.setOnClickListener {
+            onClickDelete(absoluteAdapterPosition)
+        }
+
+        binding.root.setOnClickListener {
+            onClickListener?.invoke(schoolMaterialModel)
+        }
     }
 }

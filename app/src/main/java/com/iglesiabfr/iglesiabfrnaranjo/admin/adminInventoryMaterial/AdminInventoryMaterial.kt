@@ -1,6 +1,5 @@
 package com.iglesiabfr.iglesiabfrnaranjo.admin.adminInventoryMaterial
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -9,14 +8,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
 import com.iglesiabfr.iglesiabfrnaranjo.databinding.ActivityAddInventoryMaterialAdminBinding
 import com.iglesiabfr.iglesiabfrnaranjo.databinding.ActivityInventoryMaterialAdminBinding
-import com.iglesiabfr.iglesiabfrnaranjo.homepage.Homepage
 import com.iglesiabfr.iglesiabfrnaranjo.schema.InventoryMaterial
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.mongodb.kbson.ObjectId
 
 class AdminInventoryMaterial : AppCompatActivity() {
     private lateinit var realm : Realm
@@ -25,6 +22,8 @@ class AdminInventoryMaterial : AppCompatActivity() {
     private lateinit var adapter: InventoryMaterialAdapter
     private val llmanager = LinearLayoutManager(this)
     private var currentBinding = 0
+    private lateinit var currentInventoryMaterial: InventoryMaterial
+    private var isUpdating = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +41,7 @@ class AdminInventoryMaterial : AppCompatActivity() {
         }
 
         binding.btnSaveInventoryMaterial.setOnClickListener {
-            createInventoryMaterial()
+            createOrUpdateInventoryMaterial()
         }
 
         initRecyclerView()
@@ -62,7 +61,7 @@ class AdminInventoryMaterial : AppCompatActivity() {
         super.onBackPressed()
     }
 
-    private fun createInventoryMaterial() {
+    private fun createOrUpdateInventoryMaterial() {
         val name = binding.etName.text.toString()
         val quantityStr = binding.etQuantity.text.toString()
         val type = binding.etPrice.text.toString()
@@ -70,19 +69,29 @@ class AdminInventoryMaterial : AppCompatActivity() {
         if (name.isNotEmpty() && quantityStr.isNotEmpty() && type.isNotEmpty()) {
             val quantity = quantityStr.toInt()
 
-            val inventoryMaterial = InventoryMaterial().apply {
-                this.name = name
-                this.quantity = quantity
-                this.type = type
+            if (isUpdating) {
+                // Actualizar material existente
+                updateInventoryMaterialFromDatabase(currentInventoryMaterial, name, quantity, type)
+            } else {
+                // Crear nuevo material
+                val newInventoryMaterial = InventoryMaterial().apply {
+                    this.name = name
+                    this.quantity = quantity
+                    this.type = type
+                }
+                saveInventoryMaterialToDatabase(newInventoryMaterial)
             }
 
-            saveInventoryMaterialToDatabase(inventoryMaterial)
-
-            // Limpiar los EditText después de agregar los materiales
+            // Limpiar el formulario
             binding.etName.text.clear()
             binding.etQuantity.text.clear()
             binding.etPrice.text.clear()
 
+            // Cambiar a la vista principal
+            setContentView(binding1.root)
+            currentBinding = 0
+            binding.btnSaveInventoryMaterial.setText("Guardar") // Reset the button text
+            isUpdating = false // Resetear el estado de actualización
         } else {
             Toast.makeText(this, "Por favor complete todos los campos", Toast.LENGTH_SHORT).show()
         }
@@ -97,8 +106,33 @@ class AdminInventoryMaterial : AppCompatActivity() {
             }.onSuccess {
                 loadInventoryMaterial() // Recargar materiales después de agregar
                 Toast.makeText(this@AdminInventoryMaterial, "Material guardado correctamente", Toast.LENGTH_SHORT).show()
+                setContentView(binding1.root) // Cambiar a la vista principal
+                currentBinding = 0
             }.onFailure {
                 Toast.makeText(this@AdminInventoryMaterial, "Error al guardar el material", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun updateInventoryMaterialFromDatabase(inventoryMaterial: InventoryMaterial, name: String, quantity: Int, type: String) {
+        lifecycleScope.launch {
+            runCatching {
+                realm.write {
+                    findLatest(inventoryMaterial)?.apply {
+                        this.name = name
+                        this.quantity = quantity
+                        this.type = type
+                    }
+                }
+            }.onSuccess {
+                withContext(Dispatchers.Main) {
+                    loadInventoryMaterial() // Recargar materiales después de actualizar
+                    Toast.makeText(this@AdminInventoryMaterial, "Material actualizado correctamente", Toast.LENGTH_SHORT).show()
+                }
+            }.onFailure {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@AdminInventoryMaterial, "Error al actualizar el material", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
@@ -114,7 +148,11 @@ class AdminInventoryMaterial : AppCompatActivity() {
             }.onSuccess {
                 withContext(Dispatchers.Main) {
                     loadInventoryMaterial() // Recargar videos después de eliminar
-                    Toast.makeText(this@AdminInventoryMaterial, "Material eliminado correctamente", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@AdminInventoryMaterial,
+                        "Material eliminado correctamente",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }.onFailure {
                 withContext(Dispatchers.Main) {
@@ -133,9 +171,32 @@ class AdminInventoryMaterial : AppCompatActivity() {
         }
     }
 
+    private fun onItemSelected(inventoryMaterial: InventoryMaterial) {
+        currentInventoryMaterial = inventoryMaterial
+        binding.etName.setText(inventoryMaterial.name)
+        binding.etQuantity.setText(inventoryMaterial.quantity.toString())
+        binding.etPrice.setText(inventoryMaterial.type)
+
+        setContentView(binding.root)
+        currentBinding = 1
+    }
+
     private fun initRecyclerView(){
         adapter = InventoryMaterialAdapter(
             onClickListener = null,
+            /*onClickListener = { inventoryMaterial: InventoryMaterial ->
+                onItemSelected(inventoryMaterial) },*/
+            onClickUpdate = { inventoryMaterial ->
+                // Switch to the update view and populate fields
+                setContentView(binding.root)
+                currentBinding = 1
+                binding.etName.setText(inventoryMaterial.name)
+                binding.etQuantity.setText(inventoryMaterial.quantity.toString())
+                binding.etPrice.setText(inventoryMaterial.type)
+                binding.btnSaveInventoryMaterial.setText("Actualizar")
+                isUpdating = true
+                currentInventoryMaterial = inventoryMaterial
+            },
             onClickDelete = { position: Int -> onDeletedItem(position) }
         )
         binding1.recyclerInventoryMaterial.layoutManager = llmanager

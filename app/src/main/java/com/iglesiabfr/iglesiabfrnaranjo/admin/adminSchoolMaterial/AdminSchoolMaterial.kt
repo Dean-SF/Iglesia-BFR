@@ -1,6 +1,5 @@
 package com.iglesiabfr.iglesiabfrnaranjo.admin.adminSchoolMaterial
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.MotionEvent
 import android.widget.ImageButton
@@ -33,8 +32,10 @@ class AdminSchoolMaterial : AppCompatActivity() {
     private lateinit var binding: ActivityAddSchoolMaterialAdminBinding
     private lateinit var binding1: ActivitySchoolMaterialAdminBinding
     private lateinit var adapter: SchoolMaterialAdapter
-    private var currentBinding = 0
     private val llmanager = LinearLayoutManager(this)
+    private var currentBinding = 0
+    private lateinit var currentSchoolMaterial: SchoolMaterial
+    private var isUpdating = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -104,7 +105,7 @@ class AdminSchoolMaterial : AppCompatActivity() {
         }
 
         binding.btnAddSchoolMaterial.setOnClickListener {
-            createSchoolMaterial()
+            createOrUpdateSchoolMaterial()
         }
 
         initRecyclerView()
@@ -124,7 +125,7 @@ class AdminSchoolMaterial : AppCompatActivity() {
         super.onBackPressed()
     }
 
-    private fun createSchoolMaterial() {
+    private fun createOrUpdateSchoolMaterial() {
         val teacherName = binding.etTeacherName.text.toString()
         val clase = binding.etClase.text.toString()
         val initialMonthStr = binding.fechaStartMaterialSchoolinput.text.toString()
@@ -136,16 +137,24 @@ class AdminSchoolMaterial : AppCompatActivity() {
             val initialMonth = LocalDate.parse(initialMonthStr, formatter).atStartOfDay()
             val finalMonth = LocalDate.parse(finalMonthStr, formatter).atStartOfDay()
 
-            if (teacherName.isNotEmpty() && clase.isNotEmpty() && initialMonthStr.isNotEmpty() && finalMonthStr.isNotEmpty()) {
-                val schoolMaterial = SchoolMaterial().apply {
-                    this.teacherName = teacherName
-                    this.clase = clase
-                    this.initialMonth = RealmInstant.from(initialMonth.toEpochSecond(ZoneOffset.UTC), 0)
-                    this.finalMonth = RealmInstant.from(finalMonth.toEpochSecond(ZoneOffset.UTC), 0)
-                }
+            val initialMonthD = RealmInstant.from(initialMonth.toEpochSecond(ZoneOffset.UTC), 0)
+            val finalMonthD = RealmInstant.from(finalMonth.toEpochSecond(ZoneOffset.UTC), 0)
 
-                // Luego de crear el objeto Video, lo guardamos en la base de datos
-                saveSchoolMaterialToDatabase(schoolMaterial)
+            if (teacherName.isNotEmpty() && clase.isNotEmpty() && initialMonthStr.isNotEmpty() && finalMonthStr.isNotEmpty()) {
+                if (isUpdating) {
+                    // Actualizar material existente
+                    updateSchoolMaterialFromDatabase(currentSchoolMaterial, teacherName, clase, initialMonthD, finalMonthD)
+                } else {
+                    val newSchoolMaterial = SchoolMaterial().apply {
+                        this.teacherName = teacherName
+                        this.clase = clase
+                        this.initialMonth = initialMonthD
+                        this.finalMonth = finalMonthD
+                    }
+
+                    // Luego de crear el objeto Video, lo guardamos en la base de datos
+                    saveSchoolMaterialToDatabase(newSchoolMaterial)
+                }
 
                 // Limpiar los EditText después de agregar el libro
                 binding.etTeacherName.text.clear()
@@ -153,6 +162,11 @@ class AdminSchoolMaterial : AppCompatActivity() {
                 binding.fechaStartMaterialSchoolinput.text.clear()
                 binding.fechaFinalMaterialSchoolinput.text.clear()
 
+                // Cambiar a la vista principal
+                setContentView(binding1.root)
+                currentBinding = 0
+                binding.btnAddSchoolMaterial.setText("Guardar") // Reset the button text
+                isUpdating = false // Resetear el estado de actualización
             } else {
                 Toast.makeText(this, "Por favor complete todos los campos", Toast.LENGTH_SHORT).show()
             }
@@ -170,8 +184,36 @@ class AdminSchoolMaterial : AppCompatActivity() {
             }.onSuccess {
                 loadSchoolMaterial() // Recargar videos después de agregar
                 Toast.makeText(this@AdminSchoolMaterial, "Profesor guardado correctamente", Toast.LENGTH_SHORT).show()
+                setContentView(binding1.root) // Cambiar a la vista principal
+                currentBinding = 0
             }.onFailure {
                 Toast.makeText(this@AdminSchoolMaterial, "Error al guardar el profesor", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun updateSchoolMaterialFromDatabase(schoolMaterial: SchoolMaterial, teacher: String, clase: String, initialMonth:  RealmInstant, finalMonth:  RealmInstant) {
+        //val initialMonth = RealmInstant.from(initialMonth.toEpochSecond(ZoneOffset.UTC), 0)
+        //val finalMonth = RealmInstant.from(finalMonth.toEpochSecond(ZoneOffset.UTC), 0)
+        lifecycleScope.launch {
+            runCatching {
+                realm.write {
+                    findLatest(schoolMaterial)?.apply {
+                        this.teacherName = teacher
+                        this.clase = clase
+                        this.initialMonth = initialMonth
+                        this.finalMonth = finalMonth
+                    }
+                }
+            }.onSuccess {
+                withContext(Dispatchers.Main) {
+                    loadSchoolMaterial() // Recargar profesores después de actualizar
+                    Toast.makeText(this@AdminSchoolMaterial, "Profesor actualizado correctamente", Toast.LENGTH_SHORT).show()
+                }
+            }.onFailure {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@AdminSchoolMaterial, "Error al actualizar el profesor", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
@@ -185,8 +227,14 @@ class AdminSchoolMaterial : AppCompatActivity() {
                     }
                 }
             }.onSuccess {
-                loadSchoolMaterial() // Recargar videos después de eliminar
-                Toast.makeText(this@AdminSchoolMaterial, "Profesor eliminado correctamente", Toast.LENGTH_SHORT).show()
+                withContext(Dispatchers.Main) {
+                    loadSchoolMaterial() // Recargar videos después de eliminar
+                    Toast.makeText(
+                        this@AdminSchoolMaterial,
+                        "Profesor eliminado correctamente",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }.onFailure {
                 Toast.makeText(this@AdminSchoolMaterial, "Error al eliminar el profesor", Toast.LENGTH_SHORT).show()
             }
@@ -202,17 +250,38 @@ class AdminSchoolMaterial : AppCompatActivity() {
         }
     }
 
+    private fun onItemSelected(schoolMaterial: SchoolMaterial) {
+        currentSchoolMaterial = schoolMaterial
+        binding.etTeacherName.setText(schoolMaterial.teacherName)
+        binding.etClase.setText(schoolMaterial.clase)
+        binding.fechaStartMaterialSchoolinput.setText(schoolMaterial.initialMonth.toString())
+        binding.fechaFinalMaterialSchoolinput.setText(schoolMaterial.finalMonth.toString())
+
+        setContentView(binding.root)
+        currentBinding = 1
+    }
+
     private fun initRecyclerView(){
         adapter = SchoolMaterialAdapter(
             onClickListener = null,
+            /*onClickListener ={ schoolMaterial: SchoolMaterial ->
+                onItemSelected(schoolMaterial) },*/
+            onClickUpdate = { schoolMaterial ->
+                // Switch to the update view and populate fields
+                setContentView(binding.root)
+                currentBinding = 1
+                binding.etTeacherName.setText(schoolMaterial.teacherName)
+                binding.etClase.setText(schoolMaterial.clase)
+                binding.fechaStartMaterialSchoolinput.setText(schoolMaterial.initialMonth.toString())
+                binding.fechaFinalMaterialSchoolinput.setText(schoolMaterial.finalMonth.toString())
+                binding.btnAddSchoolMaterial.setText("Actualizar")
+                isUpdating = true
+                currentSchoolMaterial = schoolMaterial
+            },
             onClickDelete = { position: Int -> onDeletedItem(position) }
         )
         binding1.recyclerSchoolMaterial.layoutManager = llmanager
         binding1.recyclerSchoolMaterial.adapter = adapter
-    }
-
-    private fun onItemSelected(schoolMaterial: SchoolMaterial) {
-        Toast.makeText(this, schoolMaterial.teacherName, Toast.LENGTH_SHORT).show()
     }
 
     private fun onDeletedItem(position: Int) {
