@@ -35,7 +35,6 @@ class AdminSchoolMaterial : AppCompatActivity() {
     private var currentBinding = 0
     private val llmanager = LinearLayoutManager(this)
 
-    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddSchoolMaterialAdminBinding.inflate(layoutInflater)
@@ -131,7 +130,6 @@ class AdminSchoolMaterial : AppCompatActivity() {
         val finalMonthStr = binding.fechaFinalMaterialSchoolinput.text.toString()
 
         val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
-
 
         try {
             val initialMonth = LocalDate.parse(initialMonthStr, formatter).atStartOfDay()

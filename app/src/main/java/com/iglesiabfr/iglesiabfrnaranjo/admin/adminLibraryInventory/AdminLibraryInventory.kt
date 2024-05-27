@@ -104,7 +104,7 @@ class AdminLibraryInventory : AppCompatActivity() {
         }
     }
 
-    private fun deleteVideoFromDatabase(libraryInventory: LibraryInventory) {
+    private fun deleteLibraryInventoryFromDatabase(libraryInventory: LibraryInventory) {
         lifecycleScope.launch {
             runCatching {
                 realm.write {
@@ -149,7 +149,7 @@ class AdminLibraryInventory : AppCompatActivity() {
 
     private fun onDeletedItem(position: Int) {
         val libraryInventory = adapter.currentList[position]
-        deleteVideoFromDatabase(libraryInventory)
+        deleteLibraryInventoryFromDatabase(libraryInventory)
         adapter.notifyItemRemoved(position)
     }
 }
