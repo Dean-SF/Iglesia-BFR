@@ -7,7 +7,7 @@ import com.iglesiabfr.iglesiabfrnaranjo.R
 import com.iglesiabfr.iglesiabfrnaranjo.schema.LibraryInventory
 
 class LibraryInventoryAdapter(
-    private val onClickListener: (LibraryInventory) -> Unit,
+    private val onClickListener: ((LibraryInventory) -> Unit)?,
     private val onClickDelete:(Int) -> Unit
 ): RecyclerView.Adapter<LibraryInventoryViewHolder>() {
 

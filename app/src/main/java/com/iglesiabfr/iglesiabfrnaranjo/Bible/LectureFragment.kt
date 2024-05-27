@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import com.iglesiabfr.iglesiabfrnaranjo.CustomSpinnerAdapter
 import com.iglesiabfr.iglesiabfrnaranjo.R
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
+import com.iglesiabfr.iglesiabfrnaranjo.dialogs.LoadingDialog
 import com.iglesiabfr.iglesiabfrnaranjo.schema.FavVerse
 import okhttp3.Call
 import okhttp3.Callback
@@ -30,6 +31,7 @@ class LectureFragment : Fragment() {
     private var actualChapter = 1
     private var email = ""
     private lateinit var chapterSpinner: Spinner
+    private lateinit var loadingDialog : LoadingDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +45,7 @@ class LectureFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         email = DatabaseConnector.email
+        loadingDialog.startLoading()
         fetchVerses()
         val nextBtn = view.findViewById<Button>(R.id.nextBtn)
         val favBtn = view.findViewById<Button>(R.id.favBtn)
@@ -60,6 +63,7 @@ class LectureFragment : Fragment() {
         chapterSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 actualChapter = position + 1
+                loadingDialog.startLoading()
                 fetchVerses()
             }
 
@@ -81,8 +85,9 @@ class LectureFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_lecture, container, false)
+        val view = inflater.inflate(R.layout.fragment_lecture, container, false)
+        loadingDialog = LoadingDialog(view.context)
+        return view
     }
 
     private fun fetchVerses() {
@@ -96,10 +101,11 @@ class LectureFragment : Fragment() {
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: okhttp3.Call, e: IOException) {
                 // Handle error
+                loadingDialog.stopLoading()
             }
 
             override fun onResponse(call: Call, response: Response) {
-                requireActivity().runOnUiThread {
+                activity?.runOnUiThread {
                     val verseText = view?.findViewById<TextView>(R.id.verseText)
                     val json = response.body?.string()
                     if (json != null) {
@@ -117,6 +123,7 @@ class LectureFragment : Fragment() {
                         // Set the chapterText to the verseText view
                         verseText?.append(chapterText)
                         println(chapterText)
+                        loadingDialog.stopLoading()
                     }
                 }
             }
@@ -126,6 +133,7 @@ class LectureFragment : Fragment() {
         val nextPosition = chapterSpinner.selectedItemPosition + 1
         if (nextPosition < chapterSpinner.adapter.count) {
             chapterSpinner.setSelection(nextPosition)
+            loadingDialog.startLoading()
             fetchVerses()
         }
     }
@@ -134,6 +142,7 @@ class LectureFragment : Fragment() {
         val prevPosition = chapterSpinner.selectedItemPosition - 1
         if (prevPosition >= 0) {
             chapterSpinner.setSelection(prevPosition)
+            loadingDialog.startLoading()
             fetchVerses()
         }
     }

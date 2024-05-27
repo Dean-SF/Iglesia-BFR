@@ -44,7 +44,6 @@ class CreateCult : AppCompatActivity() {
 
         val timeBut : ImageButton = findViewById(R.id.timeBut)
         val createBut : Button = findViewById(R.id.CreateCultBut)
-        val backBtn: Button = findViewById(R.id.BackCultBtn)
 
         val timetext : TextView = findViewById(R.id.horainput)
         val nametext : EditText = findViewById(R.id.nameinput)
@@ -107,11 +106,6 @@ class CreateCult : AppCompatActivity() {
 
         createBut.setOnClickListener {
             createCult()
-        }
-
-        backBtn.setOnClickListener {
-            val i = Intent(this, Homepage::class.java)
-            launcher.launch(i)
         }
     }
 

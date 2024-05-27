@@ -389,4 +389,16 @@
     <string name="cultAttendanceBut">¿Seguro que quieres añadir personas presentes a este evento?</string>
     <string name="eventCultNotFound">Culto no encontrado</string>
 
+    // Videos
+    <string name="addNewVideo">Añadir Video</string>
+
+    // libreria
+    <string name="addNewBook">Añadir Libro</string>
+
+    // escuela
+    <string name="addNewSchool">Añadir Profesor</string>
+
+    // materiales
+    <string name="addNewMaterial">Añadir Material</string>
+
 </resources>

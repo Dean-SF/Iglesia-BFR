@@ -28,6 +28,7 @@ class AdminVideoAdmin : AppCompatActivity() {
     private lateinit var binding: ActivityAddVideosAdminBinding
     private lateinit var binding1: ActivityVideosAdminBinding
     private lateinit var adapter: VideoAdapter
+    private var currentBinding = 0
     private val llmanager = LinearLayoutManager(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,25 +36,35 @@ class AdminVideoAdmin : AppCompatActivity() {
         binding = ActivityAddVideosAdminBinding.inflate(layoutInflater)
         binding1 = ActivityVideosAdminBinding.inflate(layoutInflater)
         setContentView(binding1.root)
+        currentBinding = 0
 
         realm = DatabaseConnector.db
 
         binding1.btnAddVideos.setOnClickListener {
             // Set content view to binding after adding video
             setContentView(binding.root)
+            currentBinding = 1
         }
 
         binding.btnAddVideo.setOnClickListener {
             createVideo()
         }
 
-        binding.BackAddVideosAdminButton.setOnClickListener {
-            setContentView(binding1.root)
-            loadVideos() // Asegúrate de cargar los videos al volver
-        }
-
         initRecyclerView()
         loadVideos() // Cargar los videos al inicio
+    }
+
+    @Deprecated("Deprecated in Java",
+        ReplaceWith("super.onBackPressed()", "androidx.appcompat.app.AppCompatActivity")
+    )
+    override fun onBackPressed() {
+        if(currentBinding == 1) {
+            currentBinding = 0
+            setContentView(binding1.root)
+            loadVideos()
+            return
+        }
+        super.onBackPressed()
     }
 
     private fun createVideo() {

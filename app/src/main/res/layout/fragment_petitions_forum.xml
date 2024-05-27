@@ -12,9 +12,13 @@
 
         <ScrollView
             android:id="@+id/folluwupPublications"
-            android:layout_width="387dp"
-            android:layout_height="454dp"
-            android:layout_marginTop="16dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            app:layout_constraintBottom_toTopOf="@+id/addPetitionBtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.461"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,7 +36,7 @@
             android:id="@+id/petitionForumTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/comfortaa_light"
             android:text="@string/petitions_title"
             android:textAlignment="center"
@@ -45,14 +49,16 @@
 
         <Button
             android:id="@+id/addPetitionBtn"
-            android:layout_width="366dp"
+            android:layout_width="0dp"
             android:layout_height="45dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/ripple_soft_rectangle_btn"
             android:backgroundTint="@color/blue"
             android:text="@string/agregar_publicacion"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/folluwupPublications" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

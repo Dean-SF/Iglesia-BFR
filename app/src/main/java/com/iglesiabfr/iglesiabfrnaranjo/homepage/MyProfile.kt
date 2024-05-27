@@ -1,7 +1,9 @@
 package com.iglesiabfr.iglesiabfrnaranjo.homepage
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -17,6 +19,7 @@ import com.iglesiabfr.iglesiabfrnaranjo.schema.UserData
 import io.realm.kotlin.ext.query
 import io.realm.kotlin.mongodb.User
 import kotlinx.coroutines.launch
+import java.io.File
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -88,6 +91,7 @@ class MyProfile : AppCompatActivity() {
             runCatching {
                 user?.logOut()
             }.onSuccess {
+                applicationContext.deleteDataStoreFile("credentials.preferences_pb")
                 val intent = Intent(this@MyProfile, StartingPage::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)
@@ -97,9 +101,28 @@ class MyProfile : AppCompatActivity() {
         }
     }
 
+    private fun Context.deleteDataStoreFile(fileName: String) {
+        val dataStoreDirectory = File("/data/data/com.iglesiabfr.iglesiabfrnaranjo/files/datastore/")
+        if (dataStoreDirectory.exists() && dataStoreDirectory.isDirectory) {
+            val fileList = dataStoreDirectory.listFiles()
+            fileList?.forEach { file ->
+                if (file.name == fileName) {
+                    val deleted = file.delete()
+                    if (deleted) {
+                        Log.d("RememberSession", "El archivo $fileName se eliminó con éxito.")
+                    } else {
+                        Log.d("RememberSession", "No se pudo eliminar el archivo $fileName.")
+                    }
+                    return@forEach
+                }
+            }
+        } else {
+            Log.d("RememberSession", "El directorio de datastore no existe o no es un directorio.")
+        }
+    }
+
     private fun callResetPassword() {
         val intent = Intent(this, ResetPasswordSendEmail::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
     }
 
