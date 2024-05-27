@@ -7,25 +7,26 @@
 
     <TextView
         android:id="@+id/createEventTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_width="353dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:fontFamily="@font/comfortaa_light"
-        android:text="@string/createEventTitle"
+        android:text="@string/personPresentTitle"
         android:textAlignment="center"
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Control de asistencia" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/nameInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="256dp"
+        android:layout_marginTop="156dp"
         android:layout_marginEnd="20dp"
         android:autofillHints="text"
         android:fontFamily="@font/comfortaa_light"

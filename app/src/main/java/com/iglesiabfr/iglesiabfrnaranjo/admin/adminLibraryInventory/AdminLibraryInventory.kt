@@ -1,7 +1,5 @@
 package com.iglesiabfr.iglesiabfrnaranjo.admin.adminLibraryInventory
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -10,7 +8,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
 import com.iglesiabfr.iglesiabfrnaranjo.databinding.ActivityAddInventoryAdminBinding
 import com.iglesiabfr.iglesiabfrnaranjo.databinding.ActivityInventoryAdminBinding
-import com.iglesiabfr.iglesiabfrnaranjo.homepage.Homepage
 import com.iglesiabfr.iglesiabfrnaranjo.schema.LibraryInventory
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
@@ -136,8 +133,7 @@ class AdminLibraryInventory : AppCompatActivity() {
     }
 
     private fun onItemSelected(libraryInventory: LibraryInventory) {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(libraryInventory.name.toString()))
-        startActivity(intent)
+        Toast.makeText(this, libraryInventory.name, Toast.LENGTH_SHORT).show()
     }
 
     private fun onDeletedItem(position: Int) {

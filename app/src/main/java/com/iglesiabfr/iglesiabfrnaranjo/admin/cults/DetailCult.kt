@@ -79,7 +79,7 @@ class DetailCult : AppCompatActivity() {
         val cultQuery = DatabaseConnector.db.query<Cult>("_id == $0",objectId).find()
         if(cultQuery.isEmpty()) {
             loadingDialog.stopLoading()
-            Toast.makeText(this,getString(R.string.eventNotFound),Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,getString(R.string.eventCultNotFound),Toast.LENGTH_SHORT).show()
             finish()
         }
 
@@ -141,6 +141,7 @@ class DetailCult : AppCompatActivity() {
             confirmDialog.confirmation(getString(R.string.cultAttendanceCultBut))
                 .setOnConfirmationListener {
                     val i = Intent(this, MarkAttendanceCults::class.java)
+                    i.putExtra("object_id", cult._id.toString())
                     launcher.launch(i)
                 }
         }

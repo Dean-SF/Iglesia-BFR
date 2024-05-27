@@ -16,8 +16,9 @@ import com.iglesiabfr.iglesiabfrnaranjo.customRecyclers.EagListA
 import com.iglesiabfr.iglesiabfrnaranjo.customRecyclers.items.EagItemA
 import com.iglesiabfr.iglesiabfrnaranjo.database.DatabaseConnector
 import com.iglesiabfr.iglesiabfrnaranjo.dialogs.LoadingDialog
-import com.iglesiabfr.iglesiabfrnaranjo.homepage.Homepage
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Cult
+import io.realm.kotlin.Realm
+import io.realm.kotlin.RealmConfiguration
 import io.realm.kotlin.ext.query
 import org.mongodb.kbson.ObjectId
 import java.time.LocalDateTime
@@ -29,6 +30,7 @@ import java.util.LinkedList
 class AdminCult : AppCompatActivity() {
 
     private val cults = LinkedList<EagItemA>()
+    private lateinit var realm : Realm
     private lateinit var launcher : ActivityResultLauncher<Intent>
     private lateinit var recyclerView : RecyclerView
     private lateinit var loadingDialog: LoadingDialog
@@ -38,7 +40,11 @@ class AdminCult : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_cult)
 
-        DatabaseConnector.initialize(this)
+        // Initialize Realm
+        val config = RealmConfiguration.Builder(schema = setOf(Cult::class))
+            .name("cult.realm")
+            .build()
+        realm = Realm.open(config)
 
         // Initialize loading dialog
         loadingDialog = LoadingDialog(this)
@@ -47,7 +53,6 @@ class AdminCult : AppCompatActivity() {
 
         // Initialize views
         val createButt: Button = findViewById(R.id.createAdminCultBut)
-        val backBtn: Button = findViewById(R.id.BackAdminCultButton)
         recyclerView = findViewById(R.id.cultlist)
 
         // Setup RecyclerView
@@ -95,11 +100,6 @@ class AdminCult : AppCompatActivity() {
 
         createButt.setOnClickListener {
             val i = Intent(this,CreateCult::class.java)
-            launcher.launch(i)
-        }
-
-        backBtn.setOnClickListener {
-            val i = Intent(this, Homepage::class.java)
             launcher.launch(i)
         }
     }

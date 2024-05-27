@@ -11,4 +11,5 @@ class Attendance : RealmObject {
     var _id: ObjectId = ObjectId()
     var namePerson: String = ""
     var timestamp: RealmInstant = RealmInstant.now()
+    var eventId: ObjectId = ObjectId()
 }

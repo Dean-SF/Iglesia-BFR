@@ -385,5 +385,8 @@
     <string name="presentPersonsTitleList">Personas presentes</string>
     <string name="listPresentPersonsCult">Lista de personas</string>
     <string name="cultAttendanceCultBut">¿Seguro que quieres añadir personas presentes a este culto?</string>
+    <string name="personPresentTitle">Control de asistencia de eventos</string>
+    <string name="cultAttendanceBut">¿Seguro que quieres añadir personas presentes a este evento?</string>
+    <string name="eventCultNotFound">Culto no encontrado</string>
 
 </resources>
