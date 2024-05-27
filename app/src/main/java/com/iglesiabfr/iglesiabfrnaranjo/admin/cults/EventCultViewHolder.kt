@@ -11,12 +11,12 @@ class EventCultViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     fun render(
         eventCultModel: AttendanceCults,
-        onClickListener: (AttendanceCults) -> Unit,
+        onClickListener: ((AttendanceCults) -> Unit)?,
         onClickDelete: (Int) -> Unit
     ) {
         binding.tvName.text = eventCultModel.namePerson
 
-        itemView.setOnClickListener { onClickListener(eventCultModel) }
+        itemView.setOnClickListener { onClickListener?.invoke(eventCultModel) }
         binding.btnDelete.setOnClickListener { onClickDelete(absoluteAdapterPosition) }
     }
 }

@@ -9,7 +9,7 @@ import com.iglesiabfr.iglesiabfrnaranjo.schema.Attendance
 import com.iglesiabfr.iglesiabfrnaranjo.schema.Video
 
 class EventAdapter (
-    private val onClickListener: (Attendance) -> Unit,
+    private val onClickListener: ((Attendance) -> Unit)?,
     private val onClickDelete: ((Int) -> Unit)? = null
 ) : RecyclerView.Adapter<EventViewHolder>() {
 
